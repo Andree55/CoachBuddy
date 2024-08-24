@@ -17,6 +17,16 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult About()
+    {
+        var model = new About()
+        {
+            Title = "CoachBuddy application",
+            Description = "Some description",
+            Tags = new List<string> { "coach", "client", "program" }
+        };
+        return View(model);
+    }
 
     public IActionResult Privacy()
     {
