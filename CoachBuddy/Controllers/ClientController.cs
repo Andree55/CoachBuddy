@@ -11,6 +11,11 @@ namespace CoachBuddy.MVC.Controllers
         {
             _clientService = clientService;
         }
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> Create(Domain.Entities.Client client)
         {
