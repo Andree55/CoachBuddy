@@ -2,6 +2,7 @@ using CoachBuddy.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using CoachBuddy.Infrastructure.Extensions;
 using CoachBuddy.Infrastructure.Seeders;
+using CoachBuddy.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,6 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
 
 var app = builder.Build();

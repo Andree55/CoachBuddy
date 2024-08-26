@@ -10,7 +10,7 @@ namespace CoachBuddy.Application.Extensions
 {
     public static class ServiceCollecionExtension
     {
-        public static void AddInfrastructure(this IServiceCollection services)
+        public static void AddApplication(this IServiceCollection services)
         {
             services.AddScoped<IClientService, ClientService>();
         }
