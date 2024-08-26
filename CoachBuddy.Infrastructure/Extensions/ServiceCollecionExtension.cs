@@ -1,4 +1,5 @@
 ﻿using CoachBuddy.Infrastructure.Persistence;
+using CoachBuddy.Infrastructure.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,6 +17,8 @@ namespace CoachBuddy.Infrastructure.Extensions
         {
             services.AddDbContext<CoachBuddyDbContext>(options => options.UseSqlServer(
                 configuration.GetConnectionString("CoachBuddy")));
+
+            services.AddScoped<CoachBuddySeeder>();
         }
     }
 }
