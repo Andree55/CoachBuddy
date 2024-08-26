@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CoachBuddy.Domain.Entities
 {
-    public  class ClientContactDetails
+    public class ClientContactDetails
     {
         public string? PhoneNumber{ get; set; }
         public string? Street { get; set; }

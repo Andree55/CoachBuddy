@@ -20,7 +20,7 @@ namespace CoachBuddy.Infrastructure.Seeders
         {
             if(await _dbContext.Database.CanConnectAsync())
             {
-                if (_dbContext.Clients.Any())
+                if (!_dbContext.Clients.Any())
                 {
                     var adamK = new Domain.Entities.Client()
                     {
