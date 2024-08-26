@@ -20,6 +20,11 @@ namespace CoachBuddy.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ClientDto client)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
+
             await _clientService.Create(client);
 
             return RedirectToAction(nameof(Create)); //TODO: refactor
