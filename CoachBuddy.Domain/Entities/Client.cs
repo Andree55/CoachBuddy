@@ -14,6 +14,8 @@ namespace CoachBuddy.Domain.Entities
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
         public ClientContactDetails ContactDetails { get; set; } = default!;
+
+        public string? About { get; set; }
         public string EncodedName { get; private set; } = default!;
         public void EncodeName() => EncodedName = Name.ToLower().Replace(" ", "-");
     }
