@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoachBuddy", "CoachBuddy\CoachBuddy.csproj", "{17337FF2-D6AB-462A-8881-79BC92554E19}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoachBuddy.MVC", "CoachBuddy\CoachBuddy.MVC.csproj", "{17337FF2-D6AB-462A-8881-79BC92554E19}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoachBuddy.Domain", "CoachBuddy.Domain\CoachBuddy.Domain.csproj", "{9D7145A5-227E-4A82-96BF-225E0D5789E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoachBuddy.Domain", "CoachBuddy.Domain\CoachBuddy.Domain.csproj", "{9D7145A5-227E-4A82-96BF-225E0D5789E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoachBuddy.Application", "CoachBuddy.Application\CoachBuddy.Application.csproj", "{7B00BD27-0639-4EA7-9F08-2144659DE2BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoachBuddy.Application", "CoachBuddy.Application\CoachBuddy.Application.csproj", "{7B00BD27-0639-4EA7-9F08-2144659DE2BD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoachBuddy.Infrastructure", "CoachBuddy.Infrastructure\CoachBuddy.Infrastructure.csproj", "{00B42DF5-14FA-4024-B85D-1E56A3FE520A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoachBuddy.Infrastructure", "CoachBuddy.Infrastructure\CoachBuddy.Infrastructure.csproj", "{00B42DF5-14FA-4024-B85D-1E56A3FE520A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +36,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3226261A-E286-4928-BF17-099E6863E0E2}
 	EndGlobalSection
 EndGlobal
