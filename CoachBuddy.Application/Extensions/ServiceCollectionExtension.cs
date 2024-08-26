@@ -1,4 +1,5 @@
-﻿using CoachBuddy.Application.Services;
+﻿using CoachBuddy.Application.Mappings;
+using CoachBuddy.Application.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -13,6 +14,8 @@ namespace CoachBuddy.Application.Extensions
         public static void AddApplication(this IServiceCollection services)
         {
             services.AddScoped<IClientService, ClientService>();
+
+            services.AddAutoMapper(typeof(ClientMappingProfile));
         }
     }
 }

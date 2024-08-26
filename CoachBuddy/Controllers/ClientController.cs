@@ -1,4 +1,5 @@
-﻿using CoachBuddy.Application.Services;
+﻿using CoachBuddy.Application.Client;
+using CoachBuddy.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoachBuddy.MVC.Controllers
@@ -17,7 +18,7 @@ namespace CoachBuddy.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Domain.Entities.Client client)
+        public async Task<IActionResult> Create(ClientDto client)
         {
             await _clientService.Create(client);
 
