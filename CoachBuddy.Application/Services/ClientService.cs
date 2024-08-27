@@ -22,5 +22,13 @@ namespace CoachBuddy.Application.Services
 
             await _clientRepository.Create(client);
         }
+
+        public async Task<IEnumerable<ClientDto>> GetAll()
+        {
+            var clients = await _clientRepository.GetAll();
+            var dtos = _mapper.Map<IEnumerable<ClientDto>>(clients);
+
+            return dtos;
+        }
     }
 }

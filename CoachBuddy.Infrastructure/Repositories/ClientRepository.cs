@@ -19,8 +19,11 @@ namespace CoachBuddy.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<Client>> GetAll()
+            => await _dbContext.Clients.ToListAsync();
+
         public Task<Client?> GetByName(string name)
-        =>_dbContext.Clients.FirstOrDefaultAsync(cw=>cw.Name.ToLower() == name.ToLower());
+            => _dbContext.Clients.FirstOrDefaultAsync(cw => cw.Name.ToLower() == name.ToLower());
          
     }
 }

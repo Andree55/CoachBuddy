@@ -12,6 +12,11 @@ namespace CoachBuddy.MVC.Controllers
         {
             _clientService = clientService;
         }
+        public async Task<IActionResult> Index()
+        {
+            var clients = await _clientService.GetAll();
+            return View(clients);
+        }
         public IActionResult Create()
         {
             return View();
@@ -27,7 +32,7 @@ namespace CoachBuddy.MVC.Controllers
 
             await _clientService.Create(client);
 
-            return RedirectToAction(nameof(Create)); //TODO: refactor
+            return RedirectToAction(nameof(Index));
         }
     }
 }

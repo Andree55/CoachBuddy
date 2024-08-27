@@ -6,5 +6,7 @@ namespace CoachBuddy.Application.Services
     public interface IClientService
     {
         Task Create(ClientDto client);
+
+        Task<IEnumerable<ClientDto>> GetAll();
     }
 }
