@@ -23,6 +23,10 @@ namespace CoachBuddy.MVC.Controllers
         {
             return View();
         }
+        public IActionResult Details()
+        {
+            return View();
+        }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateClientCommand command)
