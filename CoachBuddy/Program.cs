@@ -2,13 +2,15 @@ using CoachBuddy.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using CoachBuddy.Infrastructure.Extensions;
 using CoachBuddy.Infrastructure.Seeders;
+using CoachBuddy.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddApplication();
 
 
 var app = builder.Build();

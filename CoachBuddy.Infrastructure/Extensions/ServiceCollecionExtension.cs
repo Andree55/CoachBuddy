@@ -1,4 +1,6 @@
-﻿using CoachBuddy.Infrastructure.Persistence;
+﻿using CoachBuddy.Domain.Interfaces;
+using CoachBuddy.Infrastructure.Persistence;
+using CoachBuddy.Infrastructure.Repositories;
 using CoachBuddy.Infrastructure.Seeders;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +21,8 @@ namespace CoachBuddy.Infrastructure.Extensions
                 configuration.GetConnectionString("CoachBuddy")));
 
             services.AddScoped<CoachBuddySeeder>();
+
+            services.AddScoped<IClientRepository, ClientRepository>();
         }
     }
 }
