@@ -1,20 +1,22 @@
 ﻿using CoachBuddy.Application.Client;
-using CoachBuddy.Application.Services;
+using CoachBuddy.Application.Client.Commands.CreateClient;
+using CoachBuddy.Application.Client.Queries.GetAllClients;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoachBuddy.MVC.Controllers
 {
     public class ClientController : Controller
     {
-        private readonly IClientService _clientService;
+        private readonly IMediator _mediator;
 
-        public ClientController(IClientService clientService)
+        public ClientController(IMediator mediator)
         {
-            _clientService = clientService;
+            _mediator = mediator;
         }
         public async Task<IActionResult> Index()
         {
-            var clients = await _clientService.GetAll();
+            var clients = await _mediator.Send(new GetAllClientsQuery());
             return View(clients);
         }
         public IActionResult Create()
@@ -23,14 +25,14 @@ namespace CoachBuddy.MVC.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(ClientDto client)
+        public async Task<IActionResult> Create(CreateClientCommand command)
         {
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(command);
             }
 
-            await _clientService.Create(client);
+            await _mediator.Send(command);
 
             return RedirectToAction(nameof(Index));
         }

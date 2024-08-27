@@ -6,11 +6,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CoachBuddy.Application.Client
+namespace CoachBuddy.Application.Client.Commands.CreateClient
 {
-    public class ClientDtoValidator:AbstractValidator<ClientDto>
+    public class CreateClientCommandValidator : AbstractValidator<CreateClientCommand>
     {
-        public ClientDtoValidator(IClientRepository repository)
+        public CreateClientCommandValidator(IClientRepository repository)
         {
             RuleFor(c => c.Name)
                 .NotEmpty()
@@ -19,7 +19,7 @@ namespace CoachBuddy.Application.Client
                 .Custom((value, context) =>
                 {
                     var exisitingClient = repository.GetByName(value).Result;
-                    if(exisitingClient != null)
+                    if (exisitingClient != null)
                     {
                         context.AddFailure($"{value} is not unique name for client");
                     }
@@ -31,7 +31,7 @@ namespace CoachBuddy.Application.Client
             RuleFor(c => c.PhoneNumber)
                 .MinimumLength(8)
                 .MaximumLength(12);
-            
+
         }
     }
 }
