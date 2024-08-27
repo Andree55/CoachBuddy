@@ -12,5 +12,6 @@ namespace CoachBuddy.Domain.Interfaces
         Task<Domain.Entities.Client?> GetByName(string name);
         Task<IEnumerable<Domain.Entities.Client>> GetAll();
         Task<Domain.Entities.Client> GetByEncodedName(string encodedName);
+        Task Commit();
     }
 }

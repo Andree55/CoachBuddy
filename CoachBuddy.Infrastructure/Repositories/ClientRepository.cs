@@ -13,6 +13,9 @@ namespace CoachBuddy.Infrastructure.Repositories
         {
             _dbContext = dbContext;
         }
+        public Task Commit()
+        => _dbContext.SaveChangesAsync();
+
         public async Task Create(Domain.Entities.Client client)
         {
             _dbContext.Add(client);
