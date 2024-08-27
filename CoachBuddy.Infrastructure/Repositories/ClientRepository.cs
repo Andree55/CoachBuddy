@@ -22,6 +22,9 @@ namespace CoachBuddy.Infrastructure.Repositories
         public async Task<IEnumerable<Client>> GetAll()
             => await _dbContext.Clients.ToListAsync();
 
+        public async Task<Client> GetByEncodedName(string encodedName)
+            => await _dbContext.Clients.FirstAsync(c => c.EncodedName == encodedName);
+
         public Task<Client?> GetByName(string name)
             => _dbContext.Clients.FirstOrDefaultAsync(cw => cw.Name.ToLower() == name.ToLower());
          
