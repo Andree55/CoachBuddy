@@ -1,5 +1,8 @@
-﻿using CoachBuddy.Application.Mappings;
+﻿using CoachBuddy.Application.Client;
+using CoachBuddy.Application.Mappings;
 using CoachBuddy.Application.Services;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -16,6 +19,10 @@ namespace CoachBuddy.Application.Extensions
             services.AddScoped<IClientService, ClientService>();
 
             services.AddAutoMapper(typeof(ClientMappingProfile));
+
+            services.AddValidatorsFromAssemblyContaining<ClientDtoValidator>()
+                .AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
         }
     }
 }

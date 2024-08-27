@@ -9,5 +9,6 @@ namespace CoachBuddy.Domain.Interfaces
     public interface IClientRepository
     {
         Task Create(Domain.Entities.Client client);
+        Task<Domain.Entities.Client?> GetByName(string name);
     }
 }

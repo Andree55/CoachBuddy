@@ -1,6 +1,7 @@
 ﻿using CoachBuddy.Domain.Entities;
 using CoachBuddy.Domain.Interfaces;
 using CoachBuddy.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoachBuddy.Infrastructure.Repositories
 {
@@ -17,5 +18,9 @@ namespace CoachBuddy.Infrastructure.Repositories
             _dbContext.Add(client);
             await _dbContext.SaveChangesAsync();
         }
+
+        public Task<Client?> GetByName(string name)
+        =>_dbContext.Clients.FirstOrDefaultAsync(cw=>cw.Name.ToLower() == name.ToLower());
+         
     }
 }
