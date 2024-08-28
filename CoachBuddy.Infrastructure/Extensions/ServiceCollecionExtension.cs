@@ -2,6 +2,7 @@
 using CoachBuddy.Infrastructure.Persistence;
 using CoachBuddy.Infrastructure.Repositories;
 using CoachBuddy.Infrastructure.Seeders;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,9 @@ namespace CoachBuddy.Infrastructure.Extensions
         {
             services.AddDbContext<CoachBuddyDbContext>(options => options.UseSqlServer(
                 configuration.GetConnectionString("CoachBuddy")));
+
+            services.AddDefaultIdentity<IdentityUser>()
+                .AddEntityFrameworkStores<CoachBuddyDbContext>();
 
             services.AddScoped<CoachBuddySeeder>();
 
