@@ -59,13 +59,13 @@ namespace CoachBuddy.MVC.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-        [Authorize]
+        [Authorize(Roles = "Owner")]
         public IActionResult Create()
         {
             return View();
         }
-        [Authorize]
         [HttpPost]
+        [Authorize(Roles = "Owner")]
         public async Task<IActionResult> Create(CreateClientCommand command)
         {
             if (!ModelState.IsValid)

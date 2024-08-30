@@ -22,6 +22,7 @@ namespace CoachBuddy.Infrastructure.Extensions
                 configuration.GetConnectionString("CoachBuddy")));
 
             services.AddDefaultIdentity<IdentityUser>()
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<CoachBuddyDbContext>();
 
             services.AddScoped<CoachBuddySeeder>();

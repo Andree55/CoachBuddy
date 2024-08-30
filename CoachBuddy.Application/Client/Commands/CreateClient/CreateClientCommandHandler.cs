@@ -27,10 +27,17 @@ namespace CoachBuddy.Application.Client.Commands.CreateClient
 
         public async Task<Unit> Handle(CreateClientCommand request, CancellationToken cancellationToken)
         {
+            var currentUser = _userContext.GetCurrentUser();
+
+            if(currentUser == null || !currentUser.IsInRole("Owner"))
+            {
+                return Unit.Value;
+            }
+
             var client = _mapper.Map<Domain.Entities.Client>(request);
             client.EncodeName();
 
-            client.CreatedById = _userContext.GetCurrentUser().Id;
+            client.CreatedById = currentUser.Id;
 
             await _clientRepository.Create(client);
 
