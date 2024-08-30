@@ -34,6 +34,8 @@ namespace CoachBuddy.Application.Client.Commands.EditClient
             }
 
             client.Name = request.Name;
+            client.LastName = request.LastName;
+            client.Email = request.Email;
             client.Description=request.Description;
             client.About=request.About;
 
