@@ -33,6 +33,7 @@ namespace CoachBuddy.Application.Client.Commands.EditClient
                 return Unit.Value;
             }
 
+            client.Name = request.Name;
             client.Description=request.Description;
             client.About=request.About;
 
