@@ -4,6 +4,7 @@ using CoachBuddy.Application.Client.Commands.EditClient;
 using CoachBuddy.Application.Client.Queries.GetAllClients;
 using CoachBuddy.Application.Client.Queries.GetClientByEncodedName;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoachBuddy.MVC.Controllers
@@ -23,10 +24,7 @@ namespace CoachBuddy.MVC.Controllers
             var clients = await _mediator.Send(new GetAllClientsQuery());
             return View(clients);
         }
-        public IActionResult Create()
-        {
-            return View();
-        }
+        
         [Route("Client/{encodedName}/Details")]
         public async Task<IActionResult> Details(string encodedName)
         {
@@ -38,6 +36,11 @@ namespace CoachBuddy.MVC.Controllers
         public async Task<IActionResult> Edit(string encodedName)
         {
             var dto = await _mediator.Send(new GetClientByEncodedNameQuery(encodedName));
+
+            if (!dto.IsEditable)
+            {
+                return RedirectToAction("NoAccess", "Home");
+            }
 
             EditClientCommand model = _mapper.Map<EditClientCommand>(dto);
 
@@ -56,8 +59,13 @@ namespace CoachBuddy.MVC.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize(Roles = "Owner")]
+        public IActionResult Create()
+        {
+            return View();
+        }
         [HttpPost]
+        [Authorize(Roles = "Owner")]
         public async Task<IActionResult> Create(CreateClientCommand command)
         {
             if (!ModelState.IsValid)

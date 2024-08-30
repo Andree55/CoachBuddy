@@ -28,7 +28,10 @@
                 <td>@item.Description</td>
                 <td>
                     <a class="btn btn-primary btn-sm" asp-controller="Client" asp-action="Details" asp-route-encodedName="@item.EncodedName">Details</a>
-                    <a class="btn btn-outline-secondary btn-sm" asp-controller="Client" asp-action="Edit" asp-route-encodedName="@item.EncodedName">Edit</a>
+                    @if (item.IsEditable)
+                    {
+                        <a class="btn btn-outline-secondary btn-sm" asp-controller="Client" asp-action="Edit" asp-route-encodedName="@item.EncodedName">Edit</a>
+                    }
                 </td>
             </tr>
         }
