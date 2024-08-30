@@ -4,6 +4,7 @@ using CoachBuddy.Application.Client.Commands.EditClient;
 using CoachBuddy.Application.Client.Queries.GetAllClients;
 using CoachBuddy.Application.Client.Queries.GetClientByEncodedName;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CoachBuddy.MVC.Controllers
@@ -23,10 +24,7 @@ namespace CoachBuddy.MVC.Controllers
             var clients = await _mediator.Send(new GetAllClientsQuery());
             return View(clients);
         }
-        public IActionResult Create()
-        {
-            return View();
-        }
+        
         [Route("Client/{encodedName}/Details")]
         public async Task<IActionResult> Details(string encodedName)
         {
@@ -56,7 +54,12 @@ namespace CoachBuddy.MVC.Controllers
 
             return RedirectToAction(nameof(Index));
         }
-
+        [Authorize]
+        public IActionResult Create()
+        {
+            return View();
+        }
+        [Authorize]
         [HttpPost]
         public async Task<IActionResult> Create(CreateClientCommand command)
         {
