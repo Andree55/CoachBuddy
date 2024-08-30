@@ -1,4 +1,5 @@
-﻿using CoachBuddy.Application.Client.Commands.CreateClient;
+﻿using CoachBuddy.Application.ApplicationUser;
+using CoachBuddy.Application.Client.Commands.CreateClient;
 using CoachBuddy.Application.Mappings;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -16,6 +17,7 @@ namespace CoachBuddy.Application.Extensions
     {
         public static void AddApplication(this IServiceCollection services)
         {
+            services.AddScoped<IUserContext, UserContext>();
             services.AddMediatR(typeof(CreateClientCommand));
 
             services.AddAutoMapper(typeof(ClientMappingProfile));
