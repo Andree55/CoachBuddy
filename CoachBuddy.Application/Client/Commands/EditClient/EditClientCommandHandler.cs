@@ -26,7 +26,7 @@ namespace CoachBuddy.Application.Client.Commands.EditClient
 
             var user = _userContext.GetCurrentUser();
 
-            var isEditable =user != null && client.CreatedById == user.Id;
+            var isEditable =user != null && (client.CreatedById == user.Id || user.IsInRole("Moderator"));
 
             if (!isEditable)
             {
