@@ -37,6 +37,11 @@ namespace CoachBuddy.MVC.Controllers
         {
             var dto = await _mediator.Send(new GetClientByEncodedNameQuery(encodedName));
 
+            if (!dto.IsEditable)
+            {
+                return RedirectToAction("NoAccess", "Home");
+            }
+
             EditClientCommand model = _mapper.Map<EditClientCommand>(dto);
 
             return View(model);

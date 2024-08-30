@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CarWorkshop.Application.ApplicationUser;
 using CarWorkshop.Application.CarWorkshop;
 using CoachBuddy.Application.Client;
 using CoachBuddy.Application.Client.Commands.EditClient;
@@ -13,8 +14,9 @@ namespace CarWorkshop.Application.Mappings
 {
     public class CarWorkshopMappingProfile : Profile
     {
-        public CarWorkshopMappingProfile()
+        public CarWorkshopMappingProfile(IUserContext userContext)
         {
+            var user = userContext.GetCurrentUser();
             CreateMap<ClientDto, Client>()
                 .ForMember(e => e.ContactDetails, opt => opt.MapFrom(src => new ClientContactDetails()
                 {
@@ -25,6 +27,7 @@ namespace CarWorkshop.Application.Mappings
                 }));
 
             CreateMap<Client, ClientDto>()
+                .ForMember(dto => dto.IsEditable, opt => opt.MapFrom(src => user != null && src.CreatedById == user.Id))
                 .ForMember(dto => dto.Street, opt => opt.MapFrom(src => src.ContactDetails.Street))
                 .ForMember(dto => dto.City, opt => opt.MapFrom(src => src.ContactDetails.City))
                 .ForMember(dto => dto.PostalCode, opt => opt.MapFrom(src => src.ContactDetails.PostalCode))

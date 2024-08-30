@@ -1,4 +1,5 @@
-﻿using CarWorkshop.Application.ApplicationUser;
+﻿using AutoMapper;
+using CarWorkshop.Application.ApplicationUser;
 using CarWorkshop.Application.Mappings;
 using CoachBuddy.Application.Client.Commands.CreateClient;
 using FluentValidation;
@@ -20,7 +21,13 @@ namespace CoachBuddy.Application.Extensions
             services.AddScoped<IUserContext, UserContext>();
             services.AddMediatR(typeof(CreateClientCommand));
 
-            services.AddAutoMapper(typeof(CarWorkshopMappingProfile));
+            services.AddScoped(provider => new MapperConfiguration(cfg =>
+            {
+                var scope = provider.CreateScope();
+                var userContext = scope.ServiceProvider.GetRequiredService<IUserContext>();
+                cfg.AddProfile(new CarWorkshopMappingProfile(userContext));
+            }).CreateMapper()
+            );
 
             services.AddValidatorsFromAssemblyContaining<CreateClientCommandValidator>()
                    .AddFluentValidationAutoValidation()
