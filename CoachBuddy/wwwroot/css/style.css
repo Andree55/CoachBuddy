@@ -13,12 +13,28 @@
   scroll-behavior: smooth;
 }
 
-body {
-  font-family: "Open Sans", sans-serif;
-  background: #f6f9ff;
-  color: #444444;
+html, body {
+    height: 100%;
+    margin: 0;
 }
 
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
+    margin-bottom: 1rem; /* Jeœli chcesz dodaæ trochê miejsca przed stopk¹ */
+}
+
+footer {
+    background-color: #f8f9fa;
+    padding: 1rem 0;
+    text-align: center;
+    width: 100%;
+}
 a {
   color: #4154f1;
   text-decoration: none;
@@ -1213,21 +1229,3 @@ h6 {
 /*--------------------------------------------------------------
 # Footer
 --------------------------------------------------------------*/
-.footer {
-  padding: 20px 0;
-  font-size: 14px;
-  transition: all 0.3s;
-  border-top: 1px solid #cddfff;
-}
-
-.footer .copyright {
-  text-align: center;
-  color: #012970;
-}
-
-.footer .credits {
-  padding-top: 5px;
-  text-align: center;
-  font-size: 13px;
-  color: #012970;
-}

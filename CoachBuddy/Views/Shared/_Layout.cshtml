@@ -1,6 +1,11 @@
-﻿@{
+﻿@using CoachBuddy.MVC.Models
+@using Newtonsoft.Json
+@{
     var action = ViewContext.RouteData.Values["Action"]?.ToString();
     var controller = ViewContext.RouteData.Values["Controller"]?.ToString();
+    var notification = TempData["Notification"] != null ?
+    (Notification)JsonConvert.DeserializeObject<Notification>(TempData["Notification"]!.ToString()!)!
+    : null;
 }
 
 
@@ -10,10 +15,12 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CoachBuddy</title>
+    <link href="~lib/toastr.js/toastr.css" rel="stylesheet">
     <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="~/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="~/css/style.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    
 
 
 </head>
@@ -58,9 +65,16 @@
             &copy; 2024 - CoachBuddy - Adrian Wierzchowski - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+    <script src="~/lib/toastr.js/toastr.min.js"></script>
     <script src="~/vendor/jquery/jquery.min.js"></script>
     <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/main.js"></script>
+    @if (notification != null)
+    {
+        <script>
+            toastr["@notification.Type"]("@notification.Message")
+        </script>
+    }
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
