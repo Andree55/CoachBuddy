@@ -3,6 +3,7 @@ using CarWorkshop.Application.ApplicationUser;
 using CarWorkshop.Application.CarWorkshop;
 using CoachBuddy.Application.Client;
 using CoachBuddy.Application.Client.Commands.EditClient;
+using CoachBuddy.Application.ClientTraining;
 using CoachBuddy.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -35,6 +36,9 @@ namespace CarWorkshop.Application.Mappings
                 .ForMember(dto => dto.PhoneNumber, opt => opt.MapFrom(src => src.ContactDetails.PhoneNumber));
 
             CreateMap<ClientDto, EditClientCommand>();
+
+            CreateMap<ClientTrainingDto, ClientTraining>()
+                .ReverseMap();
 
         }
     }
