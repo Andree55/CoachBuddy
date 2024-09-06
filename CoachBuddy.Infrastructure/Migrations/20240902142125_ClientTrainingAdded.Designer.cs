@@ -89,7 +89,7 @@ namespace CoachBuddy.Infrastructure.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Trainings");
+                    b.ToTable("Description");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -334,7 +334,7 @@ namespace CoachBuddy.Infrastructure.Migrations
             modelBuilder.Entity("CoachBuddy.Domain.Entities.ClientTraining", b =>
                 {
                     b.HasOne("CoachBuddy.Domain.Entities.Client", "Client")
-                        .WithMany("Trainings")
+                        .WithMany("Description")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -395,7 +395,7 @@ namespace CoachBuddy.Infrastructure.Migrations
 
             modelBuilder.Entity("CoachBuddy.Domain.Entities.Client", b =>
                 {
-                    b.Navigation("Trainings");
+                    b.Navigation("Description");
                 });
 #pragma warning restore 612, 618
         }

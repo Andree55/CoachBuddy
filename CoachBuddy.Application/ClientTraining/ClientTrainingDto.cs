@@ -8,7 +8,7 @@ namespace CoachBuddy.Application.ClientTraining
 {
     public class ClientTrainingDto
     {
-        public string Trainings { get; set; } = default!;
+        public string Description { get; set; } = default!;
         public DateTime Date { get; set; } = default!;
     }
 }
