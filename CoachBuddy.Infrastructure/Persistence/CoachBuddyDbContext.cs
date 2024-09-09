@@ -15,7 +15,7 @@ namespace CoachBuddy.Infrastructure.Persistence
             
         }
         public DbSet<Domain.Entities.Client> Clients { get; set; }
-        public DbSet<Domain.Entities.ClientTraining> Description { get; set; }
+        public DbSet<Domain.Entities.ClientTraining> Trainings { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

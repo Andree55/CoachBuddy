@@ -11,8 +11,9 @@ namespace CoachBuddy.Infrastructure.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+
             migrationBuilder.CreateTable(
-                name: "Description",
+                name: "Trainings",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -23,26 +24,32 @@ namespace CoachBuddy.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Description", x => x.Id);
+                    table.PrimaryKey("PK_Trainings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Description_Clients_ClientId",
+                        name: "FK_Trainings_Clients_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Clients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            
+
             migrationBuilder.CreateIndex(
-                name: "IX_Description_ClientId",
-                table: "Description",
+                name: "IX_Trainings_ClientId",
+                table: "Trainings",
                 column: "ClientId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            
+
             migrationBuilder.DropTable(
-                name: "Description");
+                name: "Trainings");
+
+          
         }
     }
 }

@@ -19,7 +19,7 @@ namespace CoachBuddy.Infrastructure.Repositories
         }
         public async Task Create(ClientTraining clientTraining)
         {
-            _dbContext.Description.Add(clientTraining);
+            _dbContext.Trainings.Add(clientTraining);
             await _dbContext.SaveChangesAsync();
         }
     }

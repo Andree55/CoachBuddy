@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoachBuddy.Infrastructure.Migrations
 {
     [DbContext(typeof(CoachBuddyDbContext))]
-    [Migration("20240902142125_ClientTrainingAdded")]
+    [Migration("20240909141753_ClientTrainingAdded")]
     partial class ClientTrainingAdded
     {
         /// <inheritdoc />
@@ -89,7 +89,7 @@ namespace CoachBuddy.Infrastructure.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Description");
+                    b.ToTable("Trainings");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -334,7 +334,7 @@ namespace CoachBuddy.Infrastructure.Migrations
             modelBuilder.Entity("CoachBuddy.Domain.Entities.ClientTraining", b =>
                 {
                     b.HasOne("CoachBuddy.Domain.Entities.Client", "Client")
-                        .WithMany("Description")
+                        .WithMany("Trainings")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -395,7 +395,7 @@ namespace CoachBuddy.Infrastructure.Migrations
 
             modelBuilder.Entity("CoachBuddy.Domain.Entities.Client", b =>
                 {
-                    b.Navigation("Description");
+                    b.Navigation("Trainings");
                 });
 #pragma warning restore 612, 618
         }

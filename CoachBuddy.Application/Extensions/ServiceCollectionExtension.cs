@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CarWorkshop.Application.ApplicationUser;
-using CarWorkshop.Application.Mappings;
+using CoachBuddy.Application.ApplicationUser;
+using CoachBuddy.Application.Mappings;
 using CoachBuddy.Application.Client.Commands.CreateClient;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -25,7 +25,7 @@ namespace CoachBuddy.Application.Extensions
             {
                 var scope = provider.CreateScope();
                 var userContext = scope.ServiceProvider.GetRequiredService<IUserContext>();
-                cfg.AddProfile(new CarWorkshopMappingProfile(userContext));
+                cfg.AddProfile(new CoachBuddyMappingProfile(userContext));
             }).CreateMapper()
             );
 

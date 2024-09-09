@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CarWorkshop.Application.ApplicationUser;
+using CoachBuddy.Application.ApplicationUser;
 using CoachBuddy.Domain.Interfaces;
 using MediatR;
 using System;
