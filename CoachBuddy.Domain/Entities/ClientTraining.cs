@@ -9,7 +9,7 @@ namespace CoachBuddy.Domain.Entities
     public class ClientTraining
     {
         public int Id  { get; set; }
-        public string Training { get; set; } = default!;
+        public string Description { get; set; } = default!;
         public DateTime Date { get; set; } = default!;
 
         public int ClientId { get; set; } = default!;
