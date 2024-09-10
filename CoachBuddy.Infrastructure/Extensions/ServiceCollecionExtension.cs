@@ -28,6 +28,7 @@ namespace CoachBuddy.Infrastructure.Extensions
             services.AddScoped<CoachBuddySeeder>();
 
             services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<IClientTrainingRepository, ClientTrainingRepository>();
         }
     }
 }

@@ -4,12 +4,17 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>@Model.Name Details</h1>
+<h1>@Model.Name @Model.LastName Details</h1>
 
 <div>
-    <h4>ClientDto</h4>
     <hr />
     <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Email)
+        </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Description)
         </dt>
@@ -51,7 +56,7 @@
 <div>
     @if (Model.IsEditable)
     {
-        <a class="btn btn-outline-secondary btn-sm" asp-controller="Client" asp-action="Edit" asp-route-encodedName="@Model.EncodedName">Edit</a>
+        <a class="btn btn-outline-primary btn-sm" asp-controller="Client" asp-action="Edit" asp-route-encodedName="@Model.EncodedName">Edit</a>
     }
-    <a asp-action="Index">Back to List</a>
+    <a class="btn btn-outline-secondary btn-sm" asp-action="Index">Back to List</a>
 </div>

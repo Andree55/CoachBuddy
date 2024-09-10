@@ -1,4 +1,4 @@
-﻿namespace CarWorkshop.Application.CarWorkshop
+﻿namespace CoachBuddy.Application.CoachBuddy
 {
     public class CurrentUser
     {

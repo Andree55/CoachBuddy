@@ -11,6 +11,8 @@ namespace CoachBuddy.Domain.Entities
     {
         public int Id { get; set; }
         public string Name { get; set; } = default!;
+        public string LastName { get; set; } = default!;
+        public string? Email { get; set; }
         public string? Description { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 
@@ -21,6 +23,8 @@ namespace CoachBuddy.Domain.Entities
 
         public string? About { get; set; }
         public string EncodedName { get; private set; } = default!;
-        public void EncodeName() => EncodedName = Name.ToLower().Replace(" ", "-");
+
+        public List<ClientTraining> Trainings { get; set; } = new();
+        public void EncodeName() => EncodedName = $"{Name.ToLower().Replace(" ", "-")}-{LastName.ToLower().Replace(" ", "-")}";
     }
 }

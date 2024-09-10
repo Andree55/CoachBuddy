@@ -15,12 +15,18 @@ namespace CoachBuddy.Infrastructure.Persistence
             
         }
         public DbSet<Domain.Entities.Client> Clients { get; set; }
+        public DbSet<Domain.Entities.ClientTraining> Trainings { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Domain.Entities.Client>()
                 .OwnsOne(c => c.ContactDetails);
+
+            modelBuilder.Entity<Domain.Entities.Client>()
+                .HasMany(c => c.Trainings)
+                .WithOne(s => s.Client)
+                .HasForeignKey(s => s.ClientId);
         }
     }
 }

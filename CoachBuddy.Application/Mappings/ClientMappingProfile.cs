@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using CarWorkshop.Application.ApplicationUser;
-using CarWorkshop.Application.CarWorkshop;
+using CoachBuddy.Application.ApplicationUser;
 using CoachBuddy.Application.Client;
 using CoachBuddy.Application.Client.Commands.EditClient;
+using CoachBuddy.Application.ClientTraining;
 using CoachBuddy.Domain.Entities;
 using System;
 using System.Collections.Generic;
@@ -10,14 +10,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarWorkshop.Application.Mappings
+namespace CoachBuddy.Application.Mappings
 {
-    public class CarWorkshopMappingProfile : Profile
+    public class CoachBuddyMappingProfile : Profile
     {
-        public CarWorkshopMappingProfile(IUserContext userContext)
+        public CoachBuddyMappingProfile(IUserContext userContext)
         {
             var user = userContext.GetCurrentUser();
-            CreateMap<ClientDto, Client>()
+            CreateMap<ClientDto, Domain.Entities.Client>()
                 .ForMember(e => e.ContactDetails, opt => opt.MapFrom(src => new ClientContactDetails()
                 {
                     City = src.City,
@@ -26,7 +26,7 @@ namespace CarWorkshop.Application.Mappings
                     Street = src.Street,
                 }));
 
-            CreateMap<Client, ClientDto>()
+            CreateMap<Domain.Entities.Client, ClientDto>()
                 .ForMember(dto => dto.IsEditable, opt => opt.MapFrom(src => user != null 
                                                 && (src.CreatedById == user.Id || user.IsInRole("Moderator"))))
                 .ForMember(dto => dto.Street, opt => opt.MapFrom(src => src.ContactDetails.Street))
@@ -35,6 +35,9 @@ namespace CarWorkshop.Application.Mappings
                 .ForMember(dto => dto.PhoneNumber, opt => opt.MapFrom(src => src.ContactDetails.PhoneNumber));
 
             CreateMap<ClientDto, EditClientCommand>();
+
+            CreateMap<ClientTrainingDto, Domain.Entities.ClientTraining>()
+                .ReverseMap();
 
         }
     }

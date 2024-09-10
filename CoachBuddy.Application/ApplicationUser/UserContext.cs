@@ -1,4 +1,4 @@
-﻿using CarWorkshop.Application.CarWorkshop;
+﻿using CoachBuddy.Application.CoachBuddy;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace CarWorkshop.Application.ApplicationUser
+namespace CoachBuddy.Application.ApplicationUser
 {
     public interface IUserContext
     {

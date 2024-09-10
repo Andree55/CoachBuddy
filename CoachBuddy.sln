@@ -10,6 +10,9 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoachBuddy.Application", "CoachBuddy.Application\CoachBuddy.Application.csproj", "{7B00BD27-0639-4EA7-9F08-2144659DE2BD}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoachBuddy.Infrastructure", "CoachBuddy.Infrastructure\CoachBuddy.Infrastructure.csproj", "{00B42DF5-14FA-4024-B85D-1E56A3FE520A}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9D7145A5-227E-4A82-96BF-225E0D5789E8} = {9D7145A5-227E-4A82-96BF-225E0D5789E8}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

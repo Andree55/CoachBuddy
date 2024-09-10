@@ -3,9 +3,13 @@ using CoachBuddy.Application.Client.Commands.CreateClient;
 using CoachBuddy.Application.Client.Commands.EditClient;
 using CoachBuddy.Application.Client.Queries.GetAllClients;
 using CoachBuddy.Application.Client.Queries.GetClientByEncodedName;
+using CoachBuddy.Application.ClientTraining.Commands;
+using CoachBuddy.MVC.Extensions;
+using CoachBuddy.MVC.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace CoachBuddy.MVC.Controllers
 {
@@ -75,7 +79,23 @@ namespace CoachBuddy.MVC.Controllers
 
             await _mediator.Send(command);
 
+            this.SetNotification("success", $"Added new client: {command.Name} {command.LastName}");
+
             return RedirectToAction(nameof(Index));
+        }
+        [HttpPost]
+        [Authorize(Roles = "Owner")]
+        [Route("Client/ClientTraining")]
+        public async Task<IActionResult> CreateClientTraining(CreateClientTrainingCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+             await _mediator.Send(command);
+
+            return Ok();
         }
     }
 }

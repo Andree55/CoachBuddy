@@ -24,7 +24,9 @@ namespace CoachBuddy.Infrastructure.Seeders
                 {
                     var adamK = new Domain.Entities.Client()
                     {
-                        Name = "Adam Kowalski",
+                        Name = "Adam",
+                        LastName="Kowalski",
+                        Email="adamkowalski@gmail.com",
                         Description = "Some description",
                         ContactDetails = new()
                         {
