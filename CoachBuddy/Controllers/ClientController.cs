@@ -77,7 +77,7 @@ namespace CoachBuddy.MVC.Controllers
                 return View(command);
             }
 
-           // await _mediator.Send(command);
+            await _mediator.Send(command);
 
             this.SetNotification("success", $"Added new client: {command.Name} {command.LastName}");
 

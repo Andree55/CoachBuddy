@@ -15,7 +15,7 @@ namespace CoachBuddy.Application.Client.Commands.CreateClient
             RuleFor(c => c.Name)
                 .NotEmpty()
                 .MinimumLength(2).WithMessage("Name should have at least 2 characters")
-                .MaximumLength(20).WithMessage("Name should have maximm of 20 characters");
+                .MaximumLength(20).WithMessage("Name should have maximum of 20 characters");
 
             RuleFor(c => c.Description)
                 .NotEmpty().WithMessage("Please enter description");
