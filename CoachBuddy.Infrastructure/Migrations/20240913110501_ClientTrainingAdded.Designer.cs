@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoachBuddy.Infrastructure.Migrations
 {
     [DbContext(typeof(CoachBuddyDbContext))]
-    [Migration("20240909141753_ClientTrainingAdded")]
+    [Migration("20240913110501_ClientTrainingAdded")]
     partial class ClientTrainingAdded
     {
         /// <inheritdoc />
@@ -81,7 +81,7 @@ namespace CoachBuddy.Infrastructure.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Training")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
