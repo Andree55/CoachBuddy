@@ -1,4 +1,33 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿const RenderClientTrainings = (trainings, container) => {
+    container.empty();
 
-// Write your JavaScript code.
+    for (const training of trainings) {
+        container.append(
+            `<div class="card border-secondary mb-3" style="max-width: 18rem;">
+          <div class="card-header">${training.date}</div>
+          <div class="card-body">
+            <h5 class="card-title">${training.description}</h5> 
+          </div>
+        </div>`)
+    }
+}
+
+const LoadClientTrainings = () => {
+    const container = $("#trainings")
+    const clientEncodedName = container.data("encodedName");
+
+    $.ajax({
+        url: `/Client/${clientEncodedName}/ClientTraining`,
+        type: 'get',
+        success: function (data) {
+            if (!data.length) {
+                container.html("There are no trainings for this client")
+            } else {
+                RenderClientTrainings(data, container)
+            }
+        },
+        error: function () {
+            toastr["error"]("Something went wrong")
+        }
+    })
+}

@@ -1,5 +1,11 @@
-﻿@{
-    var currentUrl = ViewContext.RouteData.Values["Action"]!.ToString();
+﻿@using CoachBuddy.MVC.Models
+@using Newtonsoft.Json
+@{
+    var action = ViewContext.RouteData.Values["Action"]?.ToString();
+    var controller = ViewContext.RouteData.Values["Controller"]?.ToString();
+    var notification = TempData["Notification"] != null ?
+    (Notification)JsonConvert.DeserializeObject<Notification>(TempData["Notification"]!.ToString()!)!
+    : null;
 }
 
 
@@ -12,6 +18,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/CoachBuddy.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/lib/toastr.js/toastr.css" />
+   
+
 </head>
 <body>
     <header>
@@ -25,15 +34,20 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark @(currentUrl == "Index" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark @(controller == "Home" && action == "Index" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark @(currentUrl == "Privacy" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark @(controller == "Client" && action == "Index" ? "active": "")" asp-area="" asp-controller="Client" asp-action="Index">Clients</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark @(currentUrl == "About" ? "active": "")" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                            <a class="nav-link text-dark @(controller == "Home" && action == "Privacy" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark @(controller == "Home" && action == "About" ? "active": "")" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                        </li>
+
                     </ul>
+                    <partial name="_LoginPartial"/>
                 </div>
             </div>
         </nav>
@@ -46,12 +60,20 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2024 - CoachBuddy - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2024 - CoachBuddy - Adrian Wierzchowski - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/toastr.js/toastr.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @if (notification != null)
+    {
+        <script>
+            toastr["@notification.Type"]("@notification.Message")
+        </script>
+    }
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
