@@ -4,6 +4,7 @@ using CoachBuddy.Application.Client.Commands.EditClient;
 using CoachBuddy.Application.Client.Queries.GetAllClients;
 using CoachBuddy.Application.Client.Queries.GetClientByEncodedName;
 using CoachBuddy.Application.ClientTraining.Commands;
+using CoachBuddy.Application.ClientTraining.Queries.GetClientTrainings;
 using CoachBuddy.MVC.Extensions;
 using CoachBuddy.MVC.Models;
 using MediatR;
@@ -97,5 +98,14 @@ namespace CoachBuddy.MVC.Controllers
 
             return Ok();
         }
+
+        [HttpGet]
+        [Route("Client/{encodedName}/ClientTraining")]
+        public async Task<IActionResult> GetClientTrainings(string encodedName)
+        {
+            var data = await _mediator.Send(new GetClientTrainingsQuery() { EncodedName = encodedName });
+            return Ok(data);
+        }
+
     }
 }
