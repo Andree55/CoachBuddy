@@ -15,9 +15,10 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - CoachBuddy</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CoachBuddy.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/lib/toastr.js/toastr.css" />
-    <link href="~/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="~/css/style.css" rel="stylesheet">
    
 
 </head>
@@ -62,10 +63,10 @@
             &copy; 2024 - CoachBuddy - Adrian Wierzchowski - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/toastr.js/toastr.min.js"></script>
-    @* <script src="~/vendor/jquery/jquery.min.js"></script> *@
-    <script src="~/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
-    <script src="~/js/main.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
     @if (notification != null)
     {
         <script>
