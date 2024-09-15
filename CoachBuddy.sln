@@ -16,6 +16,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoachBuddy.Infrastructure",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoachBuddy.DomainTests", "CoachBuddy.DomainTests\CoachBuddy.DomainTests.csproj", "{B4A6D3F8-AD0D-4D8A-BE0F-ABC5B738170B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoachBuddy.ApplicationTests", "CoachBuddy.ApplicationTests\CoachBuddy.ApplicationTests.csproj", "{2C765F55-E5D4-46C2-9586-251BD3B0A90B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A57DE0B1-EE7E-43F5-8623-B2E1661E29DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,9 +46,17 @@ Global
 		{B4A6D3F8-AD0D-4D8A-BE0F-ABC5B738170B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4A6D3F8-AD0D-4D8A-BE0F-ABC5B738170B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4A6D3F8-AD0D-4D8A-BE0F-ABC5B738170B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C765F55-E5D4-46C2-9586-251BD3B0A90B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C765F55-E5D4-46C2-9586-251BD3B0A90B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C765F55-E5D4-46C2-9586-251BD3B0A90B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C765F55-E5D4-46C2-9586-251BD3B0A90B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{B4A6D3F8-AD0D-4D8A-BE0F-ABC5B738170B} = {A57DE0B1-EE7E-43F5-8623-B2E1661E29DA}
+		{2C765F55-E5D4-46C2-9586-251BD3B0A90B} = {A57DE0B1-EE7E-43F5-8623-B2E1661E29DA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3226261A-E286-4928-BF17-099E6863E0E2}
