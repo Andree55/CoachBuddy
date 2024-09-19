@@ -1,4 +1,5 @@
 ﻿using CoachBuddy.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,8 @@ namespace CoachBuddy.Infrastructure.Seeders
         {
             if(await _dbContext.Database.CanConnectAsync())
             {
+                await _dbContext.Database.MigrateAsync();
+
                 if (!_dbContext.Clients.Any())
                 {
                     var adamK = new Domain.Entities.Client()
