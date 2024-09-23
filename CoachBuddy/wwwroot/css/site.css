@@ -1,4 +1,4 @@
-html {
+ï»¿html {
     position: relative;
     min-height: 70%;
     font-size: 14px;
@@ -19,8 +19,15 @@ body {
 }
 
 .sidebar {
-    width: 14%;
+    width: 100%;
+    max-width: 250px;
     height: auto;
+}
+
+@media (min-width: 768px) {
+    .sidebar {
+        width: 14%;
+    }
 }
 
 .main-content {
@@ -43,7 +50,8 @@ body {
 .btn-outline-light {
     padding: 0.25rem 0.5rem;
 }
+
 #toggleSidebar:focus,
 #toggleSidebar:active {
-    box-shadow: none; /* Usuwa niebiesk¹ poœwiatê */
+    box-shadow: none;
 }
