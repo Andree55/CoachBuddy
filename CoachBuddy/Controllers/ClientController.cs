@@ -5,11 +5,13 @@ using CoachBuddy.Application.Client.Queries.GetAllClients;
 using CoachBuddy.Application.Client.Queries.GetClientByEncodedName;
 using CoachBuddy.Application.ClientTraining.Commands;
 using CoachBuddy.Application.ClientTraining.Queries.GetClientTrainings;
+using CoachBuddy.Infrastructure.Persistence;
 using CoachBuddy.MVC.Extensions;
 using CoachBuddy.MVC.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
 namespace CoachBuddy.MVC.Controllers
@@ -18,22 +20,25 @@ namespace CoachBuddy.MVC.Controllers
     {
         private readonly IMediator _mediator;
         private readonly IMapper _mapper;
+        private readonly CoachBuddyDbContext _context;
 
-        public ClientController(IMediator mediator,IMapper mapper)
+        public ClientController(IMediator mediator, IMapper mapper,CoachBuddyDbContext context)
         {
             _mediator = mediator;
             _mapper = mapper;
+            _context = context;
         }
+
         public async Task<IActionResult> Index()
         {
             var clients = await _mediator.Send(new GetAllClientsQuery());
             return View(clients);
         }
-        
+
         [Route("Client/{encodedName}/Details")]
         public async Task<IActionResult> Details(string encodedName)
         {
-            var dto  = await _mediator.Send(new GetClientByEncodedNameQuery(encodedName));
+            var dto = await _mediator.Send(new GetClientByEncodedNameQuery(encodedName));
             return View(dto);
         }
 
@@ -51,9 +56,10 @@ namespace CoachBuddy.MVC.Controllers
 
             return View(model);
         }
+
         [HttpPost]
         [Route("Client/{encodedName}/Edit")]
-        public async Task<IActionResult> Edit(string encodedName,EditClientCommand command)
+        public async Task<IActionResult> Edit(string encodedName, EditClientCommand command)
         {
             if (!ModelState.IsValid)
             {
@@ -64,11 +70,13 @@ namespace CoachBuddy.MVC.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
         [Authorize(Roles = "Owner")]
         public IActionResult Create()
         {
             return View();
         }
+
         [HttpPost]
         [Authorize(Roles = "Owner")]
         public async Task<IActionResult> Create(CreateClientCommand command)
@@ -84,6 +92,7 @@ namespace CoachBuddy.MVC.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
         [HttpPost]
         [Authorize(Roles = "Owner")]
         [Route("Client/ClientTraining")]
@@ -94,7 +103,7 @@ namespace CoachBuddy.MVC.Controllers
                 return BadRequest(ModelState);
             }
 
-             await _mediator.Send(command);
+            await _mediator.Send(command);
 
             return Ok();
         }
@@ -107,5 +116,44 @@ namespace CoachBuddy.MVC.Controllers
             return Ok(data);
         }
 
+        [HttpGet]
+        [Authorize(Roles = "Owner")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var client = await _context.Clients
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (client == null)
+            {
+                return NotFound();
+            }
+
+            return View(client);
+        }
+
+        [HttpPost, ActionName("Delete")]
+        [Authorize(Roles = "Owner")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var client = await _context.Clients.FindAsync(id);
+
+            if (client == null)
+            {
+                return NotFound();
+            }
+
+            _context.Clients.Remove(client);
+            await _context.SaveChangesAsync();
+
+            this.SetNotification("success", $"Client {client.Name} {client.LastName} was successfully deleted.");
+
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
