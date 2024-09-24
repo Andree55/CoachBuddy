@@ -1,7 +1,9 @@
-﻿using CoachBuddy.Domain.Interfaces;
+﻿using CoachBuddy.Application.Client.Commands.DeleteClient;
+using CoachBuddy.Domain.Interfaces;
 using CoachBuddy.Infrastructure.Persistence;
 using CoachBuddy.Infrastructure.Repositories;
 using CoachBuddy.Infrastructure.Seeders;
+using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -29,6 +31,9 @@ namespace CoachBuddy.Infrastructure.Extensions
 
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<IClientTrainingRepository, ClientTrainingRepository>();
+
+            services.AddTransient<IRequestHandler<DeleteClientCommand>, DeleteClientCommandHandler>();
+
         }
     }
 }

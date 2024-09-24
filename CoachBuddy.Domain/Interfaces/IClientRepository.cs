@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CoachBuddy.Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,8 @@ namespace CoachBuddy.Domain.Interfaces
         Task<IEnumerable<Domain.Entities.Client>> GetAll();
         Task<Domain.Entities.Client> GetByEncodedName(string encodedName);
         Task Commit();
+        Task<Client> GetByIdAsync(int Id);
+        Task DeleteAsync(Client client);
+
     }
 }

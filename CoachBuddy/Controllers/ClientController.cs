@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using CoachBuddy.Application.Client;
 using CoachBuddy.Application.Client.Commands.CreateClient;
+using CoachBuddy.Application.Client.Commands.DeleteClient;
 using CoachBuddy.Application.Client.Commands.EditClient;
 using CoachBuddy.Application.Client.Queries.GetAllClients;
 using CoachBuddy.Application.Client.Queries.GetClientByEncodedName;
@@ -132,8 +134,9 @@ namespace CoachBuddy.MVC.Controllers
             {
                 return NotFound();
             }
+            var clientDto = _mapper.Map<ClientDto>(client);
 
-            return View(client);
+            return View(clientDto);
         }
 
         [HttpPost, ActionName("Delete")]
@@ -141,17 +144,11 @@ namespace CoachBuddy.MVC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var client = await _context.Clients.FindAsync(id);
+            var command=new DeleteClientCommand { Id = id };
 
-            if (client == null)
-            {
-                return NotFound();
-            }
+            await _mediator.Send(command);
 
-            _context.Clients.Remove(client);
-            await _context.SaveChangesAsync();
-
-            this.SetNotification("success", $"Client {client.Name} {client.LastName} was successfully deleted.");
+            this.SetNotification("success", $"Client with ID {id} was successfully deleted.");
 
             return RedirectToAction(nameof(Index));
         }

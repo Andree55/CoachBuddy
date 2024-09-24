@@ -37,6 +37,9 @@
                     @if (item.IsEditable)
                     {
                         <a class="btn btn-outline-secondary btn-sm" asp-controller="Client" asp-action="Edit" asp-route-encodedName="@item.EncodedName"><i class="bi bi-person-fill-gear"> Edit</i></a>
+                        <a class="btn btn-outline-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">
+                            <i class="bi bi-trash"> Delete</i>
+                        </a>
                     }
                 </td>
             </tr>

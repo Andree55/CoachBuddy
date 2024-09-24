@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using CoachBuddy.Application.ApplicationUser;
 using CoachBuddy.Application.Client;
+using CoachBuddy.Application.Client.Commands.DeleteClient;
 using CoachBuddy.Application.Client.Commands.EditClient;
 using CoachBuddy.Application.ClientTraining;
 using CoachBuddy.Domain.Entities;
@@ -38,6 +39,8 @@ namespace CoachBuddy.Application.Mappings
 
             CreateMap<ClientTrainingDto, Domain.Entities.ClientTraining>()
                 .ReverseMap();
+
+            CreateMap<ClientDto, DeleteClientCommand>();
 
         }
     }

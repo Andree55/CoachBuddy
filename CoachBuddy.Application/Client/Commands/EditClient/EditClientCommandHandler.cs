@@ -12,17 +12,17 @@ namespace CoachBuddy.Application.Client.Commands.EditClient
 {
     public class EditClientCommandHandler : IRequestHandler<EditClientCommand>
     {
-        private readonly IClientRepository _repository;
+        private readonly IClientRepository _clientRepository;
         private readonly IUserContext _userContext;
 
         public EditClientCommandHandler(IClientRepository clientRepository, IUserContext userContext)
         {
-            _repository = clientRepository;
+            _clientRepository = clientRepository;
             _userContext = userContext;
         }
         public async Task<Unit> Handle(EditClientCommand request, CancellationToken cancellationToken)
         {
-            var client = await _repository.GetByEncodedName(request.EncodedName!);
+            var client = await _clientRepository.GetByEncodedName(request.EncodedName!);
 
             var user = _userContext.GetCurrentUser();
 
@@ -44,7 +44,7 @@ namespace CoachBuddy.Application.Client.Commands.EditClient
             client.ContactDetails.PostalCode = request.PostalCode;
             client.ContactDetails.Street = request.Street;
 
-            await _repository.Commit();
+            await _clientRepository.Commit();
 
             return Unit.Value;
         }   

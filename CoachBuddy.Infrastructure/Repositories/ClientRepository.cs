@@ -22,11 +22,20 @@ namespace CoachBuddy.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task DeleteAsync(Client client)
+        {
+            _dbContext.Clients.Remove(client);
+            await _dbContext.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Client>> GetAll()
             => await _dbContext.Clients.ToListAsync();
 
         public async Task<Client> GetByEncodedName(string encodedName)
             => await _dbContext.Clients.FirstAsync(c => c.EncodedName == encodedName);
+
+        public async Task<Client> GetByIdAsync(int id)
+            => await _dbContext.Clients.FirstAsync(c => c.Id == id);
 
         public Task<Client?> GetByName(string name)
             => _dbContext.Clients.FirstOrDefaultAsync(cw => cw.Name.ToLower() == name.ToLower());
