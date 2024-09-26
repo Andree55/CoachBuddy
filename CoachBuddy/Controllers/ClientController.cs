@@ -139,16 +139,23 @@ namespace CoachBuddy.MVC.Controllers
             return View(clientDto);
         }
 
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
         [Authorize(Roles = "Owner")]
         [ValidateAntiForgeryToken]
+        [Route("Client/Delete/{id}")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var command=new DeleteClientCommand { Id = id };
+            var client = await _context.Clients.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (client == null)
+            {
+                return NotFound();
+            }
+            var command = new DeleteClientCommand { Id = id };
 
             await _mediator.Send(command);
 
-            this.SetNotification("success", $"Client with ID {id} was successfully deleted.");
+            this.SetNotification("success", $"Client {client.Name} {client.LastName} was successfully deleted.");
 
             return RedirectToAction(nameof(Index));
         }
