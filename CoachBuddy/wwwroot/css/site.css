@@ -55,3 +55,7 @@ body {
 #toggleSidebar:active {
     box-shadow: none;
 }
+#searchButton {
+    margin-left: 10px;
+    margin-top: 10px;
+}

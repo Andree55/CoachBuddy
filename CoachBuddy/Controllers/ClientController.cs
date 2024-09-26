@@ -7,6 +7,7 @@ using CoachBuddy.Application.Client.Queries.GetAllClients;
 using CoachBuddy.Application.Client.Queries.GetClientByEncodedName;
 using CoachBuddy.Application.ClientTraining.Commands;
 using CoachBuddy.Application.ClientTraining.Queries.GetClientTrainings;
+using CoachBuddy.Application.Client.Queries.GetClientsBySearch;
 using CoachBuddy.Infrastructure.Persistence;
 using CoachBuddy.MVC.Extensions;
 using CoachBuddy.MVC.Models;
@@ -15,6 +16,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using NuGet.Protocol.Core.Types;
 
 namespace CoachBuddy.MVC.Controllers
 {
@@ -158,6 +160,17 @@ namespace CoachBuddy.MVC.Controllers
             this.SetNotification("success", $"Client {client.Name} {client.LastName} was successfully deleted.");
 
             return RedirectToAction(nameof(Index));
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Search(string searchTerm)
+        {
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            var clients = await _mediator.Send(new GetClientsBySearchQuery { SearchTerm = searchTerm });
+            return View("Index", clients);
         }
     }
 }
