@@ -9,6 +9,7 @@ namespace CoachBuddy.Application.Client
 {
     public class ClientDto
     {
+        public int Id { get; set; }
         public string Name { get; set; } = default!;
         public string? LastName { get; set; } = default!;
         public string? Email { get; set; }
