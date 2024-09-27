@@ -26,8 +26,8 @@ namespace CoachBuddy.Application.Client.Queries.GetClientsBySearch
             if (!string.IsNullOrEmpty(request.SearchTerm))
             {
                 clients = clients.Where(c=>
-                c.Name.Contains(request.SearchTerm) ||
-                c.LastName.Contains(request.SearchTerm))
+                c.Name.ToLower().Contains(request.SearchTerm.ToLower()) ||
+                c.LastName.ToLower().Contains(request.SearchTerm.ToLower()))
                     .ToList();
                 
             }
