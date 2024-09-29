@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using CoachBuddy.Application.Common;
 using CoachBuddy.Domain.Interfaces;
 using MediatR;
+using Microsoft.AspNetCore.Http.Features;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace CoachBuddy.Application.Client.Queries.GetAllClients
 {
-    public class GetAllClientsQueryHandler : IRequestHandler<GetAllClientsQuery, IEnumerable<ClientDto>>
+    public class GetAllClientsQueryHandler : IRequestHandler<GetAllClientsQuery, PaginatedResult<ClientDto>>
     {
         private readonly IClientRepository _clientRepository;
         private readonly IMapper _mapper;
@@ -21,12 +23,25 @@ namespace CoachBuddy.Application.Client.Queries.GetAllClients
 
         public IMapper Mapper { get; }
 
-        public async Task<IEnumerable<ClientDto>> Handle(GetAllClientsQuery request, CancellationToken cancellationToken)
+        public async Task<PaginatedResult<ClientDto>> Handle(GetAllClientsQuery request, CancellationToken cancellationToken)
         {
             var clients = await _clientRepository.GetAll();
-            var dtos = _mapper.Map<IEnumerable<ClientDto>>(clients);
 
-            return dtos;
+            var totalClients = clients.Count();
+            var paginatedClients = clients
+                .Skip((request.PageNumber - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .ToList();
+
+            var dtos = _mapper.Map<IEnumerable<ClientDto>>(paginatedClients);
+
+            return new PaginatedResult<ClientDto>
+            {
+                Items = dtos,
+                TotalCount = totalClients,
+                PageNumber = request.PageNumber,
+                PageSize=request.PageSize
+            };
         }
     }
 }
