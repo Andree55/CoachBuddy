@@ -33,10 +33,16 @@ namespace CoachBuddy.MVC.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int pageNumber = 1,int pageSize = 10)
         {
-            var clients = await _mediator.Send(new GetAllClientsQuery());
-            return View(clients);
+            var query = new GetAllClientsQuery
+            {
+                PageNumber = pageNumber,
+                PageSize = pageSize
+            };
+
+            var paginatedResult = await _mediator.Send(query);
+            return View(paginatedResult);
         }
 
         [Route("Client/{encodedName}/Details")]
@@ -163,13 +169,16 @@ namespace CoachBuddy.MVC.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Search(string searchTerm)
+        public async Task<IActionResult> Search(string searchTerm,int pageNumber = 1,int pageSize = 10)
         {
             if (string.IsNullOrEmpty(searchTerm))
             {
                 return RedirectToAction(nameof(Index));
             }
-            var clients = await _mediator.Send(new GetClientsBySearchQuery { SearchTerm = searchTerm });
+            var query = new GetClientsBySearchQuery(searchTerm, pageNumber, pageSize);
+
+            var clients = await _mediator.Send(query);
+
             return View("Index", clients);
         }
     }
