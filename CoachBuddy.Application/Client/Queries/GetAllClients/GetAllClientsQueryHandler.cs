@@ -28,19 +28,20 @@ namespace CoachBuddy.Application.Client.Queries.GetAllClients
             var clients = await _clientRepository.GetAll();
 
             var totalClients = clients.Count();
+
             var paginatedClients = clients
                 .Skip((request.PageNumber - 1) * request.PageSize)
                 .Take(request.PageSize)
                 .ToList();
 
-            var dtos = _mapper.Map<IEnumerable<ClientDto>>(paginatedClients);
+            var dtos = _mapper.Map<List<ClientDto>>(paginatedClients);
 
             return new PaginatedResult<ClientDto>
             {
                 Items = dtos,
                 TotalCount = totalClients,
                 PageNumber = request.PageNumber,
-                PageSize=request.PageSize
+                PageSize = request.PageSize
             };
         }
     }

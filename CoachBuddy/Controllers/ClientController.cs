@@ -169,13 +169,16 @@ namespace CoachBuddy.MVC.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Search(string searchTerm)
+        public async Task<IActionResult> Search(string searchTerm,int pageNumber = 1,int pageSize = 10)
         {
             if (string.IsNullOrEmpty(searchTerm))
             {
                 return RedirectToAction(nameof(Index));
             }
-            var clients = await _mediator.Send(new GetClientsBySearchQuery { SearchTerm = searchTerm });
+            var query = new GetClientsBySearchQuery(searchTerm, pageNumber, pageSize);
+
+            var clients = await _mediator.Send(query);
+
             return View("Index", clients);
         }
     }

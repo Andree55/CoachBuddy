@@ -1,15 +1,15 @@
 ﻿using AutoMapper;
+using CoachBuddy.Application.Common;
 using CoachBuddy.Domain.Interfaces;
 using MediatR;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace CoachBuddy.Application.Client.Queries.GetClientsBySearch
 {
-    public class GetClientsBySearchQueryHandler : IRequestHandler<GetClientsBySearchQuery, List<ClientDto>>
+    public class GetClientsBySearchQueryHandler : IRequestHandler<GetClientsBySearchQuery, PaginatedResult<ClientDto>>
     {
         private readonly IClientRepository _clientRepository;
         private readonly IMapper _mapper;
@@ -19,19 +19,34 @@ namespace CoachBuddy.Application.Client.Queries.GetClientsBySearch
             _clientRepository = clientRepository;
             _mapper = mapper;
         }
-        public async Task<List<ClientDto>> Handle(GetClientsBySearchQuery request, CancellationToken cancellationToken)
+
+        public async Task<PaginatedResult<ClientDto>> Handle(GetClientsBySearchQuery request, CancellationToken cancellationToken)
         {
             var clients = await _clientRepository.GetAll();
 
-            if (!string.IsNullOrEmpty(request.SearchTerm))
+            if (!string.IsNullOrWhiteSpace(request.SearchTerm))
             {
-                clients = clients.Where(c=>
-                c.Name.ToLower().Contains(request.SearchTerm.ToLower()) ||
-                c.LastName.ToLower().Contains(request.SearchTerm.ToLower()))
-                    .ToList();
-                
+                clients = clients.Where(c =>
+                    c.Name.Contains(request.SearchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    c.LastName.Contains(request.SearchTerm, StringComparison.OrdinalIgnoreCase)).ToList();
             }
-            return _mapper.Map<List<ClientDto>>(clients);
+
+            var totalClients = clients.Count();
+
+            var paginatedClients = clients
+                .Skip((request.PageNumber - 1) * request.PageSize)
+                .Take(request.PageSize)
+                .ToList();
+
+            var dtos = _mapper.Map<List<ClientDto>>(paginatedClients);
+
+            return new PaginatedResult<ClientDto>
+            {
+                Items = dtos,
+                TotalCount = totalClients,
+                PageNumber = request.PageNumber,
+                PageSize = request.PageSize
+            };
         }
     }
 }
