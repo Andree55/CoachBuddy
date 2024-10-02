@@ -117,3 +117,7 @@ body {
 .footer-text {
     font-size: 12px;
 }
+#searchButton {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
