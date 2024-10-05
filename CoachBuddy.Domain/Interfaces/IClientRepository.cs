@@ -16,6 +16,6 @@ namespace CoachBuddy.Domain.Interfaces
         Task Commit();
         Task<Client> GetByIdAsync(int Id);
         Task DeleteAsync(Client client);
-
+        Task<int> GetClientCountAsync();
     }
 }
