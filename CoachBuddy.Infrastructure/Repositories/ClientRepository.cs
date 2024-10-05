@@ -39,6 +39,10 @@ namespace CoachBuddy.Infrastructure.Repositories
 
         public Task<Client?> GetByName(string name)
             => _dbContext.Clients.FirstOrDefaultAsync(cw => cw.Name.ToLower() == name.ToLower());
-         
+
+        public async Task<int> GetClientCountAsync()
+        {
+            return await _dbContext.Clients.CountAsync();
+        }
     }
 }

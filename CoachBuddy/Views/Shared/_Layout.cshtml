@@ -40,25 +40,37 @@
     <div class="d-flex flex-grow-1">
         <nav id="sidebar" class="col-md-2 bg-primary sidebar">
             <ul class="nav flex-column">
-                <li class="nav-item">
-                    <a class="nav-link text-white @(controller == "Home" && action == "Index" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                <li class="nav-item mb-4">
+                    <a class="nav-link text-white @(controller == "Home" && action == "Index" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Index">Dashboard</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-white @(controller == "Client" && action == "Index" ? "active" : "")" asp-area="" asp-controller="Client" asp-action="Index">Clients</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white @(controller == "Home" && action == "Privacy" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    <a class="nav-link text-white @(controller == "Home" && action == "Index" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Index">Groups</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white @(controller == "Home" && action == "About" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="About">About</a>
+                    <a class="nav-link text-white @(controller == "Home" && action == "Index" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Index">Exercises</a>
+                </li>
+                <li class="nav-item mb-4">
+                    <a class="nav-link text-white @(controller == "Home" && action == "Index" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Index">Training programs</a>
+                </li>
+                <li class="nav-item mb-4">
+                    <a class="nav-link text-white @(controller == "Home" && action == "Index" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Index">Ebooks</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white @(controller == "Home" && action == "Contact" ? "active" : "")" asp-area="" asp-controller="Home" asp-action="Contact">Contact</a>
                 </li>
             </ul>
         </nav>
 
-        <div class="main-content">
+        <div class="main-content flex-grow-1">
             <main role="main" class="pb-3">
                 @RenderBody()
             </main>
+            <footer class="footer-section mt-3 text-center">
+                CoachBuddy © 2024 Adrian Wierzchowski. All rights reserved.
+            </footer>
         </div>
     </div>
 

@@ -1,38 +1,38 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using CoachBuddy.Models;
+using MediatR;
+using CoachBuddy.Application.Client.Queries.GetClientCount;
+using CoachBuddy.MVC.Models;
 
 namespace CoachBuddy.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
+    private readonly IMediator _mediator;
 
-    public HomeController(ILogger<HomeController> logger)
+    public HomeController(ILogger<HomeController> logger, IMediator mediator)
     {
         _logger = logger;
+        _mediator = mediator;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> Index()
     {
-        return View();
+        var clientCount = await _mediator.Send(new GetClientCountQuery());
+        var viewModel = new HomeViewModel
+        {
+            ClientCount = clientCount
+        };
+        return View(viewModel);
     }
     public IActionResult NoAccess()
     {
         return View();
     }
-    public IActionResult About()
-    {
-        var model = new About()
-        {
-            Title = "CoachBuddy application",
-            Description = "Some description",
-            Tags = new List<string> { "coach", "client", "program" }
-        };
-        return View(model);
-    }
 
-    public IActionResult Privacy()
+    public IActionResult Contact()
     {
         return View();
     }
@@ -42,4 +42,5 @@ public class HomeController : Controller
     {
         return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
+
 }
