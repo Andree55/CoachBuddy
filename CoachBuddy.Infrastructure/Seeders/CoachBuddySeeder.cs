@@ -39,6 +39,19 @@ namespace CoachBuddy.Infrastructure.Seeders
                     _dbContext.Clients.Add(adamK);
                     await _dbContext.SaveChangesAsync();
                 }
+
+                if (!_dbContext.Groups.Any())
+                {
+                    var newClients = new Domain.Entities.Group()
+                    {
+                        Name = "New Clients",
+                        Description = "Some group description",
+                        CreatedAt = DateTime.UtcNow
+                    };
+
+                    _dbContext.Groups.Add(newClients);
+                    await _dbContext.SaveChangesAsync();
+                }
             }
         }
     }

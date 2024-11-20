@@ -49,8 +49,8 @@ namespace CoachBuddy.MVC.Controllers.Tests
 
             var mediatorMock = new Mock<IMediator>();
 
-            mediatorMock.Setup(m => m.Send(It.IsAny<GetAllClientsQuery>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(clients);
+          //  mediatorMock.Setup(m => m.Send(It.IsAny<GetAllClientsQuery>(), It.IsAny<CancellationToken>()))
+          //      .ReturnsAsync(clients);
 
             var client = _factory
                 .WithWebHostBuilder(builder => builder.ConfigureTestServices(trainings => trainings.AddScoped(_ => mediatorMock.Object)))
@@ -81,8 +81,8 @@ namespace CoachBuddy.MVC.Controllers.Tests
 
             var mediatorMock = new Mock<IMediator>();
 
-            mediatorMock.Setup(m => m.Send(It.IsAny<GetAllClientsQuery>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(clients);
+        //    mediatorMock.Setup(m => m.Send(It.IsAny<GetAllClientsQuery>(), It.IsAny<CancellationToken>()))
+           //     .ReturnsAsync(clients);
 
             var client = _factory
                 .WithWebHostBuilder(builder => builder.ConfigureTestServices(trainings => trainings.AddScoped(_ => mediatorMock.Object)))
