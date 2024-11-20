@@ -14,13 +14,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoachBuddy.Infrastructure",
 		{9D7145A5-227E-4A82-96BF-225E0D5789E8} = {9D7145A5-227E-4A82-96BF-225E0D5789E8}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoachBuddy.DomainTests", "CoachBuddy.DomainTests\CoachBuddy.DomainTests.csproj", "{B4A6D3F8-AD0D-4D8A-BE0F-ABC5B738170B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoachBuddy.DomainTests", "CoachBuddy.DomainTests\CoachBuddy.DomainTests.csproj", "{B4A6D3F8-AD0D-4D8A-BE0F-ABC5B738170B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoachBuddy.ApplicationTests", "CoachBuddy.ApplicationTests\CoachBuddy.ApplicationTests.csproj", "{2C765F55-E5D4-46C2-9586-251BD3B0A90B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoachBuddy.ApplicationTests", "CoachBuddy.ApplicationTests\CoachBuddy.ApplicationTests.csproj", "{2C765F55-E5D4-46C2-9586-251BD3B0A90B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A57DE0B1-EE7E-43F5-8623-B2E1661E29DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoachBuddy.MVCTests", "CoachBuddy.MVCTests\CoachBuddy.MVCTests.csproj", "{B30EDFE1-0BC8-4D26-A564-114499CCBF9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoachBuddy.MVCTests", "CoachBuddy.MVCTests\CoachBuddy.MVCTests.csproj", "{B30EDFE1-0BC8-4D26-A564-114499CCBF9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

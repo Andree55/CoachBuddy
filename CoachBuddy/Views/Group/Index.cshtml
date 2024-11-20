@@ -1,0 +1,25 @@
+﻿@model IEnumerable<CoachBuddy.Domain.Entities.Group>
+
+@{
+    ViewData["Title"] = "Groups";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Addition date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var group in Model)
+        {
+            <tr>
+                <td>@group.Name</td>
+                <td>@group.CreatedAt.ToString("dd/MM/yyyy")</td>
+            </tr>
+        }
+    </tbody>
+</table>
