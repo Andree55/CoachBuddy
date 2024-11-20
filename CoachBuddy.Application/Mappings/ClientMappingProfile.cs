@@ -5,11 +5,6 @@ using CoachBuddy.Application.Client.Commands.DeleteClient;
 using CoachBuddy.Application.Client.Commands.EditClient;
 using CoachBuddy.Application.ClientTraining;
 using CoachBuddy.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CoachBuddy.Application.Mappings
 {

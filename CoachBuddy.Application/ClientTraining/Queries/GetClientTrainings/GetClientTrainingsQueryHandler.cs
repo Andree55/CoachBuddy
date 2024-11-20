@@ -2,7 +2,6 @@
 using CoachBuddy.Domain.Interfaces;
 using MediatR;
 
-
 namespace CoachBuddy.Application.ClientTraining.Queries.GetClientTrainings
 {
     public class GetClientTrainingsQueryHandler : IRequestHandler<GetClientTrainingsQuery, IEnumerable<ClientTrainingDto>>

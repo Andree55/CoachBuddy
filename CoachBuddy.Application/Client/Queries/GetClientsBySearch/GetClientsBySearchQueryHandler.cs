@@ -2,10 +2,6 @@
 using CoachBuddy.Application.Common;
 using CoachBuddy.Domain.Interfaces;
 using MediatR;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace CoachBuddy.Application.Client.Queries.GetClientsBySearch
 {
