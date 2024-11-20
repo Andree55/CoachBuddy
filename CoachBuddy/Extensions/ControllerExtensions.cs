@@ -1,7 +1,6 @@
 ﻿using CoachBuddy.MVC.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace CoachBuddy.MVC.Extensions
 {

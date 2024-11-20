@@ -10,13 +10,10 @@ using CoachBuddy.Application.ClientTraining.Queries.GetClientTrainings;
 using CoachBuddy.Application.Client.Queries.GetClientsBySearch;
 using CoachBuddy.Infrastructure.Persistence;
 using CoachBuddy.MVC.Extensions;
-using CoachBuddy.MVC.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using NuGet.Protocol.Core.Types;
 
 namespace CoachBuddy.MVC.Controllers
 {
