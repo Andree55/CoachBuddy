@@ -60,7 +60,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
         {
             // arrange
 
-            var client = new Domain.Entities.Client()
+            var client = new Domain.Entities.Client.Client()
             {
                 Id = 1,
                 CreatedById = "1"
@@ -95,7 +95,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
             // assert
 
             result.Should().Be(Unit.Value);
-            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<CoachBuddy.Domain.Entities.Client.ClientTraining>()), Times.Once);
+            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<Domain.Entities.Client.ClientTraining>()), Times.Once);
 
         }
 
@@ -105,7 +105,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
         {
             // arrange
 
-            var client = new Domain.Entities.Client()
+            var client = new Domain.Entities.Client.Client()
             {
                 Id = 1,
                 CreatedById = "1"
@@ -140,7 +140,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
             // assert
 
             result.Should().Be(Unit.Value);
-            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<CoachBuddy.Domain.Entities.Client.ClientTraining>()), Times.Never);
+            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<Domain.Entities.Client.ClientTraining>()), Times.Never);
 
         }
 
@@ -150,7 +150,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
         {
             // arrange
 
-            var client = new Domain.Entities.Client()
+            var client = new Domain.Entities.Client.Client()
             {
                 Id = 1,
                 CreatedById = "1"
@@ -185,7 +185,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
             // assert
 
             result.Should().Be(Unit.Value);
-            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<CoachBuddy.Domain.Entities.Client.ClientTraining>()), Times.Never);
+            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<Domain.Entities.Client.ClientTraining>()), Times.Never);
 
         }
     }
