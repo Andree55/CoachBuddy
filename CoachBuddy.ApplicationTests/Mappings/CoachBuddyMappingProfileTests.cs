@@ -1,17 +1,10 @@
 ﻿using Xunit;
-using CoachBuddy.Application.Mappings;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using AutoMapper;
 using CoachBuddy.Application.ApplicationUser;
 using CoachBuddy.Application.CoachBuddy;
 using Moq;
 using CoachBuddy.Application.Client;
 using FluentAssertions;
-using CoachBuddy.Domain.Entities;
 
 namespace CoachBuddy.Application.Mappings.Tests
 {
@@ -43,7 +36,7 @@ namespace CoachBuddy.Application.Mappings.Tests
 
             // act
 
-            var result = mapper.Map<CoachBuddy.Domain.Entities.Client.Client>(dto);
+            var result = mapper.Map<Domain.Entities.Client.Client>(dto);
 
             // assert
 
@@ -72,11 +65,11 @@ namespace CoachBuddy.Application.Mappings.Tests
 
             var mapper = configuration.CreateMapper();
 
-            var client = new Domain.Entities.Client
+            var client = new Domain.Entities.Client.Client
             {
                 Id = 1,
                 CreatedById = "1",
-                ContactDetails = new ClientContactDetails
+                ContactDetails = new Domain.Entities.Client.ClientContactDetails
                 {
                     City = "City",
                     PhoneNumber = "123456789",

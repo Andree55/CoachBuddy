@@ -1,10 +1,4 @@
 ﻿using Xunit;
-using CoachBuddy.Application.ClientTraining.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CoachBuddy.Application.ApplicationUser;
 using CoachBuddy.Application.CoachBuddy;
 using MediatR;
@@ -21,7 +15,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
         {
             // arrange
 
-            var client = new Domain.Entities.Client()
+            var client = new Domain.Entities.Client.Client()
             {
                 Id = 1,
                 CreatedById = "1"
@@ -56,7 +50,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
             // assert
 
             result.Should().Be(Unit.Value);
-            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<CoachBuddy.Domain.Entities.Client.ClientTraining>()), Times.Once);
+            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<Domain.Entities.Client.ClientTraining>()), Times.Once);
 
         }
 
