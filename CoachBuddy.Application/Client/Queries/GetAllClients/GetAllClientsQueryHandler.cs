@@ -1,13 +1,7 @@
 ﻿using AutoMapper;
 using CoachBuddy.Application.Common;
-using CoachBuddy.Domain.Interfaces;
+using CoachBuddy.Domain.Interfaces.Client;
 using MediatR;
-using Microsoft.AspNetCore.Http.Features;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CoachBuddy.Application.Client.Queries.GetAllClients
 {
@@ -15,7 +9,7 @@ namespace CoachBuddy.Application.Client.Queries.GetAllClients
     {
         private readonly IClientRepository _clientRepository;
         private readonly IMapper _mapper;
-        public GetAllClientsQueryHandler(IClientRepository clientRepository,IMapper mapper)
+        public GetAllClientsQueryHandler(IClientRepository clientRepository, IMapper mapper)
         {
             _clientRepository = clientRepository;
             _mapper = mapper;

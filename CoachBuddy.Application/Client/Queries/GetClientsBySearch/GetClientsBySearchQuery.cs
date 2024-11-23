@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CoachBuddy.Application.Client.Queries.GetClientsBySearch
 {
-    public class GetClientsBySearchQuery: IRequest<PaginatedResult<ClientDto>>
+    public class GetClientsBySearchQuery : IRequest<PaginatedResult<ClientDto>>
     {
         public string SearchTerm { get; set; }
         public int PageNumber { get; set; }

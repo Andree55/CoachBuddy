@@ -1,5 +1,5 @@
-﻿using CoachBuddy.Domain.Entities;
-using CoachBuddy.Domain.Interfaces;
+﻿using CoachBuddy.Domain.Entities.Client;
+using CoachBuddy.Domain.Interfaces.Client;
 using CoachBuddy.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +16,7 @@ namespace CoachBuddy.Infrastructure.Repositories
         public Task Commit()
         => _dbContext.SaveChangesAsync();
 
-        public async Task Create(Domain.Entities.Client client)
+        public async Task Create(Client client)
         {
             _dbContext.Add(client);
             await _dbContext.SaveChangesAsync();

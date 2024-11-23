@@ -43,7 +43,7 @@ namespace CoachBuddy.Application.Mappings.Tests
 
             // act
 
-            var result = mapper.Map<Domain.Entities.Client>(dto);
+            var result = mapper.Map<CoachBuddy.Domain.Entities.Client.Client>(dto);
 
             // assert
 

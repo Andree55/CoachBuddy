@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CoachBuddy.Domain.Interfaces;
+using CoachBuddy.Domain.Interfaces.Client;
 using MediatR;
 
 namespace CoachBuddy.Application.ClientTraining.Queries.GetClientTrainings

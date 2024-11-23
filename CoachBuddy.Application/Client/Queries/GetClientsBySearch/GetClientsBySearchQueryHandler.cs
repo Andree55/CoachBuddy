@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CoachBuddy.Application.Common;
-using CoachBuddy.Domain.Interfaces;
+using CoachBuddy.Domain.Interfaces.Client;
 using MediatR;
 
 namespace CoachBuddy.Application.Client.Queries.GetClientsBySearch

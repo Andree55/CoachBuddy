@@ -20,7 +20,7 @@ namespace CoachBuddy.Infrastructure.Seeders
 
                 if (!_dbContext.Clients.Any())
                 {
-                    var adamK = new Domain.Entities.Client()
+                    var adamK = new Domain.Entities.Client.Client()
                     {
                         Name = "Adam",
                         LastName="Kowalski",
@@ -42,7 +42,7 @@ namespace CoachBuddy.Infrastructure.Seeders
 
                 if (!_dbContext.Groups.Any())
                 {
-                    var newClients = new Domain.Entities.Group()
+                    var newClients = new Domain.Entities.Group.Group()
                     {
                         Name = "New Clients",
                         Description = "Some group description",

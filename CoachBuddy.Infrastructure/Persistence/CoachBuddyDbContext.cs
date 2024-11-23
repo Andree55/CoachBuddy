@@ -1,4 +1,5 @@
-﻿using CoachBuddy.Domain.Entities;
+﻿using CoachBuddy.Domain.Entities.Client;
+using CoachBuddy.Domain.Entities.Group;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

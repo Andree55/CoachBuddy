@@ -1,5 +1,5 @@
 ﻿using CoachBuddy.Application.ApplicationUser;
-using CoachBuddy.Domain.Interfaces;
+using CoachBuddy.Domain.Interfaces.Client;
 using MediatR;
 
 namespace CoachBuddy.Application.ClientTraining.Commands
@@ -29,7 +29,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands
                 return Unit.Value;
             }
 
-            var clientTraining = new Domain.Entities.ClientTraining()
+            var clientTraining = new Domain.Entities.Client.ClientTraining()
             {
                 Date = request.Date,
                 Description = request.Description,

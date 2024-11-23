@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore;
 using CoachBuddy.Infrastructure.Extensions;
 using CoachBuddy.Infrastructure.Seeders;
 using CoachBuddy.Application.Extensions;
+using CoachBuddy.Domain.Interfaces.Group;
+using CoachBuddy.Infrastructure.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 

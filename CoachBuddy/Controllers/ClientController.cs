@@ -75,6 +75,7 @@ namespace CoachBuddy.MVC.Controllers
 
             await _mediator.Send(command);
 
+            this.SetNotification("success", $"Group '{command.Name}' has been updated.");
             return RedirectToAction(nameof(Index));
         }
 

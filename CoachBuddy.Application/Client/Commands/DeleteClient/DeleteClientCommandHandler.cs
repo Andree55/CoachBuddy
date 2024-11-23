@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CoachBuddy.Application.ApplicationUser;
-using CoachBuddy.Domain.Interfaces;
+using CoachBuddy.Domain.Interfaces.Client;
 using MediatR;
 
 namespace CoachBuddy.Application.Client.Commands.DeleteClient

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using CoachBuddy.Application.ApplicationUser;
-using CoachBuddy.Domain.Interfaces;
+using CoachBuddy.Domain.Interfaces.Client;
 using MediatR;
 
 namespace CoachBuddy.Application.Client.Commands.CreateClient
@@ -29,7 +29,8 @@ namespace CoachBuddy.Application.Client.Commands.CreateClient
                 return Unit.Value;
             }
 
-            var client = _mapper.Map<Domain.Entities.Client>(request);
+            var client = _mapper.Map<Domain.Entities.Client.Client>(request);
+            
             client.EncodeName();
 
             client.CreatedById = currentUser.Id;

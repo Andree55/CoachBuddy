@@ -1,6 +1,6 @@
-﻿using CoachBuddy.Domain.Entities;
+﻿using CoachBuddy.Domain.Entities.Client;
 
-namespace CoachBuddy.Domain.Interfaces
+namespace CoachBuddy.Domain.Interfaces.Client
 {
     public interface IClientTrainingRepository
     {

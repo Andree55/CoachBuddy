@@ -9,8 +9,8 @@ using CoachBuddy.Application.ApplicationUser;
 using CoachBuddy.Application.CoachBuddy;
 using MediatR;
 using Moq;
-using CoachBuddy.Domain.Interfaces;
 using FluentAssertions;
+using CoachBuddy.Domain.Interfaces.Client;
 
 namespace CoachBuddy.Application.ClientTraining.Commands.Tests
 {
@@ -56,7 +56,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
             // assert
 
             result.Should().Be(Unit.Value);
-            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<Domain.Entities.ClientTraining>()), Times.Once);
+            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<CoachBuddy.Domain.Entities.Client.ClientTraining>()), Times.Once);
 
         }
 
@@ -101,7 +101,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
             // assert
 
             result.Should().Be(Unit.Value);
-            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<Domain.Entities.ClientTraining>()), Times.Once);
+            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<CoachBuddy.Domain.Entities.Client.ClientTraining>()), Times.Once);
 
         }
 
@@ -146,7 +146,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
             // assert
 
             result.Should().Be(Unit.Value);
-            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<Domain.Entities.ClientTraining>()), Times.Never);
+            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<CoachBuddy.Domain.Entities.Client.ClientTraining>()), Times.Never);
 
         }
 
@@ -191,7 +191,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
             // assert
 
             result.Should().Be(Unit.Value);
-            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<Domain.Entities.ClientTraining>()), Times.Never);
+            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<CoachBuddy.Domain.Entities.Client.ClientTraining>()), Times.Never);
 
         }
     }

@@ -1,5 +1,5 @@
 ﻿using CoachBuddy.Application.ApplicationUser;
-using CoachBuddy.Domain.Interfaces;
+using CoachBuddy.Domain.Interfaces.Client;
 using MediatR;
 
 namespace CoachBuddy.Application.Client.Commands.EditClient
@@ -20,7 +20,7 @@ namespace CoachBuddy.Application.Client.Commands.EditClient
 
             var user = _userContext.GetCurrentUser();
 
-            var isEditable =user != null && (client.CreatedById == user.Id || user.IsInRole("Moderator"));
+            var isEditable = user != null && (client.CreatedById == user.Id || user.IsInRole("Moderator"));
 
             if (!isEditable)
             {

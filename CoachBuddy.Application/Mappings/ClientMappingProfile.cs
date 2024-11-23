@@ -4,7 +4,7 @@ using CoachBuddy.Application.Client;
 using CoachBuddy.Application.Client.Commands.DeleteClient;
 using CoachBuddy.Application.Client.Commands.EditClient;
 using CoachBuddy.Application.ClientTraining;
-using CoachBuddy.Domain.Entities;
+using CoachBuddy.Domain.Entities.Client;
 
 namespace CoachBuddy.Application.Mappings
 {
@@ -13,7 +13,7 @@ namespace CoachBuddy.Application.Mappings
         public CoachBuddyMappingProfile(IUserContext userContext)
         {
             var user = userContext.GetCurrentUser();
-            CreateMap<ClientDto, Domain.Entities.Client>()
+            CreateMap<ClientDto, Domain.Entities.Client.Client>()
                 .ForMember(e => e.ContactDetails, opt => opt.MapFrom(src => new ClientContactDetails()
                 {
                     City = src.City,
@@ -22,7 +22,7 @@ namespace CoachBuddy.Application.Mappings
                     Street = src.Street,
                 }));
 
-            CreateMap<Domain.Entities.Client, ClientDto>()
+            CreateMap<Domain.Entities.Client.Client, ClientDto>()
                 .ForMember(dto => dto.IsEditable, opt => opt.MapFrom(src => user != null 
                                                 && (src.CreatedById == user.Id || user.IsInRole("Moderator"))))
                 .ForMember(dto => dto.Street, opt => opt.MapFrom(src => src.ContactDetails.Street))
@@ -32,7 +32,7 @@ namespace CoachBuddy.Application.Mappings
 
             CreateMap<ClientDto, EditClientCommand>();
 
-            CreateMap<ClientTrainingDto, Domain.Entities.ClientTraining>()
+            CreateMap<ClientTrainingDto, Domain.Entities.Client.ClientTraining>()
                 .ReverseMap();
 
             CreateMap<ClientDto, DeleteClientCommand>();

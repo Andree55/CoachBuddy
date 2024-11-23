@@ -1,0 +1,12 @@
+﻿namespace CoachBuddy.Domain.Interfaces.Group
+{
+    public interface IGroupRepository
+    {
+        Task Create(Entities.Group.Group group);
+        Task <IEnumerable<Entities.Group.Group>> GetAll();
+        Task Commit();
+        Task<Entities.Group.Group> GetByIdAsync(int Id);
+        Task DeleteAsync(Entities.Group.Group group);
+        Task<Entities.Group.Group> GetByEncodedName(string encodedName);
+    }
+}
