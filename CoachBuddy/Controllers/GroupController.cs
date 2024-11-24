@@ -34,8 +34,8 @@ namespace CoachBuddy.MVC.Controllers
                 PageSize = pageSize
             };
 
-            var groups = await _mediator.Send(query);
-            return View(groups);
+            var paginatedResult = await _mediator.Send(query);
+            return View(paginatedResult.Items);
         }
 
         [Route("Group/{encodedName}/Details")]

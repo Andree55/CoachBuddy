@@ -4,6 +4,7 @@ using CoachBuddy.Application.Client;
 using CoachBuddy.Application.Client.Commands.DeleteClient;
 using CoachBuddy.Application.Client.Commands.EditClient;
 using CoachBuddy.Application.ClientTraining;
+using CoachBuddy.Application.Group;
 using CoachBuddy.Domain.Entities.Client;
 
 namespace CoachBuddy.Application.Mappings
@@ -36,7 +37,20 @@ namespace CoachBuddy.Application.Mappings
                 .ReverseMap();
 
             CreateMap<ClientDto, DeleteClientCommand>();
+            CreateMap<Domain.Entities.Group.Group, GroupDto>()
+                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+            .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+            .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt))
+            .ForMember(dest => dest.EncodedName, opt => opt.MapFrom(src => src.EncodedName))
+            .ForMember(dest => dest.CreatedById, opt => opt.MapFrom(src => src.CreatedById))
+            .ForMember(dest => dest.IsEditable, opt => opt.Ignore());
 
+            CreateMap<GroupDto, Domain.Entities.Group.Group>()
+                .ForMember(dest => dest.Id, opt => opt.Ignore()) 
+                .ForMember(dest => dest.CreatedAt, opt => opt.Ignore()) 
+                .ForMember(dest => dest.CreatedBy, opt => opt.Ignore()) 
+                .ForMember(dest => dest.ClientGroups, opt => opt.Ignore());
         }
     }
 }

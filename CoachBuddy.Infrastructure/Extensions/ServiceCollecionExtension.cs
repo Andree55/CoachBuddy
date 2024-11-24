@@ -1,4 +1,6 @@
 ﻿using CoachBuddy.Application.Client.Commands.DeleteClient;
+using CoachBuddy.Application.Group.Commands.DeleteGroup;
+using CoachBuddy.Application.Mappings;
 using CoachBuddy.Domain.Interfaces.Client;
 using CoachBuddy.Domain.Interfaces.Group;
 using CoachBuddy.Infrastructure.Persistence;
@@ -27,9 +29,11 @@ namespace CoachBuddy.Infrastructure.Extensions
 
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<IClientTrainingRepository, ClientTrainingRepository>();
+
             services.AddScoped<IGroupRepository, GroupRepository>();
 
             services.AddTransient<IRequestHandler<DeleteClientCommand>, DeleteClientCommandHandler>();
+            services.AddTransient<IRequestHandler<DeleteGroupCommand>, DeleteGroupCommandHandler>();
 
         }
     }

@@ -61,7 +61,7 @@ namespace CoachBuddy.Infrastructure.Migrations
 
                     b.HasIndex("CreatedById");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Clients", (string)null);
                 });
 
             modelBuilder.Entity("CoachBuddy.Domain.Entities.ClientGroup", b =>
@@ -79,7 +79,7 @@ namespace CoachBuddy.Infrastructure.Migrations
 
                     b.HasIndex("GroupId");
 
-                    b.ToTable("ClientGroups");
+                    b.ToTable("ClientGroups", (string)null);
                 });
 
             modelBuilder.Entity("CoachBuddy.Domain.Entities.ClientTraining", b =>
@@ -104,7 +104,7 @@ namespace CoachBuddy.Infrastructure.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Trainings");
+                    b.ToTable("Trainings", (string)null);
                 });
 
             modelBuilder.Entity("CoachBuddy.Domain.Entities.Group", b =>
@@ -127,7 +127,7 @@ namespace CoachBuddy.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Groups");
+                    b.ToTable("Groups", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -338,7 +338,7 @@ namespace CoachBuddy.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
-                    b.OwnsOne("CoachBuddy.Domain.Entities.ClientContactDetails", "ContactDetails", b1 =>
+                    b.OwnsOne("CoachBuddy.Domain.Entities.Client.ContactDetails#CoachBuddy.Domain.Entities.ClientContactDetails", "ContactDetails", b1 =>
                         {
                             b1.Property<int>("ClientId")
                                 .HasColumnType("int");
@@ -357,7 +357,7 @@ namespace CoachBuddy.Infrastructure.Migrations
 
                             b1.HasKey("ClientId");
 
-                            b1.ToTable("Clients");
+                            b1.ToTable("Clients", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ClientId");

@@ -1,8 +1,11 @@
 ﻿using AutoMapper;
+using CoachBuddy.Application.Client;
 using CoachBuddy.Application.Common;
 using CoachBuddy.Application.Group;
+using CoachBuddy.Domain.Interfaces.Client;
 using CoachBuddy.Domain.Interfaces.Group;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace CoachBuddy.Application.Group.Queries.GetAllGroups
 {
@@ -10,10 +13,12 @@ namespace CoachBuddy.Application.Group.Queries.GetAllGroups
     {
         private readonly IGroupRepository _groupRepository;
         private readonly IMapper _mapper;
-        public GetAllGroupsQueryHandler(IGroupRepository groupRepository, IMapper mapper)
+        private readonly ILogger<GetAllGroupsQueryHandler> _logger;
+        public GetAllGroupsQueryHandler(IGroupRepository groupRepository, IMapper mapper, ILogger<GetAllGroupsQueryHandler> logger)
         {
             _groupRepository = groupRepository;
             _mapper = mapper;
+            _logger = logger;
         }
         public IMapper Mapper { get; }
         public async Task<PaginatedResult<GroupDto>> Handle(GetAllGroupsQuery request, CancellationToken cancellationToken)

@@ -3,6 +3,7 @@
     public interface IGroupRepository
     {
         Task Create(Entities.Group.Group group);
+        Task<Entities.Group.Group?> GetByName(string name);
         Task <IEnumerable<Entities.Group.Group>> GetAll();
         Task Commit();
         Task<Entities.Group.Group> GetByIdAsync(int Id);

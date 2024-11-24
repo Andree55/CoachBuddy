@@ -35,5 +35,8 @@ namespace CoachBuddy.Infrastructure.Repositories
 
         public async Task<Group> GetByIdAsync(int id)
             => await _dbContext.Groups.FirstAsync(c=>c.Id == id);
+
+        public Task<Group?> GetByName(string name)
+            => _dbContext.Groups.FirstOrDefaultAsync(cw => cw.Name.ToLower() == name.ToLower());
     }
 }

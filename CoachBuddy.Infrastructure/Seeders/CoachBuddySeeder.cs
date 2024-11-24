@@ -48,6 +48,7 @@ namespace CoachBuddy.Infrastructure.Seeders
                         Description = "Some group description",
                         CreatedAt = DateTime.UtcNow
                     };
+                    newClients.EncodeName();
 
                     _dbContext.Groups.Add(newClients);
                     await _dbContext.SaveChangesAsync();
