@@ -9,5 +9,6 @@
         Task<Entities.Group.Group> GetByIdAsync(int Id);
         Task DeleteAsync(Entities.Group.Group group);
         Task<Entities.Group.Group> GetByEncodedName(string encodedName);
+        Task<int> GetGroupCountAsync();
     }
 }

@@ -38,5 +38,10 @@ namespace CoachBuddy.Infrastructure.Repositories
 
         public Task<Group?> GetByName(string name)
             => _dbContext.Groups.FirstOrDefaultAsync(cw => cw.Name.ToLower() == name.ToLower());
+
+        public async Task<int> GetGroupCountAsync()
+        {
+            return await _dbContext.Clients.CountAsync();
+        }
     }
 }
