@@ -26,7 +26,7 @@ namespace CoachBuddy.MVC.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 10)
+        public async Task<IActionResult> Index(int pageNumber = 1, int pageSize = 7)
         {
             var query = new GetAllGroupsQuery
             {
@@ -35,7 +35,7 @@ namespace CoachBuddy.MVC.Controllers
             };
 
             var paginatedResult = await _mediator.Send(query);
-            return View(paginatedResult.Items);
+            return View(paginatedResult);
         }
 
         [Route("Group/{encodedName}/Details")]
