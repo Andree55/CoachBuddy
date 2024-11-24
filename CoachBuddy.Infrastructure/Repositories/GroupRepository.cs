@@ -41,7 +41,7 @@ namespace CoachBuddy.Infrastructure.Repositories
 
         public async Task<int> GetGroupCountAsync()
         {
-            return await _dbContext.Clients.CountAsync();
+            return await _dbContext.Groups.CountAsync();
         }
     }
 }

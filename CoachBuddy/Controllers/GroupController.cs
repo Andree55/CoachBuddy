@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using CoachBuddy.Application.Client.Queries.GetClientsBySearch;
 using CoachBuddy.Application.Group;
 using CoachBuddy.Application.Group.Commands.CreateGroup;
 using CoachBuddy.Application.Group.Commands.DeleteGroup;
 using CoachBuddy.Application.Group.Commands.EditGroup;
 using CoachBuddy.Application.Group.Queries.GetAllGroups;
 using CoachBuddy.Application.Group.Queries.GetGroupByEncodedName;
+using CoachBuddy.Application.Group.Queries.GetGroupsBySearch;
 using CoachBuddy.Infrastructure.Persistence;
 using CoachBuddy.MVC.Extensions;
 using MediatR;
@@ -127,6 +129,19 @@ namespace CoachBuddy.MVC.Controllers
 
             this.SetNotification("success", "Group has been deleted.");
             return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        public async Task<IActionResult> Search(string searchTerm, int pageNumber = 1, int pageSize = 7)
+        {
+            if (string.IsNullOrEmpty(searchTerm))
+            {
+                return RedirectToAction(nameof(Index));
+            }
+            var query = new GetGroupsBySearchQuery(searchTerm, pageNumber, pageSize);
+
+            var groups = await _mediator.Send(query);
+
+            return View("Index", groups);
         }
     }
 }

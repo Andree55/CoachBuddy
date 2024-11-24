@@ -3,5 +3,6 @@
     public class HomeViewModel
     {
         public int ClientCount {  get; set; }
+        public int GroupCount { get; set; }
     }
 }
