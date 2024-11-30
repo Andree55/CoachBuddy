@@ -15,8 +15,6 @@ namespace CoachBuddy.Application.Group.Commands.EditGroup
                 .NotEmpty().WithMessage("Description is required.")
                 .MaximumLength(200).WithMessage("Description should have a maximum of 200 characters.");
 
-            RuleFor(g => g.CreatedAt)
-                .GreaterThan(DateTime.Now).WithMessage("Start date must be in the future.");
         }
     }
 }

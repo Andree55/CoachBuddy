@@ -6,6 +6,7 @@ using CoachBuddy.Application.Client.Commands.EditClient;
 using CoachBuddy.Application.ClientTraining;
 using CoachBuddy.Application.Group;
 using CoachBuddy.Application.Group.Commands.CreateGroup;
+using CoachBuddy.Application.Group.Commands.EditGroup;
 using CoachBuddy.Domain.Entities.Client;
 
 namespace CoachBuddy.Application.Mappings
@@ -58,6 +59,8 @@ namespace CoachBuddy.Application.Mappings
             CreateMap<CreateGroupCommand, Domain.Entities.Group.Group>()
             .ForMember(dest => dest.CreatedAt, opt => opt.Ignore()) 
             .ForMember(dest => dest.EncodedName, opt => opt.Ignore());
+
+            CreateMap<GroupDto, EditGroupCommand>();
         }
     }
 }
