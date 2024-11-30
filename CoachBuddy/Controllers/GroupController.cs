@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CoachBuddy.Application.Client.Commands.DeleteClient;
 using CoachBuddy.Application.Group;
 using CoachBuddy.Application.Group.Commands.CreateGroup;
 using CoachBuddy.Application.Group.Commands.DeleteGroup;
@@ -11,6 +12,7 @@ using CoachBuddy.MVC.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoachBuddy.MVC.Controllers
 {
@@ -100,11 +102,16 @@ namespace CoachBuddy.MVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
         [Authorize(Roles = "Admin")]
-        [Route("Group/{encodedName}/Delete")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(int? id)
         {
-            var group = await _context.Groups.FindAsync(id);
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var group = await _context.Groups
+                .FirstOrDefaultAsync(c => c.Id == id);
 
             if (group == null)
             {
@@ -118,14 +125,21 @@ namespace CoachBuddy.MVC.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        [Route("Group/Delete/{encodedName}")]
+        [Route("Group/Delete/{id}")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            var group = await _context.Groups.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (group == null)
+            {
+                return NotFound();
+            }
             var command = new DeleteGroupCommand { Id = id };
 
             await _mediator.Send(command);
 
-            this.SetNotification("success", "Group has been deleted.");
+            this.SetNotification("success", $"Group {group.Name} was successfully deleted.");
+
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
