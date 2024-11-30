@@ -23,7 +23,7 @@ namespace CoachBuddy.Application.Group.Commands.DeleteGroup
             
             var user = _userContext.GetCurrentUser();
 
-            var isEditable = user != null && (group.CreatedById == user.Id || user.IsInRole("Modearator"));
+            var isEditable = user != null &&  user.IsInRole("Admin");
 
             if (!isEditable)
             {

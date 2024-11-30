@@ -22,7 +22,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands
             var client = await _clientRepository.GetByEncodedName(request.ClientEncodedName!);
 
             var user = _userContext.GetCurrentUser();
-            var isEditable = user != null && (client.CreatedById == user.Id || user.IsInRole("Moderator"));
+            var isEditable = user != null && ( user.IsInRole("Admin"));
 
             if (!isEditable)
             {
