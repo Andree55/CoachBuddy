@@ -5,6 +5,7 @@ using CoachBuddy.Application.Client.Commands.DeleteClient;
 using CoachBuddy.Application.Client.Commands.EditClient;
 using CoachBuddy.Application.ClientTraining;
 using CoachBuddy.Application.Group;
+using CoachBuddy.Application.Group.Commands.CreateGroup;
 using CoachBuddy.Domain.Entities.Client;
 
 namespace CoachBuddy.Application.Mappings
@@ -25,7 +26,7 @@ namespace CoachBuddy.Application.Mappings
 
             CreateMap<Domain.Entities.Client.Client, ClientDto>()
                 .ForMember(dto => dto.IsEditable, opt => opt.MapFrom(src => user != null
-                                                && (user.IsInRole("Admin"))))
+                                                && user.IsInRole("Admin")))
                 .ForMember(dto => dto.Street, opt => opt.MapFrom(src => src.ContactDetails.Street))
                 .ForMember(dto => dto.City, opt => opt.MapFrom(src => src.ContactDetails.City))
                 .ForMember(dto => dto.PostalCode, opt => opt.MapFrom(src => src.ContactDetails.PostalCode))
@@ -37,6 +38,7 @@ namespace CoachBuddy.Application.Mappings
                 .ReverseMap();
 
             CreateMap<ClientDto, DeleteClientCommand>();
+
             CreateMap<Domain.Entities.Group.Group, GroupDto>()
                  .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
@@ -44,13 +46,18 @@ namespace CoachBuddy.Application.Mappings
             .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt))
             .ForMember(dest => dest.EncodedName, opt => opt.MapFrom(src => src.EncodedName))
             .ForMember(dest => dest.CreatedById, opt => opt.MapFrom(src => src.CreatedById))
-            .ForMember(dest => dest.IsEditable, opt => opt.Ignore());
+            .ForMember(dto => dto.IsEditable, opt => opt.MapFrom(src => user != null
+                                                && user.IsInRole("Admin")));
 
             CreateMap<GroupDto, Domain.Entities.Group.Group>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore()) 
                 .ForMember(dest => dest.CreatedAt, opt => opt.Ignore()) 
                 .ForMember(dest => dest.CreatedBy, opt => opt.Ignore()) 
                 .ForMember(dest => dest.ClientGroups, opt => opt.Ignore());
+
+            CreateMap<CreateGroupCommand, Domain.Entities.Group.Group>()
+            .ForMember(dest => dest.CreatedAt, opt => opt.Ignore()) 
+            .ForMember(dest => dest.EncodedName, opt => opt.Ignore());
         }
     }
 }

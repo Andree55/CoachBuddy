@@ -6,6 +6,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using CoachBuddy.Application.Group.Commands.CreateGroup;
 
 namespace CoachBuddy.Application.Extensions
 {
@@ -25,6 +26,10 @@ namespace CoachBuddy.Application.Extensions
             );
 
             services.AddValidatorsFromAssemblyContaining<CreateClientCommandValidator>()
+                   .AddFluentValidationAutoValidation()
+                   .AddFluentValidationClientsideAdapters();
+
+            services.AddValidatorsFromAssemblyContaining<CreateGroupCommandValidator>()
                    .AddFluentValidationAutoValidation()
                    .AddFluentValidationClientsideAdapters();
         }

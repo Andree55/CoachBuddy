@@ -3,6 +3,7 @@ using CoachBuddy.Application.ApplicationUser;
 using CoachBuddy.Domain.Interfaces.Client;
 using CoachBuddy.Domain.Interfaces.Group;
 using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace CoachBuddy.Application.Group.Commands.CreateGroup
 {
@@ -11,7 +12,6 @@ namespace CoachBuddy.Application.Group.Commands.CreateGroup
         private readonly IGroupRepository _groupRepository;
         private readonly IMapper _mapper;
         private readonly IUserContext _userContext;
-
         public CreateGroupCommandHandler(IGroupRepository groupRepository, IMapper mapper, IUserContext userContext)
         {
             _groupRepository = groupRepository;
@@ -33,6 +33,8 @@ namespace CoachBuddy.Application.Group.Commands.CreateGroup
             group.EncodeName();
 
             group.CreatedById = currentUser.Id;
+
+            group.CreatedAt = DateTime.UtcNow;
 
             await _groupRepository.Create(group);
 

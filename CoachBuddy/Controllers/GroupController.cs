@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using CoachBuddy.Application.Client.Queries.GetClientsBySearch;
 using CoachBuddy.Application.Group;
 using CoachBuddy.Application.Group.Commands.CreateGroup;
 using CoachBuddy.Application.Group.Commands.DeleteGroup;
@@ -21,7 +20,7 @@ namespace CoachBuddy.MVC.Controllers
         private readonly IMapper _mapper;
         private readonly CoachBuddyDbContext _context;
 
-        public GroupController(IMediator mediator, IMapper mapper, CoachBuddyDbContext context)
+        public GroupController(IMediator mediator, IMapper mapper, CoachBuddyDbContext context, ILogger<GroupController> logger)
         {
             _mediator = mediator;
             _mapper = mapper;
@@ -66,7 +65,6 @@ namespace CoachBuddy.MVC.Controllers
             {
                 return View(command);
             }
-
             await _mediator.Send(command);
 
             this.SetNotification("success", $"Group '{command.Name}' has been crated.");

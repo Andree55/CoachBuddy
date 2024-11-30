@@ -34,7 +34,7 @@
                 <tr>
                     <td>@group.Name</td>
                     <td>@group.Description</td>
-                    <td>@group.CreatedAt.ToString("yyyy-MM-dd")</td>
+                    <td>@group.CreatedAt?.ToString("yyyy-MM-dd")</td>
                     <td>
                         <a class="btn btn-primary btn-sm" asp-controller="Group" asp-action="Details" asp-route-encodedName="@group.EncodedName">
                             <i class="bi bi-person-vcard"> Details</i>
