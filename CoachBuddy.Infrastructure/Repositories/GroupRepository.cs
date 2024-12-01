@@ -43,5 +43,18 @@ namespace CoachBuddy.Infrastructure.Repositories
         {
             return await _dbContext.Groups.CountAsync();
         }
+
+        public async Task<Group> GetGroupWithClientsAsync(int groupId)
+        {
+            return await _dbContext.Groups
+                .Include(g => g.ClientGroups)
+                .ThenInclude(cg => cg.Client)
+                .FirstOrDefaultAsync(g => g.Id == groupId);
+        }
+
+        public async Task SaveAsync()
+        {
+            await _dbContext.SaveChangesAsync();
+        }
     }
 }

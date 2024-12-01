@@ -1,4 +1,8 @@
-﻿namespace CoachBuddy.Application.Group
+﻿using CoachBuddy.Application.Client;
+using CoachBuddy.Application.ClientGroup;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
+namespace CoachBuddy.Application.Group
 {
     public class GroupDto
     {
@@ -6,6 +10,9 @@
         public string Name { get; set; } = default!;
         public string? Description { get; set; }
         public DateTime? CreatedAt { get; set; }
+        public List<ClientGroupDto> ClientGroups { get; set; } = new List<ClientGroupDto>();
+        public SelectList ClientSelectList { get; set; }
+        public int NewClientId { get; set; }
         public string? EncodedName { get; set; }
         public string? CreatedById { get; set; }
         public bool IsEditable { get; set; }

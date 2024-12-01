@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using CoachBuddy.Application.Client.Commands.DeleteClient;
 using CoachBuddy.Application.Group;
+using CoachBuddy.Application.Group.Commands.AddClientToGroup;
 using CoachBuddy.Application.Group.Commands.CreateGroup;
 using CoachBuddy.Application.Group.Commands.DeleteGroup;
 using CoachBuddy.Application.Group.Commands.EditGroup;
@@ -154,6 +154,21 @@ namespace CoachBuddy.MVC.Controllers
             var groups = await _mediator.Send(query);
 
             return View("Index", groups);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddClientToGroup(int groupId, int clientId)
+        {
+            try
+            {
+                await _mediator.Send(new AddClientToGroupCommand { GroupId = groupId, ClientId = clientId });
+                TempData["SuccessMessage"] = "Client added to the group successfully.";
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+            }
+
+            return RedirectToAction("Details", new { id = groupId });
         }
     }
 }

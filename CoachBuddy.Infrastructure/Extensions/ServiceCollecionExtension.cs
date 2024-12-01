@@ -35,6 +35,8 @@ namespace CoachBuddy.Infrastructure.Extensions
             services.AddTransient<IRequestHandler<DeleteClientCommand>, DeleteClientCommandHandler>();
             services.AddTransient<IRequestHandler<DeleteGroupCommand>, DeleteGroupCommandHandler>();
 
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
         }
     }
 }
