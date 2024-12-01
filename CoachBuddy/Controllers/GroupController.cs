@@ -6,6 +6,7 @@ using CoachBuddy.Application.Group.Commands.DeleteGroup;
 using CoachBuddy.Application.Group.Commands.EditGroup;
 using CoachBuddy.Application.Group.Queries.GetAllGroups;
 using CoachBuddy.Application.Group.Queries.GetGroupByEncodedName;
+using CoachBuddy.Application.Group.Queries.GetGroupDetails;
 using CoachBuddy.Application.Group.Queries.GetGroupsBySearch;
 using CoachBuddy.Infrastructure.Persistence;
 using CoachBuddy.MVC.Extensions;
@@ -44,13 +45,27 @@ namespace CoachBuddy.MVC.Controllers
         [Route("Group/{encodedName}/Details")]
         public async Task<IActionResult> Details(string encodedName)
         {
-            var dto = await _mediator.Send(new GetGroupByEncodedNameQuery(encodedName));
-
-            if (dto == null)
+            try
             {
-                return NotFound();
+                // Wysyłamy zapytanie do MediatR, aby pobrać szczegóły grupy
+                var query = new GetGroupDetailsQuery(encodedName);
+                var groupDetailsDto = await _mediator.Send(query);
+
+                if (groupDetailsDto == null)
+                {
+                    // Jeśli grupa nie została znaleziona, zwróć błąd 404
+                    return NotFound();
+                }
+
+                // Przekazujemy dane do widoku
+                return View(groupDetailsDto);
             }
-            return View(dto);
+            catch (Exception ex)
+            {
+                // W przypadku błędów wyświetlamy komunikat
+                TempData["ErrorMessage"] = "An error occurred while fetching group details. Please try again later.";
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         [Authorize(Roles = "Admin")]
@@ -170,5 +185,6 @@ namespace CoachBuddy.MVC.Controllers
 
             return RedirectToAction("Details", new { id = groupId });
         }
+        
     }
 }

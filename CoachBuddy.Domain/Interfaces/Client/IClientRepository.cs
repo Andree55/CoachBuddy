@@ -10,5 +10,6 @@
         Task<Entities.Client.Client> GetByIdAsync(int Id);
         Task DeleteAsync(Entities.Client.Client client);
         Task<int> GetClientCountAsync();
+        Task<List<Entities.Client.Client>> GetAllClientsAsync();
     }
 }

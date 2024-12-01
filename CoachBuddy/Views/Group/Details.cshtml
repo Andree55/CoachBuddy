@@ -1,7 +1,7 @@
 ﻿@model CoachBuddy.Application.Group.GroupDto
 
 @{
-    ViewData["Title"] = "Group Details";
+    ViewData["Title"] = $"{Model.Name} - Details";
 }
 
 <h1>@Model.Name - Details</h1>
@@ -40,18 +40,38 @@
     @if (Model.IsEditable)
     {
         <a class="btn btn-outline-primary btn-sm" asp-controller="Group" asp-action="Edit" asp-route-encodedName="@Model.EncodedName">Edit</a>
-        <form asp-action="AddClientToGroup" method="post" class="mt-3">
-            <h4>Add Client to Group</h4>
-            <div class="form-group">
-                <label for="ClientId">Select Client:</label>
-                <select asp-for="NewClientId" asp-items="Model.ClientSelectList" class="form-control"></select>
-            </div>
-            <input type="hidden" name="GroupId" value="@Model.Id" />
-            <button type="submit" class="btn btn-success btn-sm">Add Client</button>
-        </form>
     }
     <a class="btn btn-outline-secondary btn-sm" asp-action="Index">Back to List</a>
 </div>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+@if (Model.IsEditable)
+{
+    <form asp-action="AddClientToGroup" method="post" id="add-client-form" class="mt-4">
+        <h4>Add Client to Group</h4>
+        <div class="form-group">
+            <label for="ClientId">Select Client:</label>
+            <select name="ClientId" class="form-control">
+                <option value="">Select Client</option>
+                @foreach (var client in Model.AvailableClients)
+                {
+                    <option value="@client.Id">@client.Name</option>
+                }
+            </select>
+        </div>
+        <input type="hidden" name="GroupId" value="@Model.Id" />
+        <button type="submit" class="btn btn-success btn-sm">Add Client</button>
+    </form>
+}
 
 @if (Model.ClientGroups.Any())
 {
@@ -69,12 +89,14 @@
             {
                 <tr>
                     <td>@clientGroup.FullName</td>
-                    <td>@clientGroup.AssignedAt.ToString("yyyy-MM-dd HH:mm")</td>
+                    <td>@clientGroup.AssignedAt.ToString("dd MMM yyyy, HH:mm")</td>
                     <td>
                         <form asp-action="RemoveClientFromGroup" method="post" class="d-inline">
                             <input type="hidden" name="ClientId" value="@clientGroup.ClientId" />
                             <input type="hidden" name="GroupId" value="@Model.Id" />
-                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i> Remove
+                            </button>
                         </form>
                     </td>
                 </tr>
