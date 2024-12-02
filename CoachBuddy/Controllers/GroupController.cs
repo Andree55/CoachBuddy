@@ -47,22 +47,18 @@ namespace CoachBuddy.MVC.Controllers
         {
             try
             {
-                // Wysyłamy zapytanie do MediatR, aby pobrać szczegóły grupy
                 var query = new GetGroupDetailsQuery(encodedName);
                 var groupDetailsDto = await _mediator.Send(query);
 
                 if (groupDetailsDto == null)
                 {
-                    // Jeśli grupa nie została znaleziona, zwróć błąd 404
                     return NotFound();
                 }
 
-                // Przekazujemy dane do widoku
                 return View(groupDetailsDto);
             }
             catch (Exception ex)
             {
-                // W przypadku błędów wyświetlamy komunikat
                 TempData["ErrorMessage"] = "An error occurred while fetching group details. Please try again later.";
                 return RedirectToAction(nameof(Index));
             }
