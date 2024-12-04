@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using CoachBuddy.Application;
+using CoachBuddy.Application.ClientGroup;
 using CoachBuddy.Application.Group;
 using CoachBuddy.Application.Group.Commands.AddClientToGroup;
 using CoachBuddy.Application.Group.Commands.CreateGroup;
@@ -14,6 +16,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace CoachBuddy.MVC.Controllers
 {
@@ -42,26 +45,48 @@ namespace CoachBuddy.MVC.Controllers
             return View(paginatedResult);
         }
 
-        [Route("Group/{encodedName}/Details")]
-        public async Task<IActionResult> Details(string encodedName)
+        [Route("Group/Details")]
+        public IActionResult Details(string encodedName)
         {
-            try
-            {
-                var query = new GetGroupDetailsQuery(encodedName);
-                var groupDetailsDto = await _mediator.Send(query);
+            var group = _context.Groups
+                .Include(g => g.ClientGroups)
+                    .ThenInclude(cg => cg.Client)
+                .FirstOrDefault(g => g.EncodedName == encodedName);
 
-                if (groupDetailsDto == null)
+            if (group == null)
+            {
+                return NotFound();
+            }
+
+            var assignedClientIds = group.ClientGroups
+                .Select(cg => cg.ClientId)
+                .ToList();
+
+            var availableClients = _context.Clients
+                .Where(c => !assignedClientIds.Contains(c.Id))
+                .Select(c => new AvailableClientDto
                 {
-                    return NotFound();
-                }
+                    Id = c.Id,
+                    FullName = $"{c.Name} {c.LastName}"
+                })
+                .ToList();
 
-                return View(groupDetailsDto);
-            }
-            catch (Exception ex)
+            var groupDto = new GroupDto
             {
-                TempData["ErrorMessage"] = "An error occurred while fetching group details. Please try again later.";
-                return RedirectToAction(nameof(Index));
-            }
+                Id = group.Id,
+                Name = group.Name,
+                Description = group.Description,
+                CreatedAt = group.CreatedAt,
+                ClientGroups = group.ClientGroups.Select(cg => new ClientGroupDto
+                {
+                    ClientId = cg.ClientId,
+                    FullName = $"{cg.Client.Name} {cg.Client.LastName}",
+                    AssignedAt = cg.AssignedAt
+                }).ToList(),
+                AvailableClients = availableClients
+            };
+
+            return View(groupDto);
         }
 
         [Authorize(Roles = "Admin")]

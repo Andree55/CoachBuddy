@@ -32,7 +32,7 @@ namespace CoachBuddy.Application.Group.Queries.GetGroupDetails
                 .Select(c => new AvailableClientDto
                 {
                     Id = c.Id,
-                    Name = $"{c.Name} {c.LastName}"
+                    FullName = $"{c.Name} {c.LastName}"
                 })
                 .ToList();
 

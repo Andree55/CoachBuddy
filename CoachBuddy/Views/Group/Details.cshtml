@@ -60,11 +60,11 @@
         <h4>Add Client to Group</h4>
         <div class="form-group">
             <label for="ClientId">Select Client:</label>
-            <select name="ClientId" class="form-control">
+            <select name="ClientId" class="form-control" id="ClientId">
                 <option value="">Select Client</option>
                 @foreach (var client in Model.AvailableClients)
                 {
-                    <option value="@client.Id">@client.Name</option>
+                    <option value="@client.Id">@client.FullName</option>
                 }
             </select>
         </div>
