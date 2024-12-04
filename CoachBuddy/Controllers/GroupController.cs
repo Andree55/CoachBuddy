@@ -10,6 +10,7 @@ using CoachBuddy.Application.Group.Queries.GetAllGroups;
 using CoachBuddy.Application.Group.Queries.GetGroupByEncodedName;
 using CoachBuddy.Application.Group.Queries.GetGroupDetails;
 using CoachBuddy.Application.Group.Queries.GetGroupsBySearch;
+using CoachBuddy.Domain.Entities.Group;
 using CoachBuddy.Infrastructure.Persistence;
 using CoachBuddy.MVC.Extensions;
 using MediatR;
@@ -45,48 +46,21 @@ namespace CoachBuddy.MVC.Controllers
             return View(paginatedResult);
         }
 
-        [Route("Group/Details")]
-        public IActionResult Details(string encodedName)
+        public async Task<IActionResult> Details(string encodedName)
         {
-            var group = _context.Groups
-                .Include(g => g.ClientGroups)
-                    .ThenInclude(cg => cg.Client)
-                .FirstOrDefault(g => g.EncodedName == encodedName);
+            var query = new GetGroupDetailsQuery
+            {
+                EncodedName = encodedName
+            };
 
-            if (group == null)
+            var groupDetailsDto = await _mediator.Send(query);
+
+            if (groupDetailsDto == null)
             {
                 return NotFound();
             }
 
-            var assignedClientIds = group.ClientGroups
-                .Select(cg => cg.ClientId)
-                .ToList();
-
-            var availableClients = _context.Clients
-                .Where(c => !assignedClientIds.Contains(c.Id))
-                .Select(c => new AvailableClientDto
-                {
-                    Id = c.Id,
-                    FullName = $"{c.Name} {c.LastName}"
-                })
-                .ToList();
-
-            var groupDto = new GroupDto
-            {
-                Id = group.Id,
-                Name = group.Name,
-                Description = group.Description,
-                CreatedAt = group.CreatedAt,
-                ClientGroups = group.ClientGroups.Select(cg => new ClientGroupDto
-                {
-                    ClientId = cg.ClientId,
-                    FullName = $"{cg.Client.Name} {cg.Client.LastName}",
-                    AssignedAt = cg.AssignedAt
-                }).ToList(),
-                AvailableClients = availableClients
-            };
-
-            return View(groupDto);
+            return View(groupDetailsDto);
         }
 
         [Authorize(Roles = "Admin")]
@@ -196,7 +170,14 @@ namespace CoachBuddy.MVC.Controllers
         {
             try
             {
-                await _mediator.Send(new AddClientToGroupCommand { GroupId = groupId, ClientId = clientId });
+                var command = new AddClientToGroupCommand
+                {
+                    GroupId = groupId,
+                    ClientId = clientId
+                };
+
+                await _mediator.Send(command);
+
                 TempData["SuccessMessage"] = "Client added to the group successfully.";
             }
             catch (Exception ex)
@@ -204,8 +185,8 @@ namespace CoachBuddy.MVC.Controllers
                 TempData["ErrorMessage"] = ex.Message;
             }
 
-            return RedirectToAction("Details", new { id = groupId });
+            return RedirectToAction("Details", new { encodedName = groupId });
         }
-        
+
     }
 }

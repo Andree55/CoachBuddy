@@ -1,4 +1,6 @@
-﻿namespace CoachBuddy.Domain.Interfaces.Group
+﻿using CoachBuddy.Domain.Entities.Group;
+
+namespace CoachBuddy.Domain.Interfaces.Group
 {
     public interface IGroupRepository
     {
@@ -9,8 +11,11 @@
         Task<Entities.Group.Group> GetByIdAsync(int Id);
         Task DeleteAsync(Entities.Group.Group group);
         Task<Entities.Group.Group> GetByEncodedName(string encodedName);
+        Task<List<ClientGroup>> GetClientGroupsByGroupIdAsync(int groupId);
+        Task<Entities.Group.Group> GetByEncodedNameAsync(string encodedName);
         Task<int> GetGroupCountAsync();
         Task<Entities.Group.Group> GetGroupWithClientsAsync(int groupId);
         Task SaveAsync();
+
     }
 }

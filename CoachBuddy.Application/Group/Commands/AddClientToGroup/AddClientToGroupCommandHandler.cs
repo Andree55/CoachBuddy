@@ -1,4 +1,5 @@
-﻿using CoachBuddy.Application.ClientGroup;
+﻿using AutoMapper;
+using CoachBuddy.Application.ClientGroup;
 using CoachBuddy.Domain.Interfaces.Client;
 using CoachBuddy.Domain.Interfaces.Group;
 using MediatR;
@@ -9,31 +10,33 @@ namespace CoachBuddy.Application.Group.Commands.AddClientToGroup
     {
         private readonly IGroupRepository _groupRepository;
         private readonly IClientRepository _clientRepository;
+        private readonly IMapper _mapper;
 
-        public AddClientToGroupCommandHandler(IGroupRepository groupRepository,IClientRepository clientRepository)
+        public AddClientToGroupCommandHandler(IGroupRepository groupRepository,IClientRepository clientRepository, IMapper mapper)
         {
             _groupRepository = groupRepository;
             _clientRepository = clientRepository;
+            _mapper = mapper;
         }
         public async Task<Unit> Handle(AddClientToGroupCommand request, CancellationToken cancellationToken)
         {
-            var group = await _groupRepository.GetGroupWithClientsAsync(request.GroupId);
+            var group = await _groupRepository.GetByIdAsync(request.GroupId);
 
             if (group == null)
             {
-                throw new ArgumentException("Group not found.");
+                throw new KeyNotFoundException($"Group with ID {request.GroupId} not found.");
             }
 
             var client = await _clientRepository.GetByIdAsync(request.ClientId);
 
             if (client == null)
             {
-                throw new ArgumentException("Client not found.");
+                throw new KeyNotFoundException($"Client with ID {request.ClientId} not found.");
             }
 
             if (group.ClientGroups.Any(cg => cg.ClientId == request.ClientId))
             {
-                throw new InvalidOperationException("Client is already in the group.");
+                throw new InvalidOperationException($"Client with ID {request.ClientId} is already assigned to this group.");
             }
 
             var clientGroup = new Domain.Entities.Group.ClientGroup

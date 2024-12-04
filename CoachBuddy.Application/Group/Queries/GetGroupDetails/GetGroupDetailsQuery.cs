@@ -2,15 +2,9 @@
 
 namespace CoachBuddy.Application.Group.Queries.GetGroupDetails
 {
-    public class GetGroupDetailsQuery:IRequest<GroupDto>
+    public class GetGroupDetailsQuery:IRequest<GroupDetailsDto>
     {
-        public int GroupId { get; set; }
-        public string EncodedName { get; }
-
-        public GetGroupDetailsQuery(string encodedName)
-        {
-            EncodedName = encodedName;
-        }
+        public string EncodedName { get; set; }
     }
 }
 

@@ -1,4 +1,4 @@
-﻿@model CoachBuddy.Application.Group.GroupDto
+﻿@model CoachBuddy.Application.Group.GroupDetailsDto
 
 @{
     ViewData["Title"] = $"{Model.Name} - Details";
@@ -60,7 +60,7 @@
         <h4>Add Client to Group</h4>
         <div class="form-group">
             <label for="ClientId">Select Client:</label>
-            <select name="ClientId" class="form-control" id="ClientId">
+            <select name="clientId" class="form-control" id="ClientId">
                 <option value="">Select Client</option>
                 @foreach (var client in Model.AvailableClients)
                 {
@@ -68,7 +68,7 @@
                 }
             </select>
         </div>
-        <input type="hidden" name="GroupId" value="@Model.Id" />
+        <input type="hidden" name="groupId" value="@Model.Id" />
         <button type="submit" class="btn btn-success btn-sm">Add Client</button>
     </form>
 }

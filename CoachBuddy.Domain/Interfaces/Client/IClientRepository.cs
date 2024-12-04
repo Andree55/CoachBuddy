@@ -11,5 +11,6 @@
         Task DeleteAsync(Entities.Client.Client client);
         Task<int> GetClientCountAsync();
         Task<List<Entities.Client.Client>> GetAllClientsAsync();
+        Task<List<Entities.Client.Client>> GetAvailableClientsForGroupAsync(int groupId);
     }
 }
