@@ -6,7 +6,7 @@
 
 ## 🚀 Key Features
 - **Workout Plan Management**: Easily create personalized workout plans tailored to individual needs.
-- **Progress Tracking**: Monitor clients’ progress through detailed statistics, charts, and analytics.
+- **Progress Tracking**: Monitor client's progress through detailed statistics, charts, and analytics.
 - **Notifications and Reminders**: Keep on track with timely notifications about scheduled activities.
 
 ---
@@ -15,3 +15,4 @@
 - **Personal Trainers**: Manage multiple clients in one convenient platform.
 - **Fitness Enthusiasts**: Organize workouts and nutrition plans with ease.
 
+In progress...
