@@ -16,6 +16,6 @@ namespace CoachBuddy.Domain.Interfaces.Group
         Task<int> GetGroupCountAsync();
         Task<Entities.Group.Group> GetGroupWithClientsAsync(int groupId);
         Task SaveAsync();
-
+        Task<IEnumerable<object>> GetAvailableClientsForGroupAsync(int groupId);
     }
 }

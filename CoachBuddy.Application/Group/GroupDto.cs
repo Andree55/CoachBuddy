@@ -12,5 +12,6 @@ namespace CoachBuddy.Application.Group
         public DateTime? CreatedAt { get; set; }
         public string? EncodedName { get; set; }
         public string? CreatedById { get; set; }
+        public bool IsEditable { get; set; }
     }
 }

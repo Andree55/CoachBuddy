@@ -33,7 +33,18 @@ namespace CoachBuddy.Infrastructure.Repositories
 
         public async Task<List<Client>> GetAllClientsAsync()
         => await _dbContext.Clients.ToListAsync();
-            
+
+        public async Task<List<Client>> GetAvailableClientsForGroupAsync(int groupId)
+        {
+            var assignedClientIds = await _dbContext.ClientGroups
+                .Where(cg => cg.GroupId == groupId)
+                .Select(cg => cg.ClientId)
+                .ToListAsync();
+
+            return await _dbContext.Clients
+                .Where(c => !assignedClientIds.Contains(c.Id))
+                .ToListAsync();
+        }
 
         public async Task<Client> GetByEncodedName(string encodedName)
             => await _dbContext.Clients.FirstAsync(c => c.EncodedName == encodedName);
