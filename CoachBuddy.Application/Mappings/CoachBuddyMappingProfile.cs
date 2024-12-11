@@ -77,9 +77,13 @@ namespace CoachBuddy.Application.Mappings
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt))
                 .ForMember(dest => dest.EncodedName, opt => opt.MapFrom(src => src.EncodedName))
                 .ForMember(dest => dest.CreatedById, opt => opt.MapFrom(src => src.CreatedById))
-                .ForMember(dest => dest.IsEditable, opt => opt.MapFrom(src => user != null && user.IsInRole("Admin")))
+                .ForMember(dest => dest.IsEditable, opt => opt.MapFrom(src => user != null && (user.IsInRole("Admin"))))
                 .ForMember(dest => dest.ClientGroups, opt => opt.MapFrom(src => src.ClientGroups))
-                .ForMember(dest => dest.AvailableClients, opt => opt.MapFrom(src => src.ClientGroups));
+                .ForMember(dest => dest.AvailableClients, opt => opt.MapFrom(src => src.ClientGroups.Select(cg => cg.Client)));
+           
+            CreateMap<Domain.Entities.Group.ClientGroup, AvailableClientDto>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Client.Id))
+                .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.Client.Name} {src.Client.LastName}"));
         }
     }
 }
