@@ -47,7 +47,8 @@ namespace CoachBuddy.Application.Mappings
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt))
                 .ForMember(dest => dest.EncodedName, opt => opt.MapFrom(src => src.EncodedName))
-                .ForMember(dest => dest.CreatedById, opt => opt.MapFrom(src => src.CreatedById));
+                .ForMember(dest => dest.CreatedById, opt => opt.MapFrom(src => src.CreatedById))
+                .ForMember(dest => dest.IsEditable, opt => opt.MapFrom(src => user != null && user.IsInRole("Admin")));
 
             CreateMap<GroupDto, Domain.Entities.Group.Group>()
                 .ForMember(dest => dest.Id, opt => opt.Ignore())
@@ -77,7 +78,7 @@ namespace CoachBuddy.Application.Mappings
                 .ForMember(dest => dest.CreatedAt, opt => opt.MapFrom(src => src.CreatedAt))
                 .ForMember(dest => dest.EncodedName, opt => opt.MapFrom(src => src.EncodedName))
                 .ForMember(dest => dest.CreatedById, opt => opt.MapFrom(src => src.CreatedById))
-                .ForMember(dest => dest.IsEditable, opt => opt.MapFrom(src => user != null && (user.IsInRole("Admin"))))
+                .ForMember(dest => dest.IsEditable, opt => opt.MapFrom(src => user != null && user.IsInRole("Admin")))
                 .ForMember(dest => dest.ClientGroups, opt => opt.MapFrom(src => src.ClientGroups))
                 .ForMember(dest => dest.AvailableClients, opt => opt.MapFrom(src => src.ClientGroups.Select(cg => cg.Client)));
            
