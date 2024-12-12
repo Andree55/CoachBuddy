@@ -1,10 +1,4 @@
 ﻿using Xunit;
-using CoachBuddy.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 
 namespace CoachBuddy.Domain.Entities.Tests
@@ -15,7 +9,7 @@ namespace CoachBuddy.Domain.Entities.Tests
         public void EncodeName_ShouldSetEncodedName()
         {
             // arrange
-            var client = new Client();
+            var client = new Client.Client();
             client.Name = "Test";
             client.LastName = "Client";
 
@@ -32,7 +26,7 @@ namespace CoachBuddy.Domain.Entities.Tests
         public void EncodeName_ShouldThrowException_WhenNameIsNull()
         {
             // arrange
-            var client = new Client();
+            var client = new Client.Client();
 
             // act
 

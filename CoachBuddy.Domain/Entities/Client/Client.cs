@@ -1,11 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CoachBuddy.Domain.Entities.Group;
+using Microsoft.AspNetCore.Identity;
 
-namespace CoachBuddy.Domain.Entities
+namespace CoachBuddy.Domain.Entities.Client
 {
     public class Client
     {
@@ -25,6 +21,8 @@ namespace CoachBuddy.Domain.Entities
         public string EncodedName { get; private set; } = default!;
 
         public List<ClientTraining> Trainings { get; set; } = new();
+        public List<ClientGroup> ClientGroups { get; set; } = new();
+
         public void EncodeName() => EncodedName = $"{Name.ToLower().Replace(" ", "-")}-{LastName.ToLower().Replace(" ", "-")}";
     }
 }

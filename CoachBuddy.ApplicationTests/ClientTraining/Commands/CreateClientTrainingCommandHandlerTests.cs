@@ -1,16 +1,10 @@
 ﻿using Xunit;
-using CoachBuddy.Application.ClientTraining.Commands;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CoachBuddy.Application.ApplicationUser;
 using CoachBuddy.Application.CoachBuddy;
 using MediatR;
 using Moq;
-using CoachBuddy.Domain.Interfaces;
 using FluentAssertions;
+using CoachBuddy.Domain.Interfaces.Client;
 
 namespace CoachBuddy.Application.ClientTraining.Commands.Tests
 {
@@ -21,7 +15,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
         {
             // arrange
 
-            var client = new Domain.Entities.Client()
+            var client = new Domain.Entities.Client.Client()
             {
                 Id = 1,
                 CreatedById = "1"
@@ -56,7 +50,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
             // assert
 
             result.Should().Be(Unit.Value);
-            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<Domain.Entities.ClientTraining>()), Times.Once);
+            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<Domain.Entities.Client.ClientTraining>()), Times.Once);
 
         }
 
@@ -66,7 +60,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
         {
             // arrange
 
-            var client = new Domain.Entities.Client()
+            var client = new Domain.Entities.Client.Client()
             {
                 Id = 1,
                 CreatedById = "1"
@@ -101,7 +95,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
             // assert
 
             result.Should().Be(Unit.Value);
-            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<Domain.Entities.ClientTraining>()), Times.Once);
+            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<Domain.Entities.Client.ClientTraining>()), Times.Once);
 
         }
 
@@ -111,7 +105,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
         {
             // arrange
 
-            var client = new Domain.Entities.Client()
+            var client = new Domain.Entities.Client.Client()
             {
                 Id = 1,
                 CreatedById = "1"
@@ -146,7 +140,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
             // assert
 
             result.Should().Be(Unit.Value);
-            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<Domain.Entities.ClientTraining>()), Times.Never);
+            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<Domain.Entities.Client.ClientTraining>()), Times.Never);
 
         }
 
@@ -156,7 +150,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
         {
             // arrange
 
-            var client = new Domain.Entities.Client()
+            var client = new Domain.Entities.Client.Client()
             {
                 Id = 1,
                 CreatedById = "1"
@@ -191,7 +185,7 @@ namespace CoachBuddy.Application.ClientTraining.Commands.Tests
             // assert
 
             result.Should().Be(Unit.Value);
-            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<Domain.Entities.ClientTraining>()), Times.Never);
+            clientTrainingRepositoryMock.Verify(m => m.Create(It.IsAny<Domain.Entities.Client.ClientTraining>()), Times.Never);
 
         }
     }

@@ -10,13 +10,10 @@ using CoachBuddy.Application.ClientTraining.Queries.GetClientTrainings;
 using CoachBuddy.Application.Client.Queries.GetClientsBySearch;
 using CoachBuddy.Infrastructure.Persistence;
 using CoachBuddy.MVC.Extensions;
-using CoachBuddy.MVC.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
-using NuGet.Protocol.Core.Types;
 
 namespace CoachBuddy.MVC.Controllers
 {
@@ -78,17 +75,18 @@ namespace CoachBuddy.MVC.Controllers
 
             await _mediator.Send(command);
 
+            this.SetNotification("success", $"Group '{command.Name}' has been updated.");
             return RedirectToAction(nameof(Index));
         }
 
-        [Authorize(Roles = "Owner")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
-        [Authorize(Roles = "Owner")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create(CreateClientCommand command)
         {
             if (!ModelState.IsValid)
@@ -104,7 +102,7 @@ namespace CoachBuddy.MVC.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Owner")]
+        [Authorize(Roles = "Admin")]
         [Route("Client/ClientTraining")]
         public async Task<IActionResult> CreateClientTraining(CreateClientTrainingCommand command)
         {
@@ -127,7 +125,7 @@ namespace CoachBuddy.MVC.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Owner")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -148,7 +146,7 @@ namespace CoachBuddy.MVC.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Owner")]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         [Route("Client/Delete/{id}")]
         public async Task<IActionResult> DeleteConfirmed(int id)

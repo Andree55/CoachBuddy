@@ -1,10 +1,5 @@
 ﻿using CoachBuddy.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CoachBuddy.Infrastructure.Seeders
 {
@@ -25,7 +20,7 @@ namespace CoachBuddy.Infrastructure.Seeders
 
                 if (!_dbContext.Clients.Any())
                 {
-                    var adamK = new Domain.Entities.Client()
+                    var adamK = new Domain.Entities.Client.Client()
                     {
                         Name = "Adam",
                         LastName="Kowalski",
@@ -42,6 +37,20 @@ namespace CoachBuddy.Infrastructure.Seeders
                     adamK.EncodeName();
                
                     _dbContext.Clients.Add(adamK);
+                    await _dbContext.SaveChangesAsync();
+                }
+
+                if (!_dbContext.Groups.Any())
+                {
+                    var newClients = new Domain.Entities.Group.Group()
+                    {
+                        Name = "New Clients",
+                        Description = "Some group description",
+                        CreatedAt = DateTime.UtcNow
+                    };
+                    newClients.EncodeName();
+
+                    _dbContext.Groups.Add(newClients);
                     await _dbContext.SaveChangesAsync();
                 }
             }

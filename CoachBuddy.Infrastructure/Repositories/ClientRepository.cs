@@ -1,5 +1,5 @@
-﻿using CoachBuddy.Domain.Entities;
-using CoachBuddy.Domain.Interfaces;
+﻿using CoachBuddy.Domain.Entities.Client;
+using CoachBuddy.Domain.Interfaces.Client;
 using CoachBuddy.Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +16,7 @@ namespace CoachBuddy.Infrastructure.Repositories
         public Task Commit()
         => _dbContext.SaveChangesAsync();
 
-        public async Task Create(Domain.Entities.Client client)
+        public async Task Create(Client client)
         {
             _dbContext.Add(client);
             await _dbContext.SaveChangesAsync();
@@ -30,6 +30,21 @@ namespace CoachBuddy.Infrastructure.Repositories
 
         public async Task<IEnumerable<Client>> GetAll()
             => await _dbContext.Clients.ToListAsync();
+
+        public async Task<List<Client>> GetAllClientsAsync()
+        => await _dbContext.Clients.ToListAsync();
+
+        public async Task<List<Client>> GetAvailableClientsForGroupAsync(int groupId)
+        {
+            var assignedClientIds = await _dbContext.ClientGroups
+                .Where(cg => cg.GroupId == groupId)
+                .Select(cg => cg.ClientId)
+                .ToListAsync();
+
+            return await _dbContext.Clients
+                .Where(c => !assignedClientIds.Contains(c.Id))
+                .ToListAsync();
+        }
 
         public async Task<Client> GetByEncodedName(string encodedName)
             => await _dbContext.Clients.FirstAsync(c => c.EncodedName == encodedName);

@@ -61,7 +61,25 @@ namespace CoachBuddy.Infrastructure.Migrations
 
                     b.HasIndex("CreatedById");
 
-                    b.ToTable("Clients");
+                    b.ToTable("Clients", (string)null);
+                });
+
+            modelBuilder.Entity("CoachBuddy.Domain.Entities.ClientGroup", b =>
+                {
+                    b.Property<int>("ClientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GroupId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("AssignedAt")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("ClientId", "GroupId");
+
+                    b.HasIndex("GroupId");
+
+                    b.ToTable("ClientGroups", (string)null);
                 });
 
             modelBuilder.Entity("CoachBuddy.Domain.Entities.ClientTraining", b =>
@@ -86,7 +104,30 @@ namespace CoachBuddy.Infrastructure.Migrations
 
                     b.HasIndex("ClientId");
 
-                    b.ToTable("Trainings");
+                    b.ToTable("Trainings", (string)null);
+                });
+
+            modelBuilder.Entity("CoachBuddy.Domain.Entities.Group", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Groups", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -297,7 +338,7 @@ namespace CoachBuddy.Infrastructure.Migrations
                         .WithMany()
                         .HasForeignKey("CreatedById");
 
-                    b.OwnsOne("CoachBuddy.Domain.Entities.ClientContactDetails", "ContactDetails", b1 =>
+                    b.OwnsOne("CoachBuddy.Domain.Entities.Client.ContactDetails#CoachBuddy.Domain.Entities.ClientContactDetails", "ContactDetails", b1 =>
                         {
                             b1.Property<int>("ClientId")
                                 .HasColumnType("int");
@@ -316,7 +357,7 @@ namespace CoachBuddy.Infrastructure.Migrations
 
                             b1.HasKey("ClientId");
 
-                            b1.ToTable("Clients");
+                            b1.ToTable("Clients", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("ClientId");
@@ -326,6 +367,25 @@ namespace CoachBuddy.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("CreatedBy");
+                });
+
+            modelBuilder.Entity("CoachBuddy.Domain.Entities.ClientGroup", b =>
+                {
+                    b.HasOne("CoachBuddy.Domain.Entities.Client", "Client")
+                        .WithMany("ClientGroups")
+                        .HasForeignKey("ClientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CoachBuddy.Domain.Entities.Group", "Group")
+                        .WithMany("ClientGroups")
+                        .HasForeignKey("GroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Client");
+
+                    b.Navigation("Group");
                 });
 
             modelBuilder.Entity("CoachBuddy.Domain.Entities.ClientTraining", b =>
@@ -392,7 +452,14 @@ namespace CoachBuddy.Infrastructure.Migrations
 
             modelBuilder.Entity("CoachBuddy.Domain.Entities.Client", b =>
                 {
+                    b.Navigation("ClientGroups");
+
                     b.Navigation("Trainings");
+                });
+
+            modelBuilder.Entity("CoachBuddy.Domain.Entities.Group", b =>
+                {
+                    b.Navigation("ClientGroups");
                 });
 #pragma warning restore 612, 618
         }

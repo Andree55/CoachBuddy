@@ -1,12 +1,6 @@
-﻿using AutoMapper;
-using CoachBuddy.Application.ApplicationUser;
-using CoachBuddy.Domain.Interfaces;
+﻿using CoachBuddy.Application.ApplicationUser;
+using CoachBuddy.Domain.Interfaces.Client;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CoachBuddy.Application.Client.Commands.EditClient
 {
@@ -26,7 +20,7 @@ namespace CoachBuddy.Application.Client.Commands.EditClient
 
             var user = _userContext.GetCurrentUser();
 
-            var isEditable =user != null && (client.CreatedById == user.Id || user.IsInRole("Moderator"));
+            var isEditable = user != null &&  user.IsInRole("Admin");
 
             if (!isEditable)
             {

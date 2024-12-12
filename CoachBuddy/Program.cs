@@ -1,12 +1,13 @@
-using CoachBuddy.Infrastructure.Persistence;
-using Microsoft.EntityFrameworkCore;
 using CoachBuddy.Infrastructure.Extensions;
 using CoachBuddy.Infrastructure.Seeders;
 using CoachBuddy.Application.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole(); 
+builder.Logging.AddDebug();  
+
 builder.Services.AddControllersWithViews(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
 
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -42,6 +43,7 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.MapRazorPages();
+
 
 app.Run();
 

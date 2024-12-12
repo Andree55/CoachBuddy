@@ -4,6 +4,7 @@ using CoachBuddy.Models;
 using MediatR;
 using CoachBuddy.Application.Client.Queries.GetClientCount;
 using CoachBuddy.MVC.Models;
+using CoachBuddy.Application.Group.Queries.GetGroupCount;
 
 namespace CoachBuddy.Controllers;
 
@@ -21,9 +22,11 @@ public class HomeController : Controller
     public async Task<IActionResult> Index()
     {
         var clientCount = await _mediator.Send(new GetClientCountQuery());
+        var groupCount = await _mediator.Send(new GetGroupCountQuery());
         var viewModel = new HomeViewModel
         {
-            ClientCount = clientCount
+            ClientCount = clientCount,
+            GroupCount = groupCount
         };
         return View(viewModel);
     }

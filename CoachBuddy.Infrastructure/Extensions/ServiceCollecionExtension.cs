@@ -1,5 +1,8 @@
 ﻿using CoachBuddy.Application.Client.Commands.DeleteClient;
-using CoachBuddy.Domain.Interfaces;
+using CoachBuddy.Application.Group.Commands.DeleteGroup;
+using CoachBuddy.Application.Mappings;
+using CoachBuddy.Domain.Interfaces.Client;
+using CoachBuddy.Domain.Interfaces.Group;
 using CoachBuddy.Infrastructure.Persistence;
 using CoachBuddy.Infrastructure.Repositories;
 using CoachBuddy.Infrastructure.Seeders;
@@ -8,11 +11,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CoachBuddy.Infrastructure.Extensions
 {
@@ -32,8 +30,13 @@ namespace CoachBuddy.Infrastructure.Extensions
             services.AddScoped<IClientRepository, ClientRepository>();
             services.AddScoped<IClientTrainingRepository, ClientTrainingRepository>();
 
-            services.AddTransient<IRequestHandler<DeleteClientCommand>, DeleteClientCommandHandler>();
+            services.AddScoped<IGroupRepository, GroupRepository>();
 
+            services.AddTransient<IRequestHandler<DeleteClientCommand>, DeleteClientCommandHandler>();
+            services.AddTransient<IRequestHandler<DeleteGroupCommand>, DeleteGroupCommandHandler>();
+
+            services.AddScoped<IGroupRepository, GroupRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
         }
     }
 }

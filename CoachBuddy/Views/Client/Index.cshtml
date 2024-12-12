@@ -39,7 +39,7 @@
                     <td>@item.PhoneNumber</td>
                     <td>@item.Description</td>
                     <td>
-                        <a class="btn btn-primary btn-sm" class="bi bi-info-circle" asp-controller="Client" asp-action="Details" asp-route-encodedName="@item.EncodedName"><i class="bi bi-person-vcard"> Details</i></a>
+                        <a class="btn btn-primary btn-sm" asp-controller="Client" asp-action="Details" asp-route-encodedName="@item.EncodedName"><i class="bi bi-person-vcard"> Details</i></a>
                         @if (item.IsEditable)
                         {
                             <a class="btn btn-outline-secondary btn-sm" asp-controller="Client" asp-action="Edit" asp-route-encodedName="@item.EncodedName"><i class="bi bi-person-fill-gear"> Edit</i></a>

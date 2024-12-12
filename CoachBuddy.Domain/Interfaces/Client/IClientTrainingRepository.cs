@@ -1,11 +1,6 @@
-﻿using CoachBuddy.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CoachBuddy.Domain.Entities.Client;
 
-namespace CoachBuddy.Domain.Interfaces
+namespace CoachBuddy.Domain.Interfaces.Client
 {
     public interface IClientTrainingRepository
     {
