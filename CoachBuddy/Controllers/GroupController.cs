@@ -168,6 +168,22 @@ namespace CoachBuddy.MVC.Controllers
         [HttpPost]
         public async Task<IActionResult> AddClientToGroup(int groupId, int clientId)
         {
+            var group = await _context.Groups.FirstOrDefaultAsync(g => g.Id == groupId);
+
+            if (group == null)
+            {
+                TempData["ErrorMessage"] = "Group not found.";
+                return RedirectToAction("Index");
+            }
+
+            group.EncodeName();
+            string encodedName = group.EncodedName;
+
+            if (string.IsNullOrEmpty(encodedName))
+            {
+                TempData["ErrorMessage"] = "Encoded name could not be generated.";
+                return RedirectToAction("Index");
+            }
             try
             {
                 var command = new AddClientToGroupCommand
@@ -185,8 +201,7 @@ namespace CoachBuddy.MVC.Controllers
                 TempData["ErrorMessage"] = ex.Message;
             }
 
-            return RedirectToAction("Details", new { encodedName = groupId });
+            return RedirectToAction("Details", new { encodedName });
         }
-
     }
 }
