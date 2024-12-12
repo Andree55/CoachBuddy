@@ -6,10 +6,12 @@ using CoachBuddy.Application.Group.Commands.AddClientToGroup;
 using CoachBuddy.Application.Group.Commands.CreateGroup;
 using CoachBuddy.Application.Group.Commands.DeleteGroup;
 using CoachBuddy.Application.Group.Commands.EditGroup;
+using CoachBuddy.Application.Group.Commands.RemoveClientFromGroup;
 using CoachBuddy.Application.Group.Queries.GetAllGroups;
 using CoachBuddy.Application.Group.Queries.GetGroupByEncodedName;
 using CoachBuddy.Application.Group.Queries.GetGroupDetails;
 using CoachBuddy.Application.Group.Queries.GetGroupsBySearch;
+using CoachBuddy.Domain.Entities.Client;
 using CoachBuddy.Domain.Entities.Group;
 using CoachBuddy.Infrastructure.Persistence;
 using CoachBuddy.MVC.Extensions;
@@ -18,6 +20,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using System.Text.RegularExpressions;
 
 namespace CoachBuddy.MVC.Controllers
 {
@@ -166,9 +169,49 @@ namespace CoachBuddy.MVC.Controllers
             return View("Index", groups);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddClientToGroup(int groupId, int clientId)
         {
             var group = await _context.Groups.FirstOrDefaultAsync(g => g.Id == groupId);
+            var client = await _context.Clients.FirstOrDefaultAsync(c => c.Id == clientId);
+
+            if (group == null)
+            {
+                TempData["ErrorMessage"] = "Group not found.";
+                return RedirectToAction("Index");
+            }
+
+            group.EncodeName();
+            string encodedName = group.EncodedName;
+
+            if (string.IsNullOrEmpty(encodedName))
+            {
+                return RedirectToAction("Index");
+            }
+            try
+            {
+                var command = new AddClientToGroupCommand
+                {
+                    GroupId = groupId,
+                    ClientId = clientId
+                };
+                await _mediator.Send(command);
+
+                this.SetNotification("success", $"Client {client.Name} {client.LastName} has been added to the group \"{group.Name}\" successfully.");
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = ex.Message;
+            }
+
+            return RedirectToAction("Details", new { encodedName });
+        }
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> RemoveClientFromGroup(int groupId, int clientId)
+        {
+            var group = await _context.Groups.FirstOrDefaultAsync(g => g.Id == groupId);
+            var client = await _context.Clients.FirstOrDefaultAsync(c => c.Id == clientId);
 
             if (group == null)
             {
@@ -186,15 +229,14 @@ namespace CoachBuddy.MVC.Controllers
             }
             try
             {
-                var command = new AddClientToGroupCommand
+                var command = new RemoveClientFromGroupCommand
                 {
-                    GroupId = groupId,
+                    EncodedName = encodedName,
                     ClientId = clientId
                 };
 
                 await _mediator.Send(command);
-
-                TempData["SuccessMessage"] = "Client added to the group successfully.";
+                this.SetNotification("success", $"Client {client.Name} {client.LastName} removed from the group \"{group.Name}\" successfully.");
             }
             catch (Exception ex)
             {
@@ -202,6 +244,7 @@ namespace CoachBuddy.MVC.Controllers
             }
 
             return RedirectToAction("Details", new { encodedName });
+
         }
     }
 }
