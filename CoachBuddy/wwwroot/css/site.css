@@ -152,4 +152,12 @@ body {
 .container {
     margin-top: 50px;
 }
+.form-group {
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+label {
+    display: block;
+    margin-bottom: 8px; 
+}
 
