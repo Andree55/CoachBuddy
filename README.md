@@ -45,5 +45,11 @@ In progress...
 ![image](https://github.com/user-attachments/assets/7c41ac68-3da2-4ebb-80a8-a3a50e12ebb8)
 ![image](https://github.com/user-attachments/assets/48c7c3ed-8ac6-40b7-b31a-846ad28b5189)
 
+## To Do
 
+- **Exercises**: Add functionality for managing exercises (add, edit, delete).
+- **Training Plans**: Create functionality for adding, editing, and deleting training plans.
+- **Assign Training Plans to Specific Groups**: Implement the ability to assign training plans to specific client groups.
+- **Purchase Ebooks for Personal Trainers**: Add functionality for trainers to purchase ebooks to expand their knowledge.
+- **Login via Other Methods (e.g., Facebook)**: Implement alternative login methods like Facebook for user authentication.
 
