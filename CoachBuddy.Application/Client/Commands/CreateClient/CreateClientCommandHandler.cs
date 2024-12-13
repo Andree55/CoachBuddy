@@ -11,7 +11,7 @@ namespace CoachBuddy.Application.Client.Commands.CreateClient
         private readonly IMapper _mapper;
         private readonly IUserContext _userContext;
 
-        public CreateClientCommandHandler(IClientRepository clientRepository,IMapper mapper,IUserContext userContext)
+        public CreateClientCommandHandler(IClientRepository clientRepository, IMapper mapper, IUserContext userContext)
         {
             _clientRepository = clientRepository;
             _mapper = mapper;

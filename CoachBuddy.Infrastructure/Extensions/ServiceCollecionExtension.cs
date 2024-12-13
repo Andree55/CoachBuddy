@@ -2,6 +2,7 @@
 using CoachBuddy.Application.Group.Commands.DeleteGroup;
 using CoachBuddy.Application.Mappings;
 using CoachBuddy.Domain.Interfaces.Client;
+using CoachBuddy.Domain.Interfaces.Exercise;
 using CoachBuddy.Domain.Interfaces.Group;
 using CoachBuddy.Infrastructure.Persistence;
 using CoachBuddy.Infrastructure.Repositories;
@@ -37,6 +38,9 @@ namespace CoachBuddy.Infrastructure.Extensions
 
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<IClientRepository, ClientRepository>();
+
+            services.AddScoped<IExerciseRepository, ExerciseRepository>();
+
         }
     }
 }
