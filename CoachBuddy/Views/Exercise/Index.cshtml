@@ -24,37 +24,39 @@
 
 @if (Model.Items.Any())
 {
-    <div class="row">
-        @foreach (var exercise in Model.Items)
-        {
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title">@exercise.Name</h5>
-                        <p class="card-text text-muted">@exercise.Description</p>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item"><strong>Description:</strong> @exercise.Description</li>
-                            <li class="list-group-item"><strong>MuscleGroup:</strong> @exercise.MuscleGroup</li>
-                        </ul>
-                        <div class="mt-3">
-                            <a class="btn btn-primary btn-sm" asp-controller="Exercise" asp-action="Details" asp-route-id="@exercise.Id">
-                                <i class="bi bi-info-circle"></i> Details
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var exercise in Model.Items)
+            {
+                <tr>
+                    <td>@exercise.Name</td>
+                    <!-- Reduced description length -->
+                    <td>@exercise.Description.Substring(0, Math.Min(100, exercise.Description.Length))...</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" asp-controller="Exercise" asp-action="Details" asp-route-id="@exercise.Id">
+                            <i class="bi bi-info-circle"></i> Details
+                        </a>
+                        @if (exercise.IsEditable)
+                        {
+                            <a class="btn btn-outline-secondary btn-sm" asp-controller="Exercise" asp-action="Edit" asp-route-id="@exercise.Id">
+                                <i class="bi bi-pencil"></i> Edit
                             </a>
-                            @if (exercise.IsEditable)
-                            {
-                                <a class="btn btn-outline-secondary btn-sm" asp-controller="Exercise" asp-action="Edit" asp-route-id="@exercise.Id">
-                                    <i class="bi bi-pencil"></i> Edit
-                                </a>
-                                <a class="btn btn-outline-danger btn-sm" asp-controller="Exercise" asp-action="Delete" asp-route-id="@exercise.Id">
-                                    <i class="bi bi-trash"></i> Delete
-                                </a>
-                            }
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    </div>
+                            <a class="btn btn-outline-danger btn-sm" asp-controller="Exercise" asp-action="Delete" asp-route-id="@exercise.Id">
+                                <i class="bi bi-trash"></i> Delete
+                            </a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 }
 else
 {
