@@ -87,7 +87,8 @@ namespace CoachBuddy.Application.Mappings
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Client.Id))
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.Client.Name} {src.Client.LastName}"));
 
-            CreateMap<Domain.Entities.Exercise.Exercise, ExerciseDto>().ReverseMap();
+            CreateMap<Domain.Entities.Exercise.Exercise, ExerciseDto>()
+                .ForMember(dest => dest.IsEditable, opt => opt.MapFrom(src => user != null && user.IsInRole("Admin")));
         }
     }
 }

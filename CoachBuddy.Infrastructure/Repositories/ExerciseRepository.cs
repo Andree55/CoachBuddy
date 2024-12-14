@@ -47,6 +47,11 @@ namespace CoachBuddy.Infrastructure.Repositories
             return await _dbContext.Exercises.FindAsync(id);
         }
 
+        public async Task<int> GetExerciseCountAsync()
+        {
+            return await _dbContext.Exercises.CountAsync();
+        }
+
         public async Task UpdateAsync(Exercise exercise)
         {
             _dbContext.Exercises.Update(exercise);

@@ -9,5 +9,6 @@
         Task UpdateAsync(Entities.Exercise.Exercise exercise);
         Task DeleteAsync(Entities.Exercise.Exercise id);
         Task Commit();
+        Task<int> GetExerciseCountAsync();
     }
 }
