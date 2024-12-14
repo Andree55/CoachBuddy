@@ -8,7 +8,7 @@ In progress...
 
 ## 🚀 Technologies and Tools Used
 
-- **Frontend**: JavaScript
+- **Frontend**: HTML, CSS, JavaScript
 - **Backend (API)**: ASP .NET 8.0
 - **Database**: T-SQL
 - **Unit test framework**: XUnit
