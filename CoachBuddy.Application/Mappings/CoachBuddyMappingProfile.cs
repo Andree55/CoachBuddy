@@ -93,12 +93,14 @@ namespace CoachBuddy.Application.Mappings
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.MuscleGroup, opt => opt.MapFrom(src => src.MuscleGroup))
+                .ForMember(dest => dest.EncodedName, opt => opt.MapFrom(src => src.EncodedName))
                 .ForMember(dest => dest.IsEditable, opt => opt.MapFrom(src => user != null && user.IsInRole("Admin")));
 
             CreateMap<CreateExerciseCommand, Domain.Entities.Exercise.Exercise>()
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
-                .ForMember(dest => dest.MuscleGroup, opt => opt.MapFrom(src => src.MuscleGroup));
+                .ForMember(dest => dest.MuscleGroup, opt => opt.MapFrom(src => src.MuscleGroup))
+                .ForMember(dest => dest.EncodedName, opt => opt.MapFrom(src => src.EncodedName));
 
             CreateMap<ExerciseDto, EditExerciseCommand>();
         }

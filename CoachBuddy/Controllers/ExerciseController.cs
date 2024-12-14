@@ -40,7 +40,7 @@ namespace CoachBuddy.MVC.Controllers
             return View(exercises);
         }
 
-        [Route("Exercise/{id}/Details")]
+        [Route("Exercise/{encodedName}/Details")]
         public async Task<IActionResult> Details(Guid id)
         {
             var query = new GetExerciseByIdQuery(id);
@@ -69,7 +69,7 @@ namespace CoachBuddy.MVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Route("Exercise/{id}/Edit")]
+        [Route("Exercise/{encodedName}/Edit")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(Guid id)
         {
@@ -85,7 +85,7 @@ namespace CoachBuddy.MVC.Controllers
         }
 
         [HttpPost]
-        [Route("Exercise/{id}/Edit")]
+        [Route("Exercise/{encodedName}/Edit")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, EditExerciseCommand command)
         {
@@ -102,7 +102,7 @@ namespace CoachBuddy.MVC.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        [Route("Exercise/Delete/{id}")]
+        [Route("Exercise/Delete/{encodedName}")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var exercise = await _context.Exercises.FirstOrDefaultAsync(e => e.Id == id);
