@@ -37,18 +37,17 @@
             {
                 <tr>
                     <td>@exercise.Name</td>
-                    <!-- Reduced description length -->
                     <td>@exercise.Description.Substring(0, Math.Min(100, exercise.Description.Length))...</td>
                     <td>
-                        <a class="btn btn-primary btn-sm" asp-controller="Exercise" asp-action="Details" asp-route-id="@exercise.Id">
+                        <a class="btn btn-primary btn-sm" asp-controller="Exercise" asp-action="Details" asp-route-encodedName="@exercise.EncodedName">
                             <i class="bi bi-info-circle"></i> Details
                         </a>
                         @if (exercise.IsEditable)
                         {
-                            <a class="btn btn-outline-secondary btn-sm" asp-controller="Exercise" asp-action="Edit" asp-route-id="@exercise.Id">
+                            <a class="btn btn-outline-secondary btn-sm" asp-controller="Exercise" asp-action="Edit" asp-route-encodedName="@exercise.EncodedName">
                                 <i class="bi bi-pencil"></i> Edit
                             </a>
-                            <a class="btn btn-outline-danger btn-sm" asp-controller="Exercise" asp-action="Delete" asp-route-id="@exercise.Id">
+                            <a class="btn btn-outline-danger btn-sm" asp-controller="Exercise" asp-action="Delete" asp-route-encodedName="@exercise.EncodedName">
                                 <i class="bi bi-trash"></i> Delete
                             </a>
                         }

@@ -10,7 +10,7 @@
     <p><strong>ID:</strong> @Model.Id</p>
 </div>
 
-<form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post">
+<form asp-action="DeleteConfirmed" asp-route-encodedName="@Model.EncodedName" method="post">
     <input type="hidden" asp-for="Id" />
     <button type="submit" class="btn btn-danger">Delete</button>
     <a asp-action="Index" class="btn btn-secondary">Cancel</a>

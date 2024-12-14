@@ -27,6 +27,7 @@ namespace CoachBuddy.Application.Exercise.Commands.CreateExercise
             {
                 return Unit.Value;
             }
+            exercise.EncodeName();
 
             await _exerciseRepository.Create(exercise);
             return Unit.Value;

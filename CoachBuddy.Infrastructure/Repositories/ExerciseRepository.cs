@@ -42,6 +42,9 @@ namespace CoachBuddy.Infrastructure.Repositories
             return await _dbContext.Exercises.ToListAsync();
         }
 
+        public async Task<Exercise> GetByEncodedName(string encodedName)
+            => await _dbContext.Exercises.FirstAsync(e=>e.EncodedName ==encodedName);
+
         public async Task<Exercise> GetByIdAsync(Guid id)
         {
             return await _dbContext.Exercises.FindAsync(id);

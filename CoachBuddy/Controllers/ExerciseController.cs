@@ -4,7 +4,7 @@ using CoachBuddy.Application.Exercise.Commands.CreateExercise;
 using CoachBuddy.Application.Exercise.Commands.DeleteExercise;
 using CoachBuddy.Application.Exercise.Commands.EditExercise;
 using CoachBuddy.Application.Exercise.Queries.GetAllExercises;
-using CoachBuddy.Application.Exercise.Queries.GetExerciseById;
+using CoachBuddy.Application.Exercise.Queries.GetExerciseByEncodedName;
 using CoachBuddy.Application.Exercise.Queries.GetExercisesBySearch;
 using CoachBuddy.Infrastructure.Persistence;
 using CoachBuddy.MVC.Extensions;
@@ -36,16 +36,44 @@ namespace CoachBuddy.MVC.Controllers
                 PageSize = pageSize
             };
 
-            var exercises = await _mediator.Send(query);
-            return View(exercises);
+            var paginatedResult = await _mediator.Send(query);
+            return View(paginatedResult);
         }
 
         [Route("Exercise/{encodedName}/Details")]
-        public async Task<IActionResult> Details(Guid id)
+        public async Task<IActionResult> Details(string encodedName)
         {
-            var query = new GetExerciseByIdQuery(id);
-            var exercise = await _mediator.Send(query);
-            return View(exercise);
+            var dto = await _mediator.Send(new GetExerciseByEncodedNameQuery(encodedName));
+            return View(dto);
+        }
+
+        [Route("Exercise/{encodedName}/Edit")]
+        public async Task<IActionResult> Edit(string encodedName)
+        {
+            var dto = await _mediator.Send(new GetExerciseByEncodedNameQuery(encodedName));
+
+            if (dto == null)
+            {
+                return NotFound();
+            }
+
+            EditExerciseCommand model = _mapper.Map<EditExerciseCommand>(dto);
+            return View(model);
+        }
+
+        [HttpPost]
+        [Route("Exercise/{encodedName}/Edit")]
+        public async Task<IActionResult> Edit(string encodedName, EditExerciseCommand command)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(command);
+            }
+
+            await _mediator.Send(command);
+
+            this.SetNotification("success", $"Exercise '{command.Name}' has been updated.");
+            return RedirectToAction(nameof(Index));
         }
 
         [Authorize(Roles = "Admin")]
@@ -69,43 +97,13 @@ namespace CoachBuddy.MVC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [Route("Exercise/{encodedName}/Edit")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(Guid id)
-        {
-            var query = new GetExerciseByIdQuery(id);
-            var exerciseDto = await _mediator.Send(query);
-            if (exerciseDto == null)
-            {
-                return NotFound();
-            }
-
-            var command = _mapper.Map<EditExerciseCommand>(exerciseDto);
-            return View(command);
-        }
-
-        [HttpPost]
-        [Route("Exercise/{encodedName}/Edit")]
-        [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> Edit(int id, EditExerciseCommand command)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(command);
-            }
-
-            await _mediator.Send(command);
-
-            this.SetNotification("success", $"Exercise '{command.Name}' has been updated successfully.");
-            return RedirectToAction(nameof(Index));
-        }
-
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         [Route("Exercise/Delete/{encodedName}")]
-        public async Task<IActionResult> Delete(Guid id)
+        [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Delete(string encodedName)
         {
-            var exercise = await _context.Exercises.FirstOrDefaultAsync(e => e.Id == id);
+            var exercise = await _context.Exercises
+                .FirstOrDefaultAsync(e => e.EncodedName == encodedName);
 
             if (exercise == null)
             {
@@ -116,19 +114,21 @@ namespace CoachBuddy.MVC.Controllers
             return View(dto);
         }
 
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
         [Authorize(Roles = "Admin")]
-        public async Task<IActionResult> DeleteConfirmed(Guid id)
+        [ValidateAntiForgeryToken]
+        [Route("Exercise/Delete/{encodedName}")]
+        public async Task<IActionResult> DeleteConfirmed(string encodedName)
         {
-            var exercise = await _context.Exercises.FirstOrDefaultAsync(e => e.Id == id);
+            var exercise = await _context.Exercises
+                .FirstOrDefaultAsync(e => e.EncodedName == encodedName);
 
             if (exercise == null)
             {
                 return NotFound();
             }
 
-            var command = new DeleteExerciseCommand { Id = id };
+            var command = new DeleteExerciseCommand { Id = exercise.Id };
             await _mediator.Send(command);
 
             this.SetNotification("success", $"Exercise '{exercise.Name}' has been deleted.");

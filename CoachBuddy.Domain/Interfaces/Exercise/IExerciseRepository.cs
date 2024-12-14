@@ -10,5 +10,6 @@
         Task DeleteAsync(Entities.Exercise.Exercise id);
         Task Commit();
         Task<int> GetExerciseCountAsync();
+        Task<Entities.Exercise.Exercise> GetByEncodedName(string encodedName);
     }
 }

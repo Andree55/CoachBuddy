@@ -26,9 +26,7 @@ namespace CoachBuddy.Application.Exercise.Commands.EditExercise
             {
                 return Unit.Value;
             }
-
-            exercise.Name = request.Name;
-            exercise.Description = request.Name;
+            exercise.Description = request.Description;
             exercise.MuscleGroup = request.MuscleGroup;
 
             await _exerciseRepository.Commit();
