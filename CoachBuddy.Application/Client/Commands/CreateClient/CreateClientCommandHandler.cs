@@ -24,7 +24,7 @@ namespace CoachBuddy.Application.Client.Commands.CreateClient
         {
             var currentUser = _userContext.GetCurrentUser();
 
-            if(currentUser == null || !currentUser.IsInRole("Owner"))
+            if(currentUser == null || !currentUser.IsInRole("Admin"))
             {
                 return Unit.Value;
             }

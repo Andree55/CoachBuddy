@@ -8,5 +8,6 @@
         Task AddAsync(Entities.Exercise.Exercise exercise);
         Task UpdateAsync(Entities.Exercise.Exercise exercise);
         Task DeleteAsync(Entities.Exercise.Exercise id);
+        Task Commit();
     }
 }

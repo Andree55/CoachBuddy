@@ -18,6 +18,9 @@ namespace CoachBuddy.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
+        public Task Commit()
+        => _dbContext.SaveChangesAsync();
+
         public async Task Create(Exercise exercise)
         {
             _dbContext.Add(exercise);
