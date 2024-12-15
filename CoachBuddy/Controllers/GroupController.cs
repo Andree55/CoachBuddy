@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using CoachBuddy.Application;
-using CoachBuddy.Application.ClientGroup;
 using CoachBuddy.Application.Group;
 using CoachBuddy.Application.Group.Commands.AddClientToGroup;
 using CoachBuddy.Application.Group.Commands.CreateGroup;
@@ -11,16 +9,13 @@ using CoachBuddy.Application.Group.Queries.GetAllGroups;
 using CoachBuddy.Application.Group.Queries.GetGroupByEncodedName;
 using CoachBuddy.Application.Group.Queries.GetGroupDetails;
 using CoachBuddy.Application.Group.Queries.GetGroupsBySearch;
-using CoachBuddy.Domain.Entities.Client;
-using CoachBuddy.Domain.Entities.Group;
 using CoachBuddy.Infrastructure.Persistence;
 using CoachBuddy.MVC.Extensions;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
-using System.Text.RegularExpressions;
+
 
 namespace CoachBuddy.MVC.Controllers
 {

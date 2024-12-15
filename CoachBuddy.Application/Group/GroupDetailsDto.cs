@@ -12,6 +12,6 @@ namespace CoachBuddy.Application.Group
         public string? CreatedById { get; set; }
         public bool IsEditable { get; set; }
         public List<ClientGroupDto> ClientGroups { get; set; } = new();
-        public List<AvailableClientDto> AvailableClients { get; set; } = new();
+        public List<Client.AvailableClientDto> AvailableClients { get; set; } = new();
     }
 }

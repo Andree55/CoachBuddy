@@ -37,7 +37,7 @@ namespace CoachBuddy.Application.Group.Queries.GetGroupDetails
 
             var groupDetailsDto = _mapper.Map<GroupDetailsDto>(group);
             groupDetailsDto.ClientGroups = group.ClientGroups.Select(cg => _mapper.Map<ClientGroupDto>(cg)).ToList();
-            groupDetailsDto.AvailableClients = availableClients.Select(c => _mapper.Map<AvailableClientDto>(c)).ToList();
+            groupDetailsDto.AvailableClients = availableClients.Select(c => _mapper.Map<Client.AvailableClientDto>(c)).ToList();
 
             return groupDetailsDto;
         }

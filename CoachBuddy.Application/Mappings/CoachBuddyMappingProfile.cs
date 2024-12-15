@@ -5,6 +5,9 @@ using CoachBuddy.Application.Client.Commands.DeleteClient;
 using CoachBuddy.Application.Client.Commands.EditClient;
 using CoachBuddy.Application.ClientGroup;
 using CoachBuddy.Application.ClientTraining;
+using CoachBuddy.Application.Exercise;
+using CoachBuddy.Application.Exercise.Commands.CreateExercise;
+using CoachBuddy.Application.Exercise.Commands.EditExercise;
 using CoachBuddy.Application.Group;
 using CoachBuddy.Application.Group.Commands.CreateGroup;
 using CoachBuddy.Application.Group.Commands.EditGroup;
@@ -85,6 +88,21 @@ namespace CoachBuddy.Application.Mappings
             CreateMap<Domain.Entities.Group.ClientGroup, AvailableClientDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Client.Id))
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.Client.Name} {src.Client.LastName}"));
+
+            CreateMap<Domain.Entities.Exercise.Exercise, ExerciseDto>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.MuscleGroup, opt => opt.MapFrom(src => src.MuscleGroup))
+                .ForMember(dest => dest.EncodedName, opt => opt.MapFrom(src => src.EncodedName))
+                .ForMember(dest => dest.IsEditable, opt => opt.MapFrom(src => user != null && user.IsInRole("Admin")));
+
+            CreateMap<CreateExerciseCommand, Domain.Entities.Exercise.Exercise>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
+                .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
+                .ForMember(dest => dest.MuscleGroup, opt => opt.MapFrom(src => src.MuscleGroup))
+                .ForMember(dest => dest.EncodedName, opt => opt.MapFrom(src => src.EncodedName));
+
+            CreateMap<ExerciseDto, EditExerciseCommand>();
         }
     }
 }

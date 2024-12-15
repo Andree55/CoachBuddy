@@ -11,7 +11,7 @@ namespace CoachBuddy.Application.Client.Commands.CreateClient
         private readonly IMapper _mapper;
         private readonly IUserContext _userContext;
 
-        public CreateClientCommandHandler(IClientRepository clientRepository,IMapper mapper,IUserContext userContext)
+        public CreateClientCommandHandler(IClientRepository clientRepository, IMapper mapper, IUserContext userContext)
         {
             _clientRepository = clientRepository;
             _mapper = mapper;
@@ -24,7 +24,7 @@ namespace CoachBuddy.Application.Client.Commands.CreateClient
         {
             var currentUser = _userContext.GetCurrentUser();
 
-            if(currentUser == null || !currentUser.IsInRole("Owner"))
+            if(currentUser == null || !currentUser.IsInRole("Admin"))
             {
                 return Unit.Value;
             }

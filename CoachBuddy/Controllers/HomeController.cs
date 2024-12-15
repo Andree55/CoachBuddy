@@ -5,6 +5,8 @@ using MediatR;
 using CoachBuddy.Application.Client.Queries.GetClientCount;
 using CoachBuddy.MVC.Models;
 using CoachBuddy.Application.Group.Queries.GetGroupCount;
+using CoachBuddy.Application.Exercise.Queries.GetExerciseById;
+using CoachBuddy.Application.Exercise.Queries.GetExerciseCount;
 
 namespace CoachBuddy.Controllers;
 
@@ -23,10 +25,12 @@ public class HomeController : Controller
     {
         var clientCount = await _mediator.Send(new GetClientCountQuery());
         var groupCount = await _mediator.Send(new GetGroupCountQuery());
+        var exerciseCount = await _mediator.Send(new GetExerciseCountQuery());
         var viewModel = new HomeViewModel
         {
             ClientCount = clientCount,
-            GroupCount = groupCount
+            GroupCount = groupCount,
+            ExerciseCount = exerciseCount
         };
         return View(viewModel);
     }
