@@ -4,8 +4,8 @@ namespace CoachBuddy.Application.Exercise.Queries.GetExerciseById
 {
     public class GetExerciseByIdQuery : IRequest<ExerciseDto>
     {
-        public Guid Id { get; set; }
-        public GetExerciseByIdQuery(Guid id)
+        public int Id { get; set; }
+        public GetExerciseByIdQuery(int id)
         {
             Id = id;
         }

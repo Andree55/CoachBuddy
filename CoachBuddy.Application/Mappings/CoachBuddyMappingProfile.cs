@@ -90,6 +90,7 @@ namespace CoachBuddy.Application.Mappings
                 .ForMember(dest => dest.FullName, opt => opt.MapFrom(src => $"{src.Client.Name} {src.Client.LastName}"));
 
             CreateMap<Domain.Entities.Exercise.Exercise, ExerciseDto>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.MuscleGroup, opt => opt.MapFrom(src => src.MuscleGroup))
@@ -97,6 +98,7 @@ namespace CoachBuddy.Application.Mappings
                 .ForMember(dest => dest.IsEditable, opt => opt.MapFrom(src => user != null && user.IsInRole("Admin")));
 
             CreateMap<CreateExerciseCommand, Domain.Entities.Exercise.Exercise>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.MuscleGroup, opt => opt.MapFrom(src => src.MuscleGroup))
