@@ -27,14 +27,11 @@ namespace CoachBuddy.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Exercise id)
+        public async Task DeleteAsync(Exercise exercise)
         {
-            var exercise = await _dbContext.Exercises.FindAsync(id);
-            if(exercise!=null)
-            {
-                _dbContext.Exercises.Remove(exercise);
-                await _dbContext.SaveChangesAsync();
-            }
+             _dbContext.Exercises.Remove(exercise);
+             await _dbContext.SaveChangesAsync();
+            
         }
 
         public async Task<IEnumerable<Exercise>> GetAllAsync()

@@ -9,17 +9,13 @@
 
 <p>
     <a asp-action="Create" class="btn btn-primary btn-sm">
-        <i class="bi bi-plus-circle"></i> Add new exercise
+        <i class="bi bi-person-add"></i> Add new exercise
     </a>
 </p>
 
-<form asp-action="Search" method="get" class="mb-4">
-    <div class="input-group">
-        <input type="text" name="searchTerm" placeholder="Search exercises..." class="form-control" />
-        <button type="submit" class="btn btn-primary" id="searchButton">
-            <i class="bi bi-search"></i> Search
-        </button>
-    </div>
+<form asp-action="Search" method="get">
+    <input type="text" name="searchTerm" placeholder="Search clients..." class="form-control" />
+    <button type="submit" class="btn btn-primary" id="searchButton">Search</button>
 </form>
 
 @if (Model.Items.Any())
@@ -28,6 +24,7 @@
         <thead>
             <tr>
                 <th>Name</th>
+                <th>Muscle Group</th>
                 <th>Description</th>
                 <th>Actions</th>
             </tr>
@@ -37,7 +34,8 @@
             {
                 <tr>
                     <td>@exercise.Name</td>
-                    <td>@exercise.Description.Substring(0, Math.Min(100, exercise.Description.Length))...</td>
+                    <td>@exercise.MuscleGroup</td>
+                    <td>@exercise.Description</td>
                     <td>
                         <a class="btn btn-primary btn-sm" asp-controller="Exercise" asp-action="Details" asp-route-encodedName="@exercise.EncodedName">
                             <i class="bi bi-info-circle"></i> Details
@@ -62,15 +60,15 @@ else
     <p>No exercises found.</p>
 }
 
-<nav aria-label="Page navigation">
-    <ul class="pagination justify-content-center">
+<nav aria-labael="Page navigation">
+    <ul class="pagination">
         @if (Model.HasPreviousPage)
         {
             <li class="page-item">
                 <a class="btn btn-outline-secondary btn-sm" asp-action="Index" asp-route-pageNumber="@(Model.PageNumber - 1)" asp-route-pageSize="@Model.PageSize">Previous</a>
             </li>
-        }
 
+        }
         @for (int i = 1; i <= Model.TotalPages; i++)
         {
             <li class="page-item @(Model.PageNumber == i ? "active" : "")">

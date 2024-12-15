@@ -117,7 +117,7 @@ namespace CoachBuddy.MVC.Controllers
         [HttpPost]
         [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        [Route("Exercise/Delete/{encodedName}")]
+        [Route("Exercise/Delete/{EncodedName}")]
         public async Task<IActionResult> DeleteConfirmed(string encodedName)
         {
             var exercise = await _context.Exercises

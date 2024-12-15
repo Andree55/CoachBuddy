@@ -16,7 +16,7 @@ namespace CoachBuddy.Application.Exercise.Commands.EditExercise
         }
         public async Task<Unit> Handle(EditExerciseCommand request, CancellationToken cancellationToken)
         {
-            var exercise = await _exerciseRepository.GetByIdAsync(request.Id);
+            var exercise = await _exerciseRepository.GetByEncodedName(request.EncodedName!);
 
             var user = _userContext.GetCurrentUser();
 
