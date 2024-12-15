@@ -15,6 +15,7 @@ namespace CoachBuddy.Domain.Entities.Group
         public string EncodedName { get; private set; } = default!;
 
         public List<ClientGroup> ClientGroups { get; set; } = new();
+        public List<TrainingPlan.TrainingPlan> TrainingPlans { get; set; } = new();
 
         public void EncodeName() => EncodedName = $"{Name.ToLower().Replace(" ", "-")}";
     }
