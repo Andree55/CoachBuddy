@@ -1,6 +1,7 @@
 ﻿using CoachBuddy.Domain.Entities.TrainingPlan;
 using CoachBuddy.Domain.Interfaces.TrainingPlan;
 using CoachBuddy.Infrastructure.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace CoachBuddy.Infrastructure.Repositories
 {
@@ -26,34 +27,33 @@ namespace CoachBuddy.Infrastructure.Repositories
             await _dbContext.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(TrainingPlan id)
+        public async Task DeleteAsync(TrainingPlan trainingPlan)
         {
-            throw new NotImplementedException();
+            _dbContext.TrainingPlans.Remove(trainingPlan);
+            await _dbContext.SaveChangesAsync();
         }
 
-        public Task<IEnumerable<TrainingPlan>> GetAllAsync()
+        public async Task<IEnumerable<TrainingPlan>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.TrainingPlans.ToListAsync();
         }
 
-        public Task<TrainingPlan> GetByEncodedName(string encodedName)
+        public async Task<TrainingPlan> GetByEncodedName(string encodedName)
+            => await _dbContext.TrainingPlans.FirstAsync(e => e.EncodedName == encodedName);
+        public async Task<TrainingPlan> GetByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.TrainingPlans.FindAsync(id);
         }
 
-        public Task<TrainingPlan> GetByIdAsync(int id)
+        public async Task<int> GetExerciseCountAsync()
         {
-            throw new NotImplementedException();
+            return await _dbContext.TrainingPlans.CountAsync();
         }
 
-        public Task<int> GetExerciseCountAsync()
+        public async Task UpdateAsync(TrainingPlan trainingPlan)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task UpdateAsync(TrainingPlan exercise)
-        {
-            throw new NotImplementedException();
+            _dbContext.TrainingPlans.Update(trainingPlan);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }
