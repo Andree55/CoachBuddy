@@ -64,6 +64,7 @@ namespace CoachBuddy.Infrastructure.Persistence
 
             modelBuilder.Entity<TrainingPlanExercise>()
                 .HasKey(tpe => tpe.Id);
+            
         }
     }
 }
