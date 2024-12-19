@@ -13,9 +13,13 @@ namespace CoachBuddy.Application.TrainingPlan.Queries.GetTrainingPlanById
             _trainingPlanRepository = trainingPlanRepository;
             _mapper = mapper;
         }
-        public Task<TrainingPlanDto> Handle(GetTrainingPlanByIdQuery request, CancellationToken cancellationToken)
+        public async Task<TrainingPlanDto> Handle(GetTrainingPlanByIdQuery request, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            var trainingPlan = await _trainingPlanRepository.GetByIdAsync(request.Id);
+
+            var dto = _mapper.Map<TrainingPlanDto>(trainingPlan);
+
+            return dto;
         }
     }
 }
