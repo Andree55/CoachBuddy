@@ -3,7 +3,7 @@ using MediatR;
 
 namespace CoachBuddy.Application.TrainingPlan.Commands.EditTrainingPlan
 {
-    public class EditTrainingPlanCommand:ExerciseDto,IRequest
+    public class EditTrainingPlanCommand : TrainingPlanDto, IRequest
     {
 
     }
