@@ -63,8 +63,10 @@ namespace CoachBuddy.Infrastructure.Persistence
                 .HasForeignKey(tpe => tpe.ExerciseId);
 
             modelBuilder.Entity<TrainingPlanExercise>()
-                .HasKey(tpe => tpe.Id);
-            
+                .HasOne(e => e.Exercise)
+                .WithMany(e => e.TrainingPlanExercises)
+                .HasForeignKey(e => e.ExerciseId);
+
         }
     }
 }

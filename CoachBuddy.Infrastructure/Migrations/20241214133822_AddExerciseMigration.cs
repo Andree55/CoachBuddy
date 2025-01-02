@@ -15,7 +15,8 @@ namespace CoachBuddy.Infrastructure.Migrations
                 name: "Exercises",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"), 
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     MuscleGroup = table.Column<string>(type: "nvarchar(max)", nullable: true)
@@ -24,7 +25,6 @@ namespace CoachBuddy.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Exercises", x => x.Id);
                 });
-
         }
 
         /// <inheritdoc />

@@ -109,6 +109,7 @@ namespace CoachBuddy.Infrastructure.Migrations
             migrationBuilder.DropTable(
                 name: "TrainingPlans");
 
+      
         }
     }
 }
