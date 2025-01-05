@@ -42,7 +42,12 @@ namespace CoachBuddy.Infrastructure.Repositories
             => await _dbContext.TrainingPlans.FirstAsync(e => e.EncodedName == encodedName);
         public async Task<TrainingPlan> GetByIdAsync(int id)
         {
-            return await _dbContext.TrainingPlans.FindAsync(id);
+            var trainingPlan = await _dbContext.TrainingPlans
+               .Include(tp => tp.Exercises)
+               .Include(tp => tp.Groups)
+               .FirstOrDefaultAsync(tp => tp.Id == id);
+
+            return trainingPlan;
         }
 
         public async Task<int> GetTrainingPlanCountAsync()

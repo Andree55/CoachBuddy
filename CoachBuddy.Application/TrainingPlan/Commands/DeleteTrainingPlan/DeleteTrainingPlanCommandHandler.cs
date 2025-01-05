@@ -10,8 +10,6 @@ namespace CoachBuddy.Application.TrainingPlan.Commands.DeleteTrainingPlan
         private readonly IMapper _mapper;
         private readonly ITrainingPlanRepository _trainingPlanRepository;
         private readonly IUserContext _userContext;
-
-        
         public async Task<Unit> Handle(DeleteTrainingPlanCommand request, CancellationToken cancellationToken)
         {
             var trainingPlan = await _trainingPlanRepository.GetByIdAsync(request.Id);

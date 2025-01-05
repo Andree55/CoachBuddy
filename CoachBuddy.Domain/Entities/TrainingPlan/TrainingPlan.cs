@@ -7,8 +7,8 @@
         public string? Description { get; set; }
         public string EncodedName { get; private set; } = default!;
 
-        public List<TrainingPlanExercise> Exercises { get; set; } = default!;
-        public List<Group.Group> Groups { get; set; } = new();
+        public List<TrainingPlanExercise>? Exercises { get; set; } = new List<TrainingPlanExercise>();
+        public List<Group.Group>? Groups { get; set; } = new List<Group.Group>();
 
         public void EncodeName() => EncodedName = $"{Name.ToLower().Replace(" ","-")}";
     }
