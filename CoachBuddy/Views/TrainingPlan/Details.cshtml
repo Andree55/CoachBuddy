@@ -1,51 +1,53 @@
 ﻿@model CoachBuddy.Application.TrainingPlan.TrainingPlanDto
 
-@{
-    ViewData["Title"] = "Training Plan Details";
-}
-
 <h1>@Model.Name - Details</h1>
 
+<!-- Display Name and Description of the Training Plan -->
 <div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-        @if (Model.Exercises.Any())
-        {
-            <dt class="col-sm-2">
-                Exercises
-            </dt>
-            <dd class="col-sm-10">
-                <ul>
-                    @foreach (var exercise in Model.Exercises)
-                    {
-                        <li>@exercise.EncodedName (Sets: @exercise.Sets, Reps: @exercise.Repetitions, Rest: @exercise.RestTime seconds)</li>
-                    }
-                </ul>
-            </dd>
-        }
-    </dl>
+    <h3>Training Plan Information</h3>
+    <p><strong>Name:</strong> @Model.Name</p>
+    <p><strong>Description:</strong> @Model.Description</p>
 </div>
-<div>
-    @if (Model.IsEditable)
-    {
-        <a class="btn btn-outline-primary btn-sm" asp-controller="TrainingPlan" asp-action="Edit" asp-route-encodedName="@Model.EncodedName">Edit</a>
-    }
-    <a class="btn btn-outline-secondary btn-sm" asp-action="Index">Back to List</a>
-</div>
-<hr />
 
-@section Scripts {
-    <script src="~/js/TrainingPlan/Details.js"></script>
+<!-- Display Exercises -->
+@if (Model.Exercises.Any())
+{
+    <h3>Exercises in this Training Plan</h3>
+    <ul>
+        @foreach (var exercise in Model.Exercises)
+        {
+            <li>@exercise.EncodedName (Sets: @exercise.Sets, Reps: @exercise.Repetitions, Rest: @exercise.RestTime seconds)</li>
+        }
+    </ul>
 }
+else
+{
+    <p>No exercises added yet.</p>
+}
+
+<!-- Add Exercises Form -->
+@if (Model.IsEditable)
+{
+    <h3>Add Exercises</h3>
+    <form asp-action="AddExercisesToTrainingPlan" method="post">
+        <div class="form-group">
+            <label for="searchQuery">Search Exercises</label>
+            <input type="text" name="searchQuery" class="form-control" id="searchQuery" placeholder="Search for exercises" />
+        </div>
+
+        <div class="form-group mt-2">
+            <label for="exercises">Select Exercises</label>
+            <select name="exerciseIds" class="form-control" id="exercises" multiple>
+               @*  @foreach (var exercise in Model.AvailableExercises)
+                {
+                    <option value="@exercise.Id">@exercise.Name</option>
+                } *@
+            </select>
+        </div>
+
+        <input type="hidden" name="trainingPlanId" value="@Model.Id" />
+        <button type="submit" class="btn btn-primary mt-3">Add Selected Exercises</button>
+    </form>
+}
+
+<a class="btn btn-secondary mt-3" asp-action="Index">Back to List</a>
