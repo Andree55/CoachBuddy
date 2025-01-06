@@ -5,6 +5,7 @@ using CoachBuddy.Application.TrainingPlan.Commands.DeleteTrainingPlan;
 using CoachBuddy.Application.TrainingPlan.Commands.EditTrainingPlan;
 using CoachBuddy.Application.TrainingPlan.Queries.GetAllTrainingPlans;
 using CoachBuddy.Application.TrainingPlan.Queries.GetTrainingPlanByEncodedName;
+using CoachBuddy.Application.TrainingPlan.Queries.GetTrainingPlanById;
 using CoachBuddy.Application.TrainingPlan.Queries.GetTrainingPlansBySearch;
 using CoachBuddy.Infrastructure.Persistence;
 using CoachBuddy.MVC.Extensions;
@@ -40,11 +41,24 @@ namespace CoachBuddy.MVC.Controllers
             return View(paginatedResult);
         }
 
-        [Route("TrainingPlan/{encodedName}/Details")]
-        public async Task<IActionResult> Details(string encodedName)
+        [Route("TrainingPlan/{id:int}/Details")]
+        public async Task<IActionResult> Details(int id)
         {
-            var dto = await _mediator.Send(new GetTrainingPlanByEncodedNameQuery(encodedName));
-            return View(dto);
+            try
+            {
+                var dto = await _mediator.Send(new GetTrainingPlanByIdQuery(id));
+                return View(dto);
+            }
+            catch (NotFoundException ex)
+            {
+                TempData["Error"] = ex.Message;
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "An error occurred while retrieving the training plan.";
+                return RedirectToAction("Index");
+            }
         }
 
         [Route("TrainingPlan/{encodedName}/Edit")]

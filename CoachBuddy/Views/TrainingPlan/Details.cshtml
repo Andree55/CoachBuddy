@@ -2,19 +2,12 @@
 
 <h1>@Model.Name - Details</h1>
 
-<!-- Display Name and Description of the Training Plan -->
-<div>
-    <h3>Training Plan Information</h3>
-    <p><strong>Name:</strong> @Model.Name</p>
-    <p><strong>Description:</strong> @Model.Description</p>
-</div>
-
 <!-- Display Exercises -->
-@if (Model.Exercises.Any())
+@if (Model.TrainingPlanExercises.Any())
 {
     <h3>Exercises in this Training Plan</h3>
     <ul>
-        @foreach (var exercise in Model.Exercises)
+        @foreach (var exercise in Model.TrainingPlanExercises)
         {
             <li>@exercise.EncodedName (Sets: @exercise.Sets, Reps: @exercise.Repetitions, Rest: @exercise.RestTime seconds)</li>
         }
@@ -25,7 +18,6 @@ else
     <p>No exercises added yet.</p>
 }
 
-<!-- Add Exercises Form -->
 @if (Model.IsEditable)
 {
     <h3>Add Exercises</h3>
@@ -38,10 +30,10 @@ else
         <div class="form-group mt-2">
             <label for="exercises">Select Exercises</label>
             <select name="exerciseIds" class="form-control" id="exercises" multiple>
-               @*  @foreach (var exercise in Model.AvailableExercises)
+                @foreach (var exercise in Model.AvailableExercises)
                 {
                     <option value="@exercise.Id">@exercise.Name</option>
-                } *@
+                }
             </select>
         </div>
 

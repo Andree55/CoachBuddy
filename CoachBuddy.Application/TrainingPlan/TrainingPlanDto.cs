@@ -1,4 +1,5 @@
-﻿using CoachBuddy.Domain.Entities.TrainingPlan;
+﻿using CoachBuddy.Application.Exercise;
+using CoachBuddy.Domain.Entities.TrainingPlan;
 
 namespace CoachBuddy.Application.TrainingPlan
 {
@@ -9,8 +10,10 @@ namespace CoachBuddy.Application.TrainingPlan
         public string? Description { get; set; }
         public bool IsEditable { get; set; }
         public string? EncodedName { get; set; }
-        public List<TrainingPlanExerciseDto>? Exercises { get; set; } = new List<TrainingPlanExerciseDto>();
+        public List<TrainingPlanExerciseDto>? TrainingPlanExercises { get; set; } = new List<TrainingPlanExerciseDto>();
         public List<Domain.Entities.Group.Group>? Groups { get; set; } = new List<Domain.Entities.Group.Group>();
+
+        public List<ExerciseDto>? AvailableExercises { get; set; } = new List<ExerciseDto>();
 
     }
 }

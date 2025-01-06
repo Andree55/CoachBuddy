@@ -43,7 +43,7 @@ namespace CoachBuddy.Infrastructure.Repositories
         public async Task<TrainingPlan> GetByIdAsync(int id)
         {
             var trainingPlan = await _dbContext.TrainingPlans
-               .Include(tp => tp.Exercises)
+               .Include(tp => tp.TrainingPlanExercises)
                .Include(tp => tp.Groups)
                .FirstOrDefaultAsync(tp => tp.Id == id);
 
@@ -53,6 +53,11 @@ namespace CoachBuddy.Infrastructure.Repositories
         public async Task<int> GetTrainingPlanCountAsync()
         {
             return await _dbContext.TrainingPlans.CountAsync();
+        }
+
+        public async Task SaveAsync()
+        {
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(TrainingPlan trainingPlan)

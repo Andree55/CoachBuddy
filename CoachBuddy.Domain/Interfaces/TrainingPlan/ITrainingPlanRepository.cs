@@ -9,6 +9,7 @@
         Task UpdateAsync(Entities.TrainingPlan.TrainingPlan trainingPlan);
         Task DeleteAsync(Entities.TrainingPlan.TrainingPlan id);
         Task Commit();
+        Task SaveAsync();
         Task<int> GetTrainingPlanCountAsync();
         Task<Entities.TrainingPlan.TrainingPlan> GetByEncodedName(string encodedName);
     }

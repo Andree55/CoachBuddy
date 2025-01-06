@@ -115,9 +115,10 @@ namespace CoachBuddy.Application.Mappings
                 .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
                 .ForMember(dest => dest.Description, opt => opt.MapFrom(src => src.Description))
                 .ForMember(dest => dest.EncodedName, opt => opt.MapFrom(src => src.EncodedName))
-                .ForMember(dest => dest.Exercises, opt => opt.MapFrom(src => src.Exercises))
+                .ForMember(dest => dest.TrainingPlanExercises, opt => opt.MapFrom(src => src.TrainingPlanExercises))
                 .ForMember(dest => dest.Groups, opt => opt.MapFrom(src => src.Groups))
-                .ForMember(dest => dest.IsEditable, opt => opt.MapFrom(src => user != null && user.IsInRole("Admin")));;
+                .ForMember(dest => dest.IsEditable, opt => opt.MapFrom(src => user != null && user.IsInRole("Admin")))
+                .ForMember(dest => dest.AvailableExercises, opt => opt.Ignore()); ;
 
             CreateMap<CreateTrainingPlanCommand, Domain.Entities.TrainingPlan.TrainingPlan>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

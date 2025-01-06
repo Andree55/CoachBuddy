@@ -53,7 +53,7 @@ namespace CoachBuddy.Infrastructure.Persistence
                 .WithMany(g => g.TrainingPlans);
 
             modelBuilder.Entity<TrainingPlan>()
-                .HasMany(tp => tp.Exercises)
+                .HasMany(tp => tp.TrainingPlanExercises)
                 .WithOne(tpe => tpe.TrainingPlan)
                 .HasForeignKey(tpe => tpe.TrainingPlanId);
 

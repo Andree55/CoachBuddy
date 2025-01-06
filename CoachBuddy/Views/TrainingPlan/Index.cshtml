@@ -35,7 +35,7 @@
                     <td>@trainingPlan.Name</td>
                     <td>@trainingPlan.Description</td>
                     <td>
-                        <a class="btn btn-primary btn-sm" asp-controller="TrainingPlan" asp-action="Details" asp-route-encodedName="@trainingPlan.EncodedName">
+                        <a class="btn btn-primary btn-sm" asp-controller="TrainingPlan" asp-action="Details" asp-route-id="@trainingPlan.Id">
                             <i class="bi bi-info-circle"></i> Details
                         </a>
                         @if (trainingPlan.IsEditable)
