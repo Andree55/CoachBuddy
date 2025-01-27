@@ -1,0 +1,28 @@
+#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
+
+FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
+USER app
+WORKDIR /app
+EXPOSE 8080
+EXPOSE 8081
+
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+ARG BUILD_CONFIGURATION=Release
+WORKDIR /src
+COPY ["CoachBuddy/CoachBuddy.MVC.csproj", "CoachBuddy/"]
+COPY ["CoachBuddy.Application/CoachBuddy.Application.csproj", "CoachBuddy.Application/"]
+COPY ["CoachBuddy.Domain/CoachBuddy.Domain.csproj", "CoachBuddy.Domain/"]
+COPY ["CoachBuddy.Infrastructure/CoachBuddy.Infrastructure.csproj", "CoachBuddy.Infrastructure/"]
+RUN dotnet restore "./CoachBuddy/CoachBuddy.MVC.csproj"
+COPY . .
+WORKDIR "/src/CoachBuddy"
+RUN dotnet build "./CoachBuddy.MVC.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+FROM build AS publish
+ARG BUILD_CONFIGURATION=Release
+RUN dotnet publish "./CoachBuddy.MVC.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+
+FROM base AS final
+WORKDIR /app
+COPY --from=publish /app/publish .
+ENTRYPOINT ["dotnet", "CoachBuddy.MVC.dll"]
