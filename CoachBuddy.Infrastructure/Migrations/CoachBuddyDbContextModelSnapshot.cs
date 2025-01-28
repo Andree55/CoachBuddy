@@ -527,7 +527,7 @@ namespace CoachBuddy.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("CoachBuddy.Domain.Entities.TrainingPlan.TrainingPlan", "TrainingPlan")
-                        .WithMany("Exercises")
+                        .WithMany("TrainingPlanExercises")
                         .HasForeignKey("TrainingPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -622,7 +622,7 @@ namespace CoachBuddy.Infrastructure.Migrations
 
             modelBuilder.Entity("CoachBuddy.Domain.Entities.TrainingPlan.TrainingPlan", b =>
                 {
-                    b.Navigation("Exercises");
+                    b.Navigation("TrainingPlanExercises");
                 });
 #pragma warning restore 612, 618
         }

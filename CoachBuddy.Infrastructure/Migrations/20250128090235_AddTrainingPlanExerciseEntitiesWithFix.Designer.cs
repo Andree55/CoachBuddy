@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CoachBuddy.Infrastructure.Migrations
 {
     [DbContext(typeof(CoachBuddyDbContext))]
-    [Migration("20250105101954_AddTrainingPlanExerciseEntitiesWithFix")]
+    [Migration("20250128090235_AddTrainingPlanExerciseEntitiesWithFix")]
     partial class AddTrainingPlanExerciseEntitiesWithFix
     {
         /// <inheritdoc />
@@ -530,7 +530,7 @@ namespace CoachBuddy.Infrastructure.Migrations
                         .IsRequired();
 
                     b.HasOne("CoachBuddy.Domain.Entities.TrainingPlan.TrainingPlan", "TrainingPlan")
-                        .WithMany("Exercises")
+                        .WithMany("TrainingPlanExercises")
                         .HasForeignKey("TrainingPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -625,7 +625,7 @@ namespace CoachBuddy.Infrastructure.Migrations
 
             modelBuilder.Entity("CoachBuddy.Domain.Entities.TrainingPlan.TrainingPlan", b =>
                 {
-                    b.Navigation("Exercises");
+                    b.Navigation("TrainingPlanExercises");
                 });
 #pragma warning restore 612, 618
         }

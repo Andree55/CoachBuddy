@@ -1,11 +1,14 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace CoachBuddy.Infrastructure.Migrations
 {
+    /// <inheritdoc />
     public partial class AddTrainingPlanExerciseEntitiesWithFix : Migration
     {
+        /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
 
@@ -78,7 +81,7 @@ namespace CoachBuddy.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            
+
 
             migrationBuilder.CreateIndex(
                 name: "IX_GroupTrainingPlan_TrainingPlansId",
@@ -95,7 +98,7 @@ namespace CoachBuddy.Infrastructure.Migrations
                 table: "TrainingPlanExercises",
                 column: "TrainingPlanId");
 
-           
+
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -110,7 +113,7 @@ namespace CoachBuddy.Infrastructure.Migrations
             migrationBuilder.DropTable(
                 name: "TrainingPlanExercises");
 
-          
+
 
             migrationBuilder.DropTable(
                 name: "TrainingPlans");
