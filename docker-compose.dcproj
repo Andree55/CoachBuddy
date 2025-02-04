@@ -4,7 +4,7 @@
     <ProjectVersion>2.1</ProjectVersion>
     <DockerTargetOS>Linux</DockerTargetOS>
     <DockerPublishLocally>False</DockerPublishLocally>
-    <ProjectGuid>65111caf-ad5f-461f-897c-4bc636444814</ProjectGuid>
+    <ProjectGuid>dad99c62-f350-423f-895d-1d45de63388d</ProjectGuid>
     <DockerLaunchAction>LaunchBrowser</DockerLaunchAction>
     <DockerServiceUrl>{Scheme}://localhost:{ServicePort}</DockerServiceUrl>
     <DockerServiceName>coachbuddy.mvc</DockerServiceName>

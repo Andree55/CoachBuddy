@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{A57DE0B1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoachBuddy.MVCTests", "CoachBuddy.MVCTests\CoachBuddy.MVCTests.csproj", "{B30EDFE1-0BC8-4D26-A564-114499CCBF9E}"
 EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{65111CAF-AD5F-461F-897C-4BC636444814}"
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{DAD99C62-F350-423F-895D-1D45DE63388D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,10 +58,10 @@ Global
 		{B30EDFE1-0BC8-4D26-A564-114499CCBF9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B30EDFE1-0BC8-4D26-A564-114499CCBF9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B30EDFE1-0BC8-4D26-A564-114499CCBF9E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{65111CAF-AD5F-461F-897C-4BC636444814}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{65111CAF-AD5F-461F-897C-4BC636444814}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{65111CAF-AD5F-461F-897C-4BC636444814}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{65111CAF-AD5F-461F-897C-4BC636444814}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAD99C62-F350-423F-895D-1D45DE63388D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAD99C62-F350-423F-895D-1D45DE63388D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAD99C62-F350-423F-895D-1D45DE63388D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAD99C62-F350-423F-895D-1D45DE63388D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
