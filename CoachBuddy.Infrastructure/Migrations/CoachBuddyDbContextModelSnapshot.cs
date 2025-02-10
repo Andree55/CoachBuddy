@@ -91,9 +91,11 @@ namespace CoachBuddy.Infrastructure.Migrations
 
             modelBuilder.Entity("CoachBuddy.Domain.Entities.Exercise.Exercise", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -162,6 +164,80 @@ namespace CoachBuddy.Infrastructure.Migrations
                     b.HasIndex("CreatedById");
 
                     b.ToTable("Groups");
+                });
+
+            modelBuilder.Entity("CoachBuddy.Domain.Entities.TrainingPlan.TrainingPlan", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EncodedName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TrainingPlans");
+                });
+
+            modelBuilder.Entity("CoachBuddy.Domain.Entities.TrainingPlan.TrainingPlanExercise", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("ExerciseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Repetitions")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("RestTime")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Sets")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TrainingPlanId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ExerciseId");
+
+                    b.HasIndex("TrainingPlanId");
+
+                    b.ToTable("TrainingPlanExercises");
+                });
+
+            modelBuilder.Entity("GroupTrainingPlan", b =>
+                {
+                    b.Property<int>("GroupsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TrainingPlansId")
+                        .HasColumnType("int");
+
+                    b.HasKey("GroupsId", "TrainingPlansId");
+
+                    b.HasIndex("TrainingPlansId");
+
+                    b.ToTable("GroupTrainingPlan");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -442,6 +518,40 @@ namespace CoachBuddy.Infrastructure.Migrations
                     b.Navigation("CreatedBy");
                 });
 
+            modelBuilder.Entity("CoachBuddy.Domain.Entities.TrainingPlan.TrainingPlanExercise", b =>
+                {
+                    b.HasOne("CoachBuddy.Domain.Entities.Exercise.Exercise", "Exercise")
+                        .WithMany("TrainingPlanExercises")
+                        .HasForeignKey("ExerciseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CoachBuddy.Domain.Entities.TrainingPlan.TrainingPlan", "TrainingPlan")
+                        .WithMany("TrainingPlanExercises")
+                        .HasForeignKey("TrainingPlanId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Exercise");
+
+                    b.Navigation("TrainingPlan");
+                });
+
+            modelBuilder.Entity("GroupTrainingPlan", b =>
+                {
+                    b.HasOne("CoachBuddy.Domain.Entities.Group.Group", null)
+                        .WithMany()
+                        .HasForeignKey("GroupsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CoachBuddy.Domain.Entities.TrainingPlan.TrainingPlan", null)
+                        .WithMany()
+                        .HasForeignKey("TrainingPlansId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -500,9 +610,19 @@ namespace CoachBuddy.Infrastructure.Migrations
                     b.Navigation("Trainings");
                 });
 
+            modelBuilder.Entity("CoachBuddy.Domain.Entities.Exercise.Exercise", b =>
+                {
+                    b.Navigation("TrainingPlanExercises");
+                });
+
             modelBuilder.Entity("CoachBuddy.Domain.Entities.Group.Group", b =>
                 {
                     b.Navigation("ClientGroups");
+                });
+
+            modelBuilder.Entity("CoachBuddy.Domain.Entities.TrainingPlan.TrainingPlan", b =>
+                {
+                    b.Navigation("TrainingPlanExercises");
                 });
 #pragma warning restore 612, 618
         }

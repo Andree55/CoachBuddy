@@ -4,6 +4,7 @@ using CoachBuddy.Application.Mappings;
 using CoachBuddy.Domain.Interfaces.Client;
 using CoachBuddy.Domain.Interfaces.Exercise;
 using CoachBuddy.Domain.Interfaces.Group;
+using CoachBuddy.Domain.Interfaces.TrainingPlan;
 using CoachBuddy.Infrastructure.Persistence;
 using CoachBuddy.Infrastructure.Repositories;
 using CoachBuddy.Infrastructure.Seeders;
@@ -40,6 +41,9 @@ namespace CoachBuddy.Infrastructure.Extensions
             services.AddScoped<IClientRepository, ClientRepository>();
 
             services.AddScoped<IExerciseRepository, ExerciseRepository>();
+
+            services.AddScoped<ITrainingPlanRepository, TrainingPlanRepository>();
+
 
         }
     }

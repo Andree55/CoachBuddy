@@ -1,6 +1,7 @@
 ﻿using CoachBuddy.Domain.Entities.Client;
 using CoachBuddy.Domain.Entities.Exercise;
 using CoachBuddy.Domain.Entities.Group;
+using CoachBuddy.Domain.Entities.TrainingPlan;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,8 @@ namespace CoachBuddy.Infrastructure.Persistence
         public DbSet<Group> Groups { get; set; }
         public DbSet<ClientGroup> ClientGroups { get; set; }
         public DbSet<Exercise> Exercises { get; set; }
+        public DbSet<TrainingPlan> TrainingPlans { get; set; }
+        public DbSet<TrainingPlanExercise> TrainingPlanExercises { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -44,6 +47,26 @@ namespace CoachBuddy.Infrastructure.Persistence
 
             modelBuilder.Entity<Exercise>()
                 .HasKey(e => e.Id);
+
+            modelBuilder.Entity<TrainingPlan>()
+                .HasMany(tp => tp.Groups)
+                .WithMany(g => g.TrainingPlans);
+
+            modelBuilder.Entity<TrainingPlan>()
+                .HasMany(tp => tp.TrainingPlanExercises)
+                .WithOne(tpe => tpe.TrainingPlan)
+                .HasForeignKey(tpe => tpe.TrainingPlanId);
+
+            modelBuilder.Entity<Exercise>()
+                .HasMany(e => e.TrainingPlanExercises)
+                .WithOne(tpe => tpe.Exercise)
+                .HasForeignKey(tpe => tpe.ExerciseId);
+
+            modelBuilder.Entity<TrainingPlanExercise>()
+                .HasOne(e => e.Exercise)
+                .WithMany(e => e.TrainingPlanExercises)
+                .HasForeignKey(e => e.ExerciseId);
+
         }
     }
 }
