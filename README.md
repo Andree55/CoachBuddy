@@ -10,7 +10,7 @@ In progress...
 
 - **Frontend**: HTML, CSS, JavaScript
 - **Backend (API)**: ASP .NET 8.0
-- **Database**: T-SQL
+- **Database**: SQL Server
 - **Unit test framework**: XUnit
 - **Styles**: Bootstrap 5 + Bootswatch theme
 - **Frontend Libs**: Ngx Bootstrap
